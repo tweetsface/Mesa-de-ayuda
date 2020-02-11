@@ -1,0 +1,61 @@
+.form-control
+{
+position: relative;
+left:150px;
+top: -10px;
+width:250px;
+resize: none;
+}
+.etiquetas
+{
+position: relative;
+left:150px;
+top: -5px;
+width:350px;
+color: black;
+font-weight:bold;
+}
+.btn 
+{
+position: relative;
+left:830px;
+top: 150px;
+}
+.text-center-header
+{
+
+position: relative;
+left:900px;
+top: 100px;
+}
+.modal-title
+{
+position: relative;
+left:-145px;
+}
+.botones
+{
+position: relative;
+right:650px;
+bottom: 140px;
+}
+.table
+{
+position: relative;
+left:350px;
+top: 250px;
+width: 1100px;
+}
+
+.input-group
+{
+	position: relative;
+	left: 500px;
+	width: 400px;
+	top: 150px;
+}
+.input-group-prepend
+{
+    
+ left: 80px;
+}
