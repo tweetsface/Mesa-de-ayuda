@@ -23,9 +23,9 @@ Route::post('login/register','MainController@registeruser');
 Route::get('login/forgot', 'MainController@forgot')->name('forgot');
 Route::post('login/forgot', 'MainController@forgotpassword');
 Route::get('dashboard', 'MainController@panel')->name('dashboard');
-Route::get('dashboard/reporter', 'MainController@reporter')->middleware('auth');
-Route::get('panel', 'MainController@dashboardu')->name('panel')->middleware('auth');
-Route::post('panel','MainController@generarreporte')->name('tickets')->middleware('auth');
-Route::get('ticket', 'MainController@ticket')->middleware('auth');
+Route::get('dashboard/reporter', 'MainController@reporter');
+Route::get('panel', 'MainController@dashboardu')->name('panel');
+Route::post('panel','MainController@generarreporte')->name('tickets');
+Route::get('ticket', 'MainController@ticket');
 //Route::get('panele', 'MainController@ticket');
 

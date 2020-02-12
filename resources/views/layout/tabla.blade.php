@@ -10,6 +10,7 @@
       <th scope="col">DESCRIPCION</th>
       <th scope="col">FECHA</th>
       <th scope="col">ESTADO</th>
+      <th scope="col">Acciones</th>
     </tr>
   </thead>
   <tbody>
@@ -22,7 +23,12 @@
          <td>{!! $hd_reg_ticket->cSistema !!}</td>
          <td>{!! $hd_reg_ticket->cPrioridad !!}</td>
          <td>{!! $hd_reg_ticket->cDesProblema !!}</td>
-         <td>{!! $hd_reg_ticket->created_at !!}</td>     
+         <td>{!! $hd_reg_ticket->created_at !!}</td>
+         <td></td>    
+         <td><i class="fa fa-plus-circle"></i>
+             <i class="fa fa-minus-circle"></i>
+             <i class="fa fa-eye" ></i>
+        </td>
       </tr>
       @endforeach
   </tbody>

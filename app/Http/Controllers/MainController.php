@@ -19,6 +19,7 @@ class MainController extends Controller
 
      function checklogin(Request $request)
     {
+    
     $this->validate($request, [
       'email'   => 'required|email',
       'password'  => 'required|min:8'
@@ -28,20 +29,21 @@ class MainController extends Controller
       'email'  => $request->get('email'),
       'password' => $request->get('password')
      );
-
+    
      if(Auth::attempt($user_data))
      {
-      
-       $admin= DB::table('hd_users')->where('email', 'password')->get();
-      if($admin==1)
+      if(Auth::user()->badmin==1)
       {
-        return redirect('dashboard');
-        }
-          else
-        {
-             return redirect('panel');
+     return redirect('dashboard');
+      }else{
+     return redirect('panel');
     }
-  }
+     }
+     else{
+        return back()->with('error','ERROR EN LAS CREDENCIALES');
+     }
+
+    
 }
     function successlogin()
     {
@@ -78,7 +80,8 @@ class MainController extends Controller
     }
       function panel()//Dashboard
     {
-    	return view('Dashboard');
+      $hd_users = hd_users::all();
+    	return view('Dashboard')->with('hd_users',$hd_users );
     }
        function reporter()//Dashboard
     {

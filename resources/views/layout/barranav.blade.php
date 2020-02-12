@@ -211,7 +211,14 @@
         <!-- sidebar menu start-->
         <ul class="sidebar-menu" id="nav-accordion">
           <p class="centered"><a href="profile.html"><img src="img/ui-sam.jpg" class="img-circle" width="80"></a></p>
-          <h5 class="centered">Sam Soffes</h5>
+
+            
+              @if(Auth::check())
+              @foreach($hd_users as $hd_users)
+              <h5 class="centered">{{$hd_users->cNombre}}</h5> 
+              @endforeach
+              @endif
+          
           <li class="mt">
             <a class="active" href="index.html">
               <i class="fa fa-dashboard"></i>

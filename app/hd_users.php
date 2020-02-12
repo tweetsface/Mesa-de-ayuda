@@ -8,25 +8,27 @@ use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\CanResetPassword;
 
 class hd_users extends Model implements AuthenticatableContract
-{
-    use Authenticatable;
+{   
+	use Authenticatable;
+
     public $table="hd_users";
-    protected $fillable = ['cNombre','cApellidos','nEmpleado', 'email', 'password'];
+    protected $casts = [
+        'badmin' => 'boolean',
+    ];
+    protected $fillable = ['cNombre','cApellidos','nEmpleado', 'email', 'password','badmin'];
+    protected $rememberTokenName = 'remember_token';
 
 	/**
 	 * The attributes excluded from the model's JSON form.
-	 *
-	 * @var array
-	 */
+	   */
+   
+
+    public function getbadmin()
+    {
+    	return $this->badmin;
+    }
+	
 	protected $hidden = ['password', 'remember_token'];
 
-	public function sendPasswordResetNotification($token)
-{
-    $this->notify(new ResetPasswordNotification($token));
-}
- public function roles()
-    {
- return $this->belongsToMany(hd_users::class)->withTimestamps();
-    }
  
 }

@@ -3,7 +3,12 @@
         <!-- sidebar menu start-->
         <ul class="sidebar-menu" id="nav-accordion">
           <p class="centered"><a href="profile.html"><img src="img/ui-sam.jpg" class="img-circle" width="80"></a></p>
-          <h5 class="centered">Sam Soffes</h5>
+
+              @if(Auth::check())
+              @foreach($hd_users as $hd_users)
+              <h5 class="centered">{{$hd_users->cNombre}}</h5> 
+              @endforeach
+            @endif
           <li class="mt">
             <a class="active" href="panel">
               <i class="fa fa-dashboard"></i>
@@ -11,7 +16,7 @@
               </a>
           </li>
           <li class="sub-menu">
-            <a href="javascript:;" data-toggle="modal" data-target="#myModal">
+            <a href="javascript:;"   data-toggle="modal" data-target="#myModal">
               <i class="fa fa-ticket"></i>
              <span>TICKETS</span></a>
            <!--<ul class="sub">
