@@ -32,7 +32,7 @@ class MainController extends Controller
     
      if(Auth::attempt($user_data))
      {
-      if(Auth::user()->badmin==1)
+      if(Auth::check() && Auth::user()->badmin==1)
       {
      return redirect('dashboard');
       }else{
@@ -47,6 +47,7 @@ class MainController extends Controller
 }
     function successlogin()
     {
+
      return view('successlogin');
 
     }
@@ -80,8 +81,10 @@ class MainController extends Controller
     }
       function panel()//Dashboard
     {
-      $hd_users = hd_users::all();
-    	return view('Dashboard')->with('hd_users',$hd_users );
+     
+
+    	return view('Dashboard');
+    
     }
        function reporter()//Dashboard
     {
@@ -89,18 +92,21 @@ class MainController extends Controller
     }
       function generarreporte(Request $request)//Dashboard
     {
-       
+       if(Auth::check())
+       {
         $ticket=new hd_reg_ticket;
         $ticket->cTitulo= $request->cTitulo;
         $ticket->cCategoria= $request->cCategoria;
         $ticket->cSistema= $request->cSistema;
         $ticket->CPrioridad= $request->cPrioridad;
         $ticket->CDesproblema=$request->cDesproblema;
-	      $ticket->nFolio_Users=1;
+        $ticket->created_at=now();
+	      $ticket->nFolio_Users=Auth::user()->id;
+        $ticket->cEstado='POR ATENDER';
         $ticket->save();
+        return  redirect('ticket');
+      }
         }
-
-
       function forgot(Request $request)//Dashboard
     {
     	return view ('forgotpass');
@@ -109,14 +115,17 @@ class MainController extends Controller
     
       function dashboardu()//panel
     {
-      $hd_reg_tickets = hd_reg_ticket::all();
-    	return view('panelticket')->with('hd_reg_tickets',$hd_reg_tickets );
+     
+    	return view('panelticket');
 
     }
      function ticket()//Dashboard
     {
-       $hd_reg_tickets = hd_reg_ticket::all();
-      return view('panelt')->with('hd_reg_tickets',$hd_reg_tickets );
+         $hd_reg_tickets =DB::table('hd_reg_tickets')->
+          leftjoin('hd_users','hd_users.id','=','hd_reg_tickets.nFolio')->select('hd_reg_tickets.*')
+         ->where('hd_reg_tickets.nFolio_Users','=',Auth::user()->id)->paginate(5);
+         return view('panelt')->with('hd_reg_tickets',$hd_reg_tickets);
+    
 
     }
 

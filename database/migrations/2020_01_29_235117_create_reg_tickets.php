@@ -23,7 +23,7 @@ class CreateRegTickets extends Migration
             $table->string('cEstado');
             $table->string('cOpcsitema')->nullable();
             $table->string('cImagen')->nullable();
-            $table->string('nFolio_Users')->references('nFolio')->on('Hd_users'); //Temporalmente campo nulo,relacionar con usuarios utilizando Foreikey
+            $table->string('nFolio_Users')->references('id')->on('Hd_users'); //Temporalmente campo nulo,relacionar con usuarios utilizando Foreikey
             $table->timestamps();
         });
     }

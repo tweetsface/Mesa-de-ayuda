@@ -78,10 +78,7 @@ return [
             'model' => App\hd_users::class,
         ],
 
-      'providers' => [
-    'users' => [
-        'driver' => 'hd_users',
-    ],
+     
 
         // 'users' => [
         //     'driver' => 'database',

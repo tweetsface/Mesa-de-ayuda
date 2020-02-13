@@ -19,7 +19,7 @@
    <h3 align="center">Inicio de Sesion</h3><br />
 
    @if(isset(Auth::user()->email))
-    <script>window.location="/login/successlogin";</script>
+    <script>window.location="/login/sucesslogin";</script>
    @endif
 
    @if ($message = Session::get('error'))

@@ -1,6 +1,6 @@
   @include('layout.head')
-  <table class="table">
-  <thead class="thead-dark">
+  <table class="table table-bordered table-hover">
+  <thead class="thead-dark" >
     <tr>
       <th scope="col">#</th>
       <th scope="col">TITULO</th>
@@ -17,17 +17,19 @@
     <tr>
       @foreach($hd_reg_tickets as $hd_reg_ticket)
       <tr>
-         <td>{!! $hd_reg_ticket->nFolio !!}</td>
+         <td>{!! $hd_reg_ticket->nFolio!!}</td>
          <td>{!! $hd_reg_ticket->cTitulo !!}</td>
          <td>{!! $hd_reg_ticket->cCategoria !!}</td>
          <td>{!! $hd_reg_ticket->cSistema !!}</td>
          <td>{!! $hd_reg_ticket->cPrioridad !!}</td>
          <td>{!! $hd_reg_ticket->cDesProblema !!}</td>
-         <td>{!! $hd_reg_ticket->created_at !!}</td>
-         <td></td>    
-         <td><i class="fa fa-plus-circle"></i>
-             <i class="fa fa-minus-circle"></i>
-             <i class="fa fa-eye" ></i>
+          <td>{!!$hd_reg_ticket->created_at!!}</td> 
+         <td>{!! $hd_reg_ticket->cEstado !!}</td> 
+
+         <td>
+           <button type="button" name="ACTUALIZAR" class="boton">ACTUALIZAR</button>
+           <button type="button" name="ELIMINAR">ELIMINAR</button>
+         
         </td>
       </tr>
       @endforeach

@@ -11,4 +11,6 @@ class hd_reg_ticket extends Model implements AuthenticatableContract
 {
      use Authenticatable;
     public $table="hd_reg_tickets";
+     protected $fillable = ['nFolio','cTitulo','cCategoria','cSistema','cPrioridad','cDesProblema','cEstado','nFolio_users','created_at'];
+     
 }

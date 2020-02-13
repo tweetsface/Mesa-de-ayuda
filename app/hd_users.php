@@ -15,7 +15,7 @@ class hd_users extends Model implements AuthenticatableContract
     protected $casts = [
         'badmin' => 'boolean',
     ];
-    protected $fillable = ['cNombre','cApellidos','nEmpleado', 'email', 'password','badmin'];
+    protected $fillable = ['cNombre','cApellidos','nEmpleado', 'email', 'password','badmin','created_at'];
     protected $rememberTokenName = 'remember_token';
 
 	/**
@@ -27,6 +27,11 @@ class hd_users extends Model implements AuthenticatableContract
     {
     	return $this->badmin;
     }
+    public function getid()
+    {
+        return $this->id;
+    }
+    
 	
 	protected $hidden = ['password', 'remember_token'];
 

@@ -16,7 +16,7 @@ Route::get('/uploadfile', 'UploadfileController@index');
 Route::post('/uploadfile', 'UploadfileController@upload');
 Route::get('/login','MainController@index')->name('login');
 Route::post('/login/checklogin', 'MainController@checklogin');
-Route::get('login/successlogin', 'MainController@successlogin');
+//Route::get('login/successlogin', 'MainController@successlogin');
 Route::get('login/logout', 'MainController@logout');
 Route::get('login/register','MainController@register');
 Route::post('login/register','MainController@registeruser');
@@ -27,5 +27,7 @@ Route::get('dashboard/reporter', 'MainController@reporter');
 Route::get('panel', 'MainController@dashboardu')->name('panel');
 Route::post('panel','MainController@generarreporte')->name('tickets');
 Route::get('ticket', 'MainController@ticket');
+Route::get('aticket', 'ControllerAdmin@ticket')->name('aticket');
+Route::get('auser', 'ControllerAdmin@auser')->name('auser');
 //Route::get('panele', 'MainController@ticket');
 

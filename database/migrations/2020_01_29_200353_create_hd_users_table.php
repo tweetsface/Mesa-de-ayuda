@@ -14,7 +14,7 @@ class CreateHdUsersTable extends Migration
     public function up()
     {
         Schema::create('hd_users', function (Blueprint $table) {
-           $table->bigIncrements('nFolio');
+           $table->bigIncrements('id');
             $table->string('cNombre');
             $table->string('cApellidos');
             $table->integer('nEmpleado');

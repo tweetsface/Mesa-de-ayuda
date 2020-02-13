@@ -17,7 +17,6 @@
   <br />
   <div class="container box">
    <h3 align="center">Control de incidencias</h3><br />
-
    @if(isset(Auth::user()->email))
     <div class="alert alert-danger success-block">
      <strong>Welcome {{ Auth::user()->email }}</strong>
