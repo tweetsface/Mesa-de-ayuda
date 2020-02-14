@@ -23,15 +23,15 @@
          <td>{!! $hd_reg_ticket->cSistema !!}</td>
          <td>{!! $hd_reg_ticket->cPrioridad !!}</td>
          <td>{!! $hd_reg_ticket->cDesProblema !!}</td>
-          <td>{!!$hd_reg_ticket->created_at!!}</td> 
-         <td>{!! $hd_reg_ticket->cEstado !!}</td> 
-
-         <td>
+         <td>{!!$hd_reg_ticket->created_at!!}</td>
+         <td><td>
            <button type="button" name="ACTUALIZAR" class="boton">ACTUALIZAR</button>
            <button type="button" name="ELIMINAR">ELIMINAR</button>
          
         </td>
       </tr>
-      @endforeach
+            @endforeach
+      
+
   </tbody>
 </table>

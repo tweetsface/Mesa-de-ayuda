@@ -14,7 +14,7 @@
               <span>DASHBOARD</span>
               </a>
           </li>
-          <li class="sub-menu">
+          <li class="sub-menu" href="javascript:;">
             <a href="{{url('aticket')}}"> <i class="fa fa-ticket"></i>GESTION DE TICKETS</span></a>
               </a>
      

@@ -42,8 +42,6 @@ class MainController extends Controller
      else{
         return back()->with('error','ERROR EN LAS CREDENCIALES');
      }
-
-    
 }
     function successlogin()
     {
@@ -102,7 +100,7 @@ class MainController extends Controller
         $ticket->CDesproblema=$request->cDesproblema;
         $ticket->created_at=now();
 	      $ticket->nFolio_Users=Auth::user()->id;
-        $ticket->cEstado='POR ATENDER';
+        $ticket->cEstado=1;
         $ticket->save();
         return  redirect('ticket');
       }

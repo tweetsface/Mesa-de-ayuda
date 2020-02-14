@@ -20,7 +20,7 @@ class CreateRegTickets extends Migration
             $table->string('cSistema');
             $table->string('cPrioridad');
             $table->string('cDesProblema');
-            $table->string('cEstado');
+            $table->string('cEstado')->references('id')->on('hd_estado');
             $table->string('cOpcsitema')->nullable();
             $table->string('cImagen')->nullable();
             $table->string('nFolio_Users')->references('id')->on('Hd_users'); //Temporalmente campo nulo,relacionar con usuarios utilizando Foreikey
@@ -35,6 +35,6 @@ class CreateRegTickets extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reg_tickets');
+        Schema::dropIfExists('hd_reg_tickets');
     }
 }

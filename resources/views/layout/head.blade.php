@@ -21,6 +21,7 @@
   <link rel="stylesheet" type="text/css" href="css/zabuto_calendar.css">
   <link rel="stylesheet" type="text/css" href="lib/gritter/css/jquery.gritter.css" />
    <link rel="stylesheet" type="text/css" href="{{asset('css/lugar.css')}}">
+   <link rel="stylesheet" type="text/css" href="{{asset('css/calendario.css')}}">
   <!-- Custom styles for this template -->
   <link href="css/style.css" rel="stylesheet">
   <link href="css/style-responsive.css" rel="stylesheet">
