@@ -1,4 +1,6 @@
   @include('layout.head')
+  @include('layout.barranav')
+  @include('layout.sideadmin')
   <table class="table table-bordered table-hover">
   <thead class="thead-dark" >
     <tr>
@@ -10,6 +12,7 @@
       <th scope="col">DESCRIPCION</th>
       <th scope="col">FECHA</th>
       <th scope="col">ESTADO</th>
+      <th scope="col">ACTUALIZAR ESTADO</th>
       <th scope="col">Acciones</th>
     </tr>
   </thead>
@@ -24,14 +27,24 @@
          <td>{!! $hd_reg_ticket->cPrioridad !!}</td>
          <td>{!! $hd_reg_ticket->cDesProblema !!}</td>
          <td>{!!$hd_reg_ticket->created_at!!}</td>
-         <td>{!!$hd_reg_ticket->cEstado!!}<td>
-           <button type="button" name="ACTUALIZAR" class="boton">ACTUALIZAR</button>
-           <button type="button" name="ELIMINAR">ELIMINAR</button>
-         
-        </td>
-      </tr>
+         <td>{!!$hd_reg_ticket->cEstado!!}</td>
+         <form method="get" action="{{route('actualizar',$hd_reg_ticket->id) }}">
+         <td>
+          <div class="estados">
+          <select name="cEstado">
+            @foreach($hd_estado as $hd_estado)
+            <option value="{{$hd_estado->id}}">{{$hd_estado->cEstado}}</option>
             @endforeach
+          </select>
+          </div>
+           </td>
+           <td><button type="submit" name="actualizar" class="boton">actualizar</button>
+           <button type="button" name="CANCELAR">ELIMINAR</button></td>
+         </form>
+        
+      </tr>
       
+           @endforeach
 
   </tbody>
 </table>

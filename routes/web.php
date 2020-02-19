@@ -27,7 +27,12 @@ Route::get('dashboard/reporter', 'MainController@reporter');
 Route::get('panel', 'MainController@dashboardu')->name('panel');
 Route::post('panel','MainController@generarreporte')->name('tickets');
 Route::get('ticket', 'MainController@ticket');
-Route::get('aticket', 'ControllerAdmin@ticket')->name('aticket');
+Route::get('/aticket', 'ControllerAdmin@ticket')->name('aticket');
+Route::get('/aticket/ver/{id}', 'ControllerAdmin@detalleticket')->name('verticket');
+Route::get('/aticket/ver/{id}/actualizar', 'ControllerAdmin@actualizarestado')->name('actualizar');
+
+Route::get('/aticket/borrar/{id}', 'ControllerAdmin@eliminarticket')->name('borrarticket');
+
 Route::get('auser', 'ControllerAdmin@auser')->name('auser');
 //Route::get('panele', 'MainController@ticket');
 

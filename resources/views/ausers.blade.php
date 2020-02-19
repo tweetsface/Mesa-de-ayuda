@@ -33,7 +33,10 @@
          <td>{!! $hd_users->cApellidos !!}</td>
          <td>{!!$hd_users->nEmpleado !!}</td>
          <td>{!! $hd_users->email !!}</td>
-         <td>{!! $hd_users->badmin!!}</td>
+         <td><select class="form-control" name="badmin">
+          <option>{!! $hd_users->badmin!!}</option>
+          </select>
+          </td>
          <td><i class="fa fa-plus-circle"></i>
              <i class="fa fa-minus-circle"></i>
              <i class="fa fa-eye" ></i>

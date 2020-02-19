@@ -8,6 +8,7 @@ use App\hd_reg_ticket;
 use Illuminate\Support\Facades\Validator ;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Mail;
 
 class MainController extends Controller
 {
@@ -102,6 +103,7 @@ class MainController extends Controller
 	      $ticket->nFolio_Users=Auth::user()->id;
         $ticket->cEstado=1;
         $ticket->save();
+      \Mail::to(Auth()->user()->email)->send(new \App\Mail\notificaciones());
         return  redirect('ticket');
       }
         }
@@ -119,12 +121,15 @@ class MainController extends Controller
     }
      function ticket()//Dashboard
     {
-         $hd_reg_tickets =DB::table('hd_reg_tickets')->
-          leftjoin('hd_users','hd_users.id','=','hd_reg_tickets.nFolio')->select('hd_reg_tickets.*')
-         ->where('hd_reg_tickets.nFolio_Users','=',Auth::user()->id)->paginate(5);
+        $hd_reg_tickets =DB::table('hd_reg_tickets')->
+          leftjoin('hd_users','hd_users.id','=','hd_reg_tickets.nFolio_Users')->leftjoin('hd_estado','hd_estado.id','=','hd_reg_tickets.cEstado')->select('hd_reg_tickets.id','hd_reg_tickets.cTitulo','hd_reg_tickets.cCategoria','hd_reg_tickets.cSistema','hd_reg_tickets.cPrioridad','hd_reg_tickets.cDesProblema','hd_users.cNombre','hd_reg_tickets.created_at','hd_estado.cEstado')
+         ->where('hd_reg_tickets.nFolio_Users','=',Auth::user()->id)->get();
          return view('panelt')->with('hd_reg_tickets',$hd_reg_tickets);
     
 
+    }
+     public function contact(Request $request){
+       
     }
 
 

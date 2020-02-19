@@ -38,4 +38,4 @@
         });
     });
 </script>
-@include('layout.tabla')
+@include('layout.tabladmin')

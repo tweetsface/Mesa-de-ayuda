@@ -14,7 +14,7 @@ class CreateRegTickets extends Migration
     public function up()
     {
          Schema::create('hd_reg_tickets', function (Blueprint $table) {
-            $table->bigIncrements('nFolio');
+            $table->bigIncrements('id');
             $table->string('cTitulo');
             $table->string('cCategoria');
             $table->string('cSistema');
