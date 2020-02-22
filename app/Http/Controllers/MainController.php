@@ -57,12 +57,12 @@ class MainController extends Controller
      return redirect('login');
     }
 
-    function register()
+    function registrar()
     {
-    	return view('Register');
+    	return view('registrar');
     }
 
-      function registeruser(Request $request)
+      function registrarusuario(Request $request)
     {
       $this->validate($request, [
        'email'   => 'required|email',
@@ -74,20 +74,14 @@ class MainController extends Controller
         $add->nEmpleado= $request->nEmpleado;
         $add->email= $request->email;
         $add->password = bcrypt($request->password);
+        $add->badmin =0;
         $add->save();
         return back()->with('msg', 'Usuario registrado correctamente');
     	 
     }
-      function panel()//Dashboard
+      function  dashboard()//Dashboard
     {
-     
-
-    	return view('Dashboard');
-    
-    }
-       function reporter()//Dashboard
-    {
-    	return view('Reportar');
+    	return view('paneladministrador');
     }
       function generarreporte(Request $request)//Dashboard
     {
@@ -105,26 +99,26 @@ class MainController extends Controller
         $ticket->save();
       \Mail::to(Auth()->user()->email)->send(new \App\Mail\notificaciones());
         return  redirect('ticket');
-      }
-        }
-      function forgot(Request $request)//Dashboard
+    }
+    }
+      function recuperar(Request $request)
     {
-    	return view ('forgotpass');
+    	return view ('recuperar');
 
     }
     
-      function dashboardu()//panel
+      function panel()//panel
     {
      
-    	return view('panelticket');
+    	return view('panelusuario');
 
     }
      function ticket()//Dashboard
     {
         $hd_reg_tickets =DB::table('hd_reg_tickets')->
-          leftjoin('hd_users','hd_users.id','=','hd_reg_tickets.nFolio_Users')->leftjoin('hd_estado','hd_estado.id','=','hd_reg_tickets.cEstado')->select('hd_reg_tickets.id','hd_reg_tickets.cTitulo','hd_reg_tickets.cCategoria','hd_reg_tickets.cSistema','hd_reg_tickets.cPrioridad','hd_reg_tickets.cDesProblema','hd_users.cNombre','hd_reg_tickets.created_at','hd_estado.cEstado')
+          leftjoin('hd_users','hd_users.id','=','hd_reg_tickets.nFolio_Users')->leftjoin('hd_estado','hd_estado.id','=','hd_reg_tickets.cEstado')->select('hd_reg_tickets.id','hd_reg_tickets.cTitulo','hd_reg_tickets.cCategoria','hd_reg_tickets.cSistema','hd_reg_tickets.cPrioridad','hd_reg_tickets.cDesProblema','hd_users.cNombre','hd_reg_tickets.created_at','hd_estado.ccEstado')
          ->where('hd_reg_tickets.nFolio_Users','=',Auth::user()->id)->get();
-         return view('panelt')->with('hd_reg_tickets',$hd_reg_tickets);
+         return view('mostrartickets')->with('hd_reg_tickets',$hd_reg_tickets);
     
 
     }

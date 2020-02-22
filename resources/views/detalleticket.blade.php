@@ -27,13 +27,14 @@
          <td>{!! $hd_reg_ticket->cPrioridad !!}</td>
          <td>{!! $hd_reg_ticket->cDesProblema !!}</td>
          <td>{!!$hd_reg_ticket->created_at!!}</td>
-         <td>{!!$hd_reg_ticket->cEstado!!}</td>
-         <form method="get" action="{{route('actualizar',$hd_reg_ticket->id) }}">
+         <td>{!!$hd_reg_ticket->ccEstado!!}</td>
+         <form method="post" action="{{route('actualizar',$hd_reg_ticket->id) }}">
+          {{ csrf_field() }}
          <td>
           <div class="estados">
           <select name="cEstado">
             @foreach($hd_estado as $hd_estado)
-            <option value="{{$hd_estado->id}}">{{$hd_estado->cEstado}}</option>
+            <option value="{{$hd_estado->id}}">{{$hd_estado->ccEstado}}</option>
             @endforeach
           </select>
           </div>

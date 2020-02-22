@@ -4,21 +4,21 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEstado extends Migration
+class CreateHdPrivilegios extends Migration
 {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
+   public function up()
     {
-        Schema::create('hd_estado', function (Blueprint $table) {
+        Schema::create('hd_privilegios', function (Blueprint $table) {
             $table->bigIncrements('id');
-             $table->string('ccEstado');
+            $table->string('cPrivilegios');
+            $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      *
@@ -26,6 +26,6 @@ class CreateEstado extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hd_estado');
+        Schema::dropIfExists('hd_privilegios');
     }
 }

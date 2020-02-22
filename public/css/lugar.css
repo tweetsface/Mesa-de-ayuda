@@ -90,3 +90,10 @@ width: 1100px;
   left:70px;
   bottom:45px;
 }
+.alerta
+{
+	position:relative;
+	left: 700px;
+	top: 400px;
+	width: 350px;
+}

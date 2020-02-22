@@ -15,7 +15,7 @@
          <label><h2>Prioridad:</h2>{!! $hd_reg_tickets->cPrioridad !!}</label> 
          <label><h2>Descripcion:</h2>{!! $hd_reg_tickets->cDesProblema !!}</label> 
          <label><h2>Fecha:</h2>{!! $hd_reg_tickets->created_at !!}</label> 
-         <label><h2>Estado:</h2>{!! $hd_reg_tickets->cEstado !!}</label> 
+         <label><h2>Estado:</h2>{!! $hd_reg_tickets->ccEstado !!}</label> 
         @endforeach
     </ul> 
     <h4>lo atenderemos a la brevedad,saludos.</h4>

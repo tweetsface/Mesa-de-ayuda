@@ -54,7 +54,6 @@
                                 <input id="password" name="password" type="password" placeholder="Contraseña" class="form-control">
                             </div>
                         </div>
-
                         <div class="form-group">
                             <div class="col-md-12 text-center">
                                <button type="submit">Registrarse</button>

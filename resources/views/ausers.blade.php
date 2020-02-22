@@ -19,7 +19,8 @@
       <th scope="col">APELLIDOS(S)</th>
       <th scope="col">NO EMPLEADO</th>
       <th scope="col">CORREO</th>
-      <th scope="col">ADMINISTRADOR</th>
+      <th scope="col">PRIVILEGIOS</th>
+      <th scope="col">OTORGAR PRIVILEGIOS</th>
       <th scope="col">ACCIONES</th>
  
     </tr>
@@ -33,15 +34,18 @@
          <td>{!! $hd_users->cApellidos !!}</td>
          <td>{!!$hd_users->nEmpleado !!}</td>
          <td>{!! $hd_users->email !!}</td>
-         <td><select class="form-control" name="badmin">
-          <option>{!! $hd_users->badmin!!}</option>
-          </select>
-          </td>
+         <td>{!! $hd_users->cPrivilegios!!}</td>
+          <td><select >
+             @foreach($hd_privilegios as $hd_p)
+          <option value="$hd_p->id">{!! $hd_p->cPrivilegios !!}</option>
+            @endforeach
+          </select></td>
          <td><i class="fa fa-plus-circle"></i>
              <i class="fa fa-minus-circle"></i>
              <i class="fa fa-eye" ></i>
         </td>
+           @endforeach
       </tr>
-      @endforeach
+    
   </tbody>
 </table>

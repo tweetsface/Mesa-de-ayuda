@@ -49,11 +49,11 @@
      <input type="password" name="password" class="form-control" />
     </div>
      <div class="form-group">
-     <a href="{{url('login/forgot/')}}" >olvide mi contraseña</a>
+     <a href="{{url('login/recuperar/')}}" >olvide mi contraseña</a>
     </div>
     <div class="form-group">
      <input type="submit" name="login" class="btn btn-primary" value="Iniciar Sesion" />
-     <a href="{{url('login/register/')}}" class="btn btn-primary">Registrarse</a>
+     <a href="{{url('login/registrar/')}}" class="btn btn-primary">Registrarse</a>
     </div>
    </form>
    
