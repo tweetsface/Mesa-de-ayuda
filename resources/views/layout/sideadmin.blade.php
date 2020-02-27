@@ -5,9 +5,6 @@
           <p class="centered"><a href="profile.html"><img src="{{asset('img/ui-sam.jpg')}}" class="img-circle" width="80"></a></p>
             
               <h5 class="centered"></h5> 
-          
-       
-          
           <li class="mt">
             <a class="active" href="{{asset('dashboard')}}">
               <i class="fa fa-dashboard"></i>
@@ -25,11 +22,6 @@
             <a href="javascript:;">
               <i class="fa fa-file"></i>
               <span>GESTOR DE REPORTES</span>
-              </a>
-          <li class="sub-menu">
-            <a href="javascript:;">
-              <i class="fa fa-cogs"></i>
-              <span>CONFIGURACION</span>
               </a>
             <li class="sub-menu">
             <a href="{{ url('/login/logout')}}"> <i class="fa fa-sign-out"></i>LOGOUT</span></a>

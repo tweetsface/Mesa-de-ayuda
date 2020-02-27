@@ -1,6 +1,6 @@
-  @include('layout.head')
-  <div class="table-wrapper-scroll-y my-custom-scrollbar">
-  <table class="table table-bordered table-hover">
+<div class="tabladmin">
+  <div class="table table-striped table-bordered table-sm"> 
+  <table class="table table-bordered table-hover"  >
   <thead class="thead-dark" >
     <tr>
       <th scope="col">#</th>
@@ -26,9 +26,7 @@
           <td>
           <form method="get" action="{{route('verticket',$hd_reg_ticket->id) }}">
           <button type="submit">REVISAR</button>
-          </form>
-          <form method="get" action="{{route('borrarticket',$hd_reg_ticket->id) }}">
-          <button type="submit">ELIMINAR</button>
+          <a href="{{route('borrarticket',$hd_reg_ticket->id) }}" class="btn btn-default">ELIMINAR</a>
         </form>
         </td>
       </tr>
@@ -43,4 +41,5 @@
        @endif
   </tbody>
 </table>
+</div>
 </div>

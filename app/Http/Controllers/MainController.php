@@ -79,11 +79,16 @@ class MainController extends Controller
         return back()->with('msg', 'Usuario registrado correctamente');
     	 
     }
-      function  dashboard()//Dashboard
+     public function  dashboard()//Dashboard
     {
-    	return view('paneladministrador');
+      $espera=hd_reg_ticket::where('cEstado',1)->get();
+      $proceso=hd_reg_ticket::where('cEstado',2)->get();
+      $realizado=hd_reg_ticket::where('cEstado',3)->get();
+      return view('paneladministrador')->with('espera',$espera)->with('proceso',$proceso)->with('realizado',$realizado);
     }
-      function generarreporte(Request $request)//Dashboard
+
+
+       public function generarreporte(Request $request)//Dashboard
     {
        if(Auth::check())
        {
@@ -101,19 +106,19 @@ class MainController extends Controller
         return  redirect('ticket');
     }
     }
-      function recuperar(Request $request)
+      public  function recuperar(Request $request)
     {
     	return view ('recuperar');
 
     }
     
-      function panel()//panel
+     public  function panel()//panel
     {
      
     	return view('panelusuario');
 
     }
-     function ticket()//Dashboard
+    public  function ticket()//Dashboard
     {
         $hd_reg_tickets =DB::table('hd_reg_tickets')->
           leftjoin('hd_users','hd_users.id','=','hd_reg_tickets.nFolio_Users')->leftjoin('hd_estado','hd_estado.id','=','hd_reg_tickets.cEstado')->select('hd_reg_tickets.id','hd_reg_tickets.cTitulo','hd_reg_tickets.cCategoria','hd_reg_tickets.cSistema','hd_reg_tickets.cPrioridad','hd_reg_tickets.cDesProblema','hd_users.cNombre','hd_reg_tickets.created_at','hd_estado.ccEstado')

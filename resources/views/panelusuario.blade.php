@@ -45,7 +45,7 @@
 </div>
 <div class="botones">
      <button type="submit"  class="btn btn-dark">ENVIAR</button>
-   <a href="{{url('enviaticket')}}" class="btn btn-primary">CANCELAR</a>
+   <a href="{{url('ticket')}}" class="btn btn-primary">CANCELAR</a>
   </div>
     </form>
     

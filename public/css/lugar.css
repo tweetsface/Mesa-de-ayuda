@@ -97,3 +97,79 @@ width: 1100px;
 	top: 400px;
 	width: 350px;
 }
+.btnb
+{
+	position: relative;
+	right: 30px;
+}
+.espera
+{
+	position: relative;
+	left: 20px;
+	top:  100px;
+	color:#343a40;
+	width:-500px;
+}
+.proceso
+{
+	position: relative;
+	left: 20px;
+	top:  300px;
+	color:#343a40;
+	width:-500px;
+}
+.resuelto
+{
+	position: relative;
+	left: 20px;
+	top:  500px;
+	color:#343a40;
+	width:-500px;
+}
+.table.table-bordered
+{
+  position: absolute;
+  width: 1000px;
+  top: 22px;
+  left:250px;
+}
+.ajuste
+{
+	position: relative;
+	left: 200px;
+	top: 10px;
+	width: 800px;
+}
+.tablausuarios
+{
+	position: absolute;
+	top: 250px;
+	left: 80px;
+}
+.tabladmin
+{
+	position: relative;
+	top: 250px;
+	left: 80px;
+	width:1200px;
+	overflow-y :hidden;
+
+
+}
+.tabladetalle
+{
+	position: relative;
+	top: 250px;
+	left: 80px;
+}
+.container-sm
+{
+	width: 50px;
+}
+.table
+{
+´   position: relative;
+	display: block;
+	overflow-y :auto;
+	 height : 150px;
+}

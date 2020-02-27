@@ -1,6 +1,7 @@
   @include('layout.head')
   @include('layout.barranav')
   @include('layout.sideadmin')
+  <div class="tabladetalle">
   <table class="table table-bordered table-hover">
   <thead class="thead-dark" >
     <tr>
@@ -39,13 +40,12 @@
           </select>
           </div>
            </td>
-           <td><button type="submit" name="actualizar" class="boton">actualizar</button>
-           <button type="button" name="CANCELAR">ELIMINAR</button></td>
+           <td><button type="submit" name="actualizar" class="boton">ACTUALIZAR</button>
+               <button type="button" name="CANCELAR">CANCELAR</button>
+            </td>
          </form>
-        
       </tr>
-      
            @endforeach
-
   </tbody>
 </table>
+</div>

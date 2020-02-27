@@ -1,5 +1,5 @@
-  @include('layout.head')
-  <table class="table table-bordered table-hover">
+<div class="tablausuarios">
+ <table class="table table-bordered table-hover">
   <thead class="thead-dark" >
     <tr>
       <th scope="col">#</th>
@@ -35,3 +35,4 @@
 
   </tbody>
 </table>
+</div>
