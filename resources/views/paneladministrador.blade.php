@@ -1,10 +1,14 @@
 @include('layout.head')
 @include('layout.barranav')
 @include('layout.sideadmin')
+<div class="tareas">
+  <h2>TAREAS PENDIENTES POR ATENDER</h2>
+</div>
 <div class="ajuste">
 <div class="espera">
   <div class="container">
    <span>EN ESPERA</span>
+  </div>
   <div class="container-sm border ">
      <div class="table-wrapper-scroll-y my-custom-scrollbar">
   <table class="table table-bordered table-hover">
@@ -28,18 +32,23 @@
          <td>{!! $espera->cCategoria !!}</td>
          <td>{!! $espera->cPrioridad !!}</td>
          <td>{!!$espera->created_at!!}</td>
-         <td>ACCIONES</td>
+         <td> 
+          <form method="get" action="{{route('verticket',$espera->id) }}">
+          <button type="submit">REVISAR</button>
+        </form>
+        </td>
       </tr>
       @endforeach
   </tbody>
 </table>
     </div>
 </div>
-   </div>
+
 </div>
 <div class="proceso">
   <div class="container">
    <span>EN PROCESO</span>
+ </div>
   <div class="container-sm border ">
      <div class="table-wrapper-scroll-y my-custom-scrollbar">
   <table class="table table-bordered table-hover">
@@ -62,18 +71,22 @@
          <td>{!! $proceso->cCategoria !!}</td>
          <td>{!! $proceso->cPrioridad !!}</td>
          <td>{!!$proceso->created_at!!}</td>
-         <td>ACCIONES<td>
+         <td>
+          <form method="get" action="{{route('verticket',$proceso->id) }}">
+          <button type="submit">REVISAR</button>
+        </form>
+        </td>
       </tr>
       @endforeach
   </tbody>
 </table>
     </div>
 </div>
-   </div>
 </div>
 <div class="resuelto">
   <div class="container">
    <span>RESUELTO</span>
+ </div>
   <div class="container-sm border ">
      <div class="table-wrapper-scroll-y my-custom-scrollbar">
   <table class="table table-bordered table-hover">
@@ -96,7 +109,10 @@
          <td>{!! $realizado->cCategoria !!}</td>
          <td>{!! $realizado->cPrioridad !!}</td>
          <td>{!!$realizado->created_at!!}</td>
-         <td>ACCIONES<td>
+         <td> <form method="get" action="{{route('verticket',$realizado->id) }}">
+          <button type="submit">REVISAR</button>
+        </form>
+        </td>
       </tr>
       @endforeach
   </tbody>
@@ -105,5 +121,3 @@
 </div>
    </div>
 </div>
-</div>
-

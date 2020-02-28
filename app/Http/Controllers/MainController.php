@@ -84,7 +84,9 @@ class MainController extends Controller
       $espera=hd_reg_ticket::where('cEstado',1)->get();
       $proceso=hd_reg_ticket::where('cEstado',2)->get();
       $realizado=hd_reg_ticket::where('cEstado',3)->get();
-      return view('paneladministrador')->with('espera',$espera)->with('proceso',$proceso)->with('realizado',$realizado);
+      $view=hd_reg_ticket::all();
+      return view('paneladministrador')->with('espera',$espera)->with('proceso',$proceso)->with('realizado',$realizado)
+      ->with('view',$view);
     }
 
 

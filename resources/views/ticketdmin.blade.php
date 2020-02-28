@@ -1,27 +1,19 @@
 @include('layout.head')
 @include('layout.barranav')
 @include('layout.sideadmin')
-@include('layout.efectos')
-   <div class="conteiner">
-    <div class='col-md-5'>
-        <div class="form-group">
-            <div class='input-group date' id='datetimepicker6'>
-                <input type='text' class="form-control" />
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                </span>
-            </div>
-        </div>
-    </div>
-    <div class='col-md-5'>
-        <div class="form-group">
-            <div class='input-group date' id='datetimepicker7'>
-                <input type='text' class="form-control" />
-                             <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                </span>
-            </div>
-        </div>
-    </div>
+<div class="input-append date form_datetime" data-date="2013-02-21T15:25:00Z">
+    <input size="16" type="text" value="" readonly>
+    <span class="add-on"><i class="icon-remove"></i></span>
+    <span class="add-on"><i class="icon-calendar"></i></span>
 </div>
+ 
+<script type="text/javascript">
+    $(".form_datetime").datetimepicker({
+        format: "dd MM yyyy - hh:ii",
+        autoclose: true,
+        todayBtn: true,
+        startDate: "2013-02-14 10:00",
+        minuteStep: 10
+    });
+</script> 
 @include('layout.tabladmin')

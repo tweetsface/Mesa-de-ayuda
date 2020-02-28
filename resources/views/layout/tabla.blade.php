@@ -25,9 +25,7 @@
          <td>{!! $hd_reg_ticket->cDesProblema !!}</td>
          <td>{!!$hd_reg_ticket->created_at!!}</td>
          <td>{!!$hd_reg_ticket->ccEstado!!}<td>
-           <button type="button" name="ACTUALIZAR" class="boton">ACTUALIZAR</button>
-           <button type="button" name="ELIMINAR">ELIMINAR</button>
-         
+           <button type="button" name="VER" class="boton">VER</button>
         </td>
       </tr>
             @endforeach

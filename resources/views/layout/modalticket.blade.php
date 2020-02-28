@@ -1,6 +1,3 @@
-@include('layout.head')
-@include('layout.barranav')
-@include('layout.sidebaruser')
 <div class="container">
 <div class="modal fade" id="myModal" role="dialog">
 <div class="modal-dialog">

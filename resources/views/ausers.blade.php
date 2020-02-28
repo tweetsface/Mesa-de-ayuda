@@ -37,12 +37,13 @@
          <td>{!! $hd_users->cPrivilegios!!}</td>
           <td><select >
              @foreach($hd_privilegios as $hd_p)
-          <option value="$hd_p->id">{!! $hd_p->cPrivilegios !!}</option>
+          <option value="$hd_p->id">{!! $hd_p->cPrivilegios!!}</option>
             @endforeach
-          </select></td>
-         <td><i class="fa fa-plus-circle"></i>
-             <i class="fa fa-minus-circle"></i>
-             <i class="fa fa-eye" ></i>
+          </select>
+        </td>
+         <td >
+          <input type="button" name="" value="ACTUALIZAR">
+          <input type="button" name="" value="ELIMINAR">
         </td>
            @endforeach
       </tr>

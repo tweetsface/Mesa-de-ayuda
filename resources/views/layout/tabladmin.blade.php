@@ -1,7 +1,7 @@
+
 <div class="tabladmin">
-  <div class="table table-striped table-bordered table-sm"> 
-  <table class="table table-bordered table-hover"  >
-  <thead class="thead-dark" >
+  <table class="table">
+  <thead class="thead-dark">
     <tr>
       <th scope="col">#</th>
       <th scope="col">TITULO</th>
@@ -41,5 +41,3 @@
        @endif
   </tbody>
 </table>
-</div>
-</div>
