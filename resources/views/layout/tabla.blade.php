@@ -1,5 +1,5 @@
 <div class="tablausuarios">
- <table class="table table-bordered table-hover">
+ <table class="table">
   <thead class="thead-dark" >
     <tr>
       <th scope="col">#</th>
@@ -25,7 +25,7 @@
          <td>{!! $hd_reg_ticket->cDesProblema !!}</td>
          <td>{!!$hd_reg_ticket->created_at!!}</td>
          <td>{!!$hd_reg_ticket->ccEstado!!}<td>
-           <button type="button" name="VER" class="boton">VER</button>
+           <button type="button" name="revisar" class="boton">REVISAR</button>
         </td>
       </tr>
             @endforeach
