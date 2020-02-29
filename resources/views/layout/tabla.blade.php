@@ -14,7 +14,6 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
       @foreach($hd_reg_tickets as $hd_reg_ticket)
       <tr>
          <td>{!! $hd_reg_ticket->id!!}</td>
@@ -24,12 +23,10 @@
          <td>{!! $hd_reg_ticket->cPrioridad !!}</td>
          <td>{!! $hd_reg_ticket->cDesProblema !!}</td>
          <td>{!!$hd_reg_ticket->created_at!!}</td>
-         <td>{!!$hd_reg_ticket->ccEstado!!}<td>
-           <button type="button" name="revisar" class="boton">REVISAR</button>
-        </td>
+         <td>{!!$hd_reg_ticket->ccEstado!!}</td>
+         <td><button type="button" name="revisar" class="boton">REVISAR</button></td>
       </tr>
             @endforeach
-      
 
   </tbody>
 </table>

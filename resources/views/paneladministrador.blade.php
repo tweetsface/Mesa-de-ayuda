@@ -7,7 +7,7 @@
 <div class="ajuste">
 <div class="espera">
   <div class="container">
-   <span>EN ESPERA</span>
+   <span>ABIERTO</span>
   </div>
   <div class="container-sm border ">
      <div class="table-wrapper-scroll-y my-custom-scrollbar">
@@ -47,7 +47,7 @@
 </div>
 <div class="proceso">
   <div class="container">
-   <span>EN PROCESO</span>
+   <span>PROCESANDO</span>
  </div>
   <div class="container-sm border ">
      <div class="table-wrapper-scroll-y my-custom-scrollbar">
@@ -85,7 +85,7 @@
 </div>
 <div class="resuelto">
   <div class="container">
-   <span>RESUELTO</span>
+   <span>CERRADO</span>
  </div>
   <div class="container-sm border ">
      <div class="table-wrapper-scroll-y my-custom-scrollbar">

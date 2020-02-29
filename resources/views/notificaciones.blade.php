@@ -1,23 +1,48 @@
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
-    <title>Ticket</title>
-</head>
+@include('layout.head')
 <body>
+    <img src="{{asset('img/aparedes.jpg')}}">
+    <div class="descripcion"><span><H4>AGRICOLA PAREDES SAPI DE CV.</H4></div>
+    <div class="direccion"><span>Calle paseo niños heroes oriente 520 302 Colonia Centro</span></div>
+    <div class="ciudad"><span>Culiacan,Sinaloa CP:80000.</span></div>
+ </div>
     @foreach($hd_reg_tickets as $hd_reg_tickets)
-    <label><h1> Hola {!! $hd_reg_tickets->cNombre!!} ,recibimos tu reporte con exito.</h1></label>
-    <h3>Estos son los datos que proporcionaste sobre la incidencia:</h3>
+    <div class="mensaje">
+    <label><h1> Hola {!! $hd_reg_tickets->cNombre!!},recibimos tu reporte con exito.</h1></label></div>
+    <h3>Estos son los datos que proporcionaste sobre tu incidencia:</h3>
     <ul>
-        <label><h2>Titulo:</h2>{!! $hd_reg_tickets->cTitulo!!}</label>
-        <label><h2>Categoria:</h2>{!! $hd_reg_tickets->cCategoria !!}</label> 
-         <label><h2>Sistema:</h2>{!! $hd_reg_tickets->cSistema !!}</label> 
-         <label><h2>Prioridad:</h2>{!! $hd_reg_tickets->cPrioridad !!}</label> 
-         <label><h2>Descripcion:</h2>{!! $hd_reg_tickets->cDesProblema !!}</label> 
-         <label><h2>Fecha:</h2>{!! $hd_reg_tickets->created_at !!}</label> 
-         <label><h2>Estado:</h2>{!! $hd_reg_tickets->ccEstado !!}</label> 
-        @endforeach
-    </ul> 
+
+<div class="tablat">
+    <div class="container-fluid">
+ <table class="table table-striped" style="border-collapse: collapse;" border="1"; >
+  <thead class="thead-dark" >
+    <tr>
+      <th scope="col">TITULO</th>
+      <th scope="col">CATEGORIA</th>
+      <th scope="col">SISTEMA</th>
+      <th scope="col">PRIORIDAD</th>
+      <th scope="col">DESCRIPCION</th>
+      <th scope="col">FECHA</th>
+      <th scope="col">ESTADO</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+         <td>{!! $hd_reg_tickets->cTitulo !!}</td>
+         <td>{!! $hd_reg_tickets->cCategoria !!}</td>
+         <td>{!! $hd_reg_tickets->cSistema !!}</td>
+         <td>{!! $hd_reg_tickets->cPrioridad !!}</td>
+         <td>{!! $hd_reg_tickets->cDesProblema !!}</td>
+         <td>{!!$hd_reg_tickets->created_at!!}</td>
+         <td>{!!$hd_reg_tickets->ccEstado!!}</td>
+      </tr>
+            @endforeach
+
+  </tbody>
+</table>
+</div>
+</div>
+
     <h4>lo atenderemos a la brevedad,saludos.</h4>
 </body>
 </html>

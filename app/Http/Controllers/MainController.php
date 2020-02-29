@@ -104,7 +104,8 @@ class MainController extends Controller
 	      $ticket->nFolio_Users=Auth::user()->id;
         $ticket->cEstado=1;
         $ticket->save();
-      \Mail::to(Auth()->user()->email)->send(new \App\Mail\notificaciones());
+         $emails = array(Auth()->user()->email,"helpdesk@aparedes.com.mx");
+      \Mail::to($emails)->send(new \App\Mail\notificaciones());
         return  redirect('ticket');
     }
     }

@@ -30,3 +30,5 @@ Route::get('/aticket/ver/{id}','ControllerAdmin@detalleticket')->name('verticket
 Route::post('/aticket/ver/{id}/actualizar','ControllerAdmin@actualizarestado')->name('actualizar');
 Route::get('/aticket/borrar/{id}', 'ControllerAdmin@eliminarticket')->name('borrarticket');
 Route::get('/auser', 'ControllerAdmin@auser')->name('auser');
+Route::get('/correo', 'ControllerAdmin@correo');
+
