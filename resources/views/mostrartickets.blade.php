@@ -4,7 +4,7 @@
 <div class="buscar">
 <div class="col-lg-6">
     <div class="input-group">
-      <input type="text" class="form-control">
+      <input type="text" class="form-control" >
      </div>
      <div class="btnb">
       <span class="input-group-btn">

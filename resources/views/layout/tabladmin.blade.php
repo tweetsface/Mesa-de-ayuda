@@ -1,6 +1,6 @@
 
 <div class="tabladmin">
-  <table class="table">
+  <table class="table table-striped">
   <thead class="thead-dark">
     <tr>
       <th scope="col">#</th>
@@ -26,7 +26,6 @@
           <td>
           <form method="get" action="{{route('verticket',$hd_reg_ticket->id) }}">
           <button type="submit">REVISAR</button>
-          <a href="{{route('borrarticket',$hd_reg_ticket->id) }}" class="btn btn-default">ELIMINAR</a>
         </form>
         </td>
       </tr>

@@ -26,9 +26,13 @@ Route::post('/panel','MainController@generarreporte')->name('tickets');
 Route::get('/ticket','MainController@ticket')->name('ticket');
 Route::post('/ticket','MainController@generarreporte')->name('ticket');
 Route::get('/aticket','ControllerAdmin@ticket')->name('aticket'); 
+Route::get('/aticket/buscar','ControllerAdmin@buscarTicket')->name('buscart');
 Route::get('/aticket/ver/{id}','ControllerAdmin@detalleticket')->name('verticket'); 
 Route::post('/aticket/ver/{id}/actualizar','ControllerAdmin@actualizarestado')->name('actualizar');
 Route::get('/aticket/borrar/{id}', 'ControllerAdmin@eliminarticket')->name('borrarticket');
 Route::get('/auser', 'ControllerAdmin@auser')->name('auser');
+Route::post('/auser', 'MainController@registrarusuario');//Se reutilizo el metodo
+Route::post('/auser/{id}/actualizar', 'ControllerAdmin@actualizaUsuarios')->name('ausuarios');
 Route::get('/correo', 'ControllerAdmin@correo');
+
 

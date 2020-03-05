@@ -40,14 +40,26 @@
           </select>
           </div>
            </td>
-           <td><button type="submit" name="actualizar" class="boton">ACTUALIZAR</button>
-               <button type="button" name="CANCELAR">CANCELAR</button>
+           <td><button type="submit" name="actualizar" class="boton">Actualizar</button>
             </td>
          </form>
       </tr>
            @endforeach
   </tbody>
 </table>
+</div>
+<div class="contenedor">
+  <span class="lblcom">Comentarios:</span>
+  <div class="comentarios">
+  <textarea name="textarea" cols="135" rows="8"></textarea>
+</div>
+
+<div class="btncom">
+<button type="submit" name="actualizar" class="btn btn-dark">Guardar</button>
+<button type="button" name="cancelar" class="btn btn-dark">Cancelar</button>
+  
+</div>
+
 </div>
 
 

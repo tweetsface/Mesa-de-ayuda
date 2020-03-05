@@ -9,6 +9,7 @@ use App\hd_reg_ticket;
 use App\hd_estado;
 use App\hd_privilegio;
 use Auth;
+use Mail;
 
 
 class ControllerAdmin extends Controller
@@ -44,9 +45,25 @@ class ControllerAdmin extends Controller
       $hd_reg_tickets =DB::table('hd_reg_tickets')->leftjoin('hd_users','hd_users.id','=','hd_reg_tickets.id')
          ->leftjoin('hd_estado','hd_estado.id','=','hd_reg_tickets.cEstado')->select('hd_reg_tickets.id','hd_reg_tickets.cTitulo','hd_reg_tickets.cCategoria','hd_reg_tickets.cSistema','hd_reg_tickets.cPrioridad','hd_reg_tickets.cDesProblema','hd_reg_tickets.created_at','hd_estado.id as idestado','hd_estado.ccEstado')->where('hd_reg_tickets.id',$id)->get();
            $nuevo=hd_reg_ticket::find($id)->update($request->only('cEstado'));
-          return redirect('aticket')->with('hd_reg_tickets',$hd_reg_tickets)->with('hd_estado',$hd_estado);
-     }
-     public function correo()
+            if($hd_reg_tickets)
+           {
+            $correoa=DB::table('hd_reg_tickets')->leftjoin('hd_users','hd_users.id','=','hd_reg_tickets.nFolio_Users')->select('hd_users.email')->where('hd_reg_tickets.id',$id)->get();
+           \Mail::to($correoa)->send(new \App\Mail\mailActualizar());
+           return redirect('aticket')->with('hd_reg_tickets',$hd_reg_tickets)->with('hd_estado',$hd_estado);
+           }else{
+             return redirect('aticket')->with('hd_reg_tickets',$hd_reg_tickets)->with('hd_estado',$hd_estado);
+           }
+         }
+
+           public function actualizaUsuarios(Request $request,$id)
+           {
+            $datos=$request->only(['email','badmin']);
+           $hd_privilegios=hd_privilegio::all();
+        $hd_users =DB::table('hd_users')->leftjoin('hd_privilegios','hd_privilegios.id','=','hd_users.badmin')->select('hd_users.id','hd_users.cNombre','hd_users.cApellidos','hd_users.nEmpleado','hd_users.email','hd_users.badmin','hd_privilegios.cPrivilegios')->where('hd_users.id',$id)->get();
+         $actualizar=hd_users::find($id)->update($datos);
+          return redirect('auser')->with('hd_users',$hd_users)->with('hd_privilegios',$hd_privilegios);
+           }
+     public function correo() //PASAR DATOS A LA VISTA DEL TICKET POR EMAIL
      {
      
         $hd_reg_tickets =DB::table('hd_reg_tickets')->

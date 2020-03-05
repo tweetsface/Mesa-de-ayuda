@@ -4,7 +4,7 @@
         <ul class="sidebar-menu" id="nav-accordion">
           <p class="centered"><a href="profile.html"><img src="{{asset('img/ui-sam.jpg')}}" class="img-circle" width="80"></a></p>
               <h5 class="centered"></h5> 
-              
+          <span class="nombreu"><h3>{{Auth()->user()->cNombre}}{{Auth()->user()->cApellidos}}</h3></span>
           <li class="mt">
             <a class="active" href="{{asset('dashboard')}}">
               <i class="fa fa-dashboard"></i>

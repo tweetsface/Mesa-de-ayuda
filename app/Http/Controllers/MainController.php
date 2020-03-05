@@ -85,6 +85,7 @@ class MainController extends Controller
       $proceso=hd_reg_ticket::where('cEstado',2)->get();
       $realizado=hd_reg_ticket::where('cEstado',3)->get();
       $view=hd_reg_ticket::all();
+      $hd_users=hd_users::all();
       return view('paneladministrador')->with('espera',$espera)->with('proceso',$proceso)->with('realizado',$realizado)
       ->with('view',$view);
     }
@@ -134,6 +135,15 @@ class MainController extends Controller
     public function modal()
     {
       return view('modalticket');
+    }
+
+    public  function buscarTicket(Request $request)
+    {
+      $campo=$request->only('id');
+      $hd_reg_tickets=hd_reg_ticket::where('id',$campo)->get();
+      return dd($campo);
+      return view('aticket')->with('hd_reg_tickets',$hd_reg_tickets);
+
     }
 }
 

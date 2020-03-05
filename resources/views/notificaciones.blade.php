@@ -9,9 +9,8 @@
     @foreach($hd_reg_tickets as $hd_reg_tickets)
     <div class="mensaje">
     <label><h1> Hola {!! $hd_reg_tickets->cNombre!!},recibimos tu reporte con exito.</h1></label></div>
-    <h3>Estos son los datos que proporcionaste sobre tu incidencia:</h3>
-    <ul>
-
+    <div class="mensaje2"><h3>Estos son los datos que proporcionaste sobre tu incidencia:</h3>
+    <ul></div> 
 <div class="tablat">
     <div class="container-fluid">
  <table class="table table-striped" style="border-collapse: collapse;" border="1"; >
@@ -43,6 +42,6 @@
 </div>
 </div>
 
-    <h4>lo atenderemos a la brevedad,saludos.</h4>
+   <div class="mensaje3"><h4>lo atenderemos a la mayor brevedad posible,saludos.</h4></div> 
 </body>
 </html>

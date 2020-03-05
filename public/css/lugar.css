@@ -62,7 +62,7 @@ width: 1100px;
 .input-group-btn
 {
   bottom: 44px;
-  left: 220px;
+  left: 190px;
 }
 
 .input-group.date
@@ -100,7 +100,7 @@ width: 1100px;
 .btnb
 {
 	position: relative;
-	right: 30px;
+	right: 5px;
 }
 .espera
 {
@@ -149,19 +149,29 @@ width: 1100px;
 }
 .tablausuarios
 {
-	position: absolute;
-	top: 80px;
-	right:550px;
-	width: 1000px;
-	
-
+	position: relative;
+	top: 50px;
+	right:205px;
+	width:700px;
+	height: 400px;
+	padding-left: 0px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-top: 0px;
+	margin-right: 0px;
+    margin-left: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 .tabladmin
 {
 	position: relative;
-	top: 0px;
-	left:10px;
-    width: 80px;
+	top: 300px;
+	left:220px;
+    width: 1300px;
+    height: 300px;
+    overflow-x:visible;
+    overflow-y:scroll; 
 
 }
 .tabladetalle
@@ -169,6 +179,7 @@ width: 1100px;
 	position: absolute;
 	top: 100px;
 	left: 200px;
+	border-style: collapse;
 }
 .container-sm
 { position: relative;
@@ -206,44 +217,170 @@ width: 1100px;
 img.
 {
 	position: relative;
-	left:100px;
+	left:200px;
 }
 .descripcion
 {
 	position: absolute;
 	bottom:640px;
-	left:300px;
-	color: black;
+	left:700px;
+	color: #151515;
 }
 .direccion
 {
    position: relative;
-   left: 250px;
+   left: 650px;
    bottom: 105px;
-   color: black;
+   color: #151515;
 
 }
 .ciudad
 {
    position: relative;
-   left: 330px;
+   left: 740px;
    bottom: 110px;
-   color: black;
+   color: #151515;
 
 }
 .mensaje
 {
 	position: relative;
-	bottom: 60px;
+	text-align: center;
+	color: #151515;
 
 }
 .tablat
 {
 	position: relative;
-	right:350px;
+	right:100px;
      bottom: 200px;
+}
+.mensaje2
+{
+	position: relative;
+	bottom:35px;
+	text-align: center;
+	color: #151515;
+}
+.mensaje3
+{
+	text-align: center;
+	color: #151515;
+}
+.contenedor
+{
+	position: absolute;
+	left:430px;
+	top: 400px;
+}
+.buscador
+{
+	position: absolute;
+	left: 500px;
+	top: 150px;
+	width: 500px;
+}
+.btnbuscar
+{
+	position:relative;
+	right: 710px;
+	bottom: 160px;
+}
+.btneliminar
+{
+	position: relative;
+	right: 860px;
+	bottom: 185px;
+}
+.btnupdate
+{
+	position: relative;
+	right: 770px;
+	bottom: 150px;
+}
+.moverausers
+{
+	position: relative;
+	top: 170px;
+	width: 50%;
+	height: 200px;
+	left:210px;
+	margin-right:0;
 }
 .container-fluid
 {
 	position: relative;
-	height:200px;
+    overflow-x:visible;
+    overflow-y:scroll; 
+    width:1300px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-right: 0px;
+  padding-left: 0px;
+  
+}
+.table.table-striped
+{
+	position: relative;
+	left: 150px;
+
+}
+.btnadd
+{
+	position: relative;
+	right: 500px;
+	bottom: 11px;
+}
+.modalregistro
+{
+	position: relative;
+	right: 120px;
+	top: 30px;
+}
+.btnmodal
+{
+	position: relative;
+	right: 700px;
+	bottom: 160px;
+}
+.etiqueta
+{
+	position: relative;
+	top: 20px;
+	left: 20px;
+	font-style: bold;
+}
+.user
+{
+	position: relative;
+	width:800px;
+	height: 700px;
+	right:  600px;
+}
+.nombreu
+{
+	position: relative;
+	left: 10px;
+	color: white;
+}
+.lblcom
+{
+	color: black;
+}
+.comentarios
+{
+	position: relative;
+	left: 2px;
+	top: 15px;
+	resize: none;
+}
+.btncom
+{
+	position: relative;
+	right:450px;
+	bottom: 70px;
+
+}
+.textarea{
+resize: none;
+}
