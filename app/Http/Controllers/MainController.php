@@ -126,7 +126,7 @@ class MainController extends Controller
     public  function ticket()//Dashboard
     {
         $hd_reg_tickets =DB::table('hd_reg_tickets')->
-          leftjoin('hd_users','hd_users.id','=','hd_reg_tickets.nFolio_Users')->leftjoin('hd_estado','hd_estado.id','=','hd_reg_tickets.cEstado')->select('hd_reg_tickets.id','hd_reg_tickets.cTitulo','hd_reg_tickets.cCategoria','hd_reg_tickets.cSistema','hd_reg_tickets.cPrioridad','hd_reg_tickets.cDesProblema','hd_users.cNombre','hd_reg_tickets.created_at','hd_estado.ccEstado')
+          leftjoin('hd_users','hd_users.id','=','hd_reg_tickets.nFolio_Users')->leftjoin('hd_estado','hd_estado.id','=','hd_reg_tickets.cEstado')->select('hd_reg_tickets.id','hd_reg_tickets.cTitulo','hd_reg_tickets.cCategoria','hd_reg_tickets.cSistema','hd_reg_tickets.cPrioridad','hd_reg_tickets.cDesProblema','hd_users.cNombre','hd_reg_tickets.created_at','hd_estado.ccEstado','hd_reg_tickets.cRespuesta')
          ->where('hd_reg_tickets.nFolio_Users','=',Auth::user()->id)->orderby('created_at','desc')->get();
          return view('mostrartickets')->with('hd_reg_tickets',$hd_reg_tickets);
     
@@ -140,14 +140,23 @@ class MainController extends Controller
        public function verTicketU($id)//ver ticket usuario especifico
     {
       $hd_reg_tickets= $hd_reg_tickets =DB::table('hd_reg_tickets')->leftjoin('hd_users','hd_users.id','=','hd_reg_tickets.id')
-      ->leftjoin('hd_estado','hd_estado.id','=','hd_reg_tickets.cEstado')->select('hd_reg_tickets.id','hd_reg_tickets.cTitulo','hd_reg_tickets.cCategoria','hd_reg_tickets.cSistema','hd_reg_tickets.cPrioridad','hd_reg_tickets.cDesProblema','hd_reg_tickets.created_at','hd_estado.id as idestado','hd_estado.ccEstado','hd_reg_tickets.cComentarios')->where('hd_reg_tickets.id',$id)->get();
+      ->leftjoin('hd_estado','hd_estado.id','=','hd_reg_tickets.cEstado')->select('hd_reg_tickets.id','hd_reg_tickets.cTitulo','hd_reg_tickets.cCategoria','hd_reg_tickets.cSistema','hd_reg_tickets.cPrioridad','hd_reg_tickets.cDesProblema','hd_reg_tickets.created_at','hd_estado.id as idestado','hd_estado.ccEstado','hd_reg_tickets.cComentarios','hd_reg_tickets.cRespuesta')->where('hd_reg_tickets.id',$id)->get();
       return view('detalleTusuario')->with('hd_reg_tickets',$hd_reg_tickets);
     }
     public function actualizarCom($id,Request $request)
     {
-        $hd_reg_tickets= $hd_reg_tickets =DB::table('hd_reg_tickets')->leftjoin('hd_users','hd_users.id','=','hd_reg_tickets.id')
-      ->leftjoin('hd_estado','hd_estado.id','=','hd_reg_tickets.cEstado')->select('hd_reg_tickets.id','hd_reg_tickets.cTitulo','hd_reg_tickets.cCategoria','hd_reg_tickets.cSistema','hd_reg_tickets.cPrioridad','hd_reg_tickets.cDesProblema','hd_reg_tickets.created_at','hd_estado.id as idestado','hd_estado.ccEstado','hd_reg_tickets.cComentarios')->where('hd_reg_tickets.id',$id)->get();
-       $nuevos=hd_reg_ticket::find($id)->update($request->only('cComentarios'));
+      $hd_reg_tickets =DB::table('hd_reg_tickets')->leftjoin('hd_users','hd_users.id','=','hd_reg_tickets.id')
+      ->leftjoin('hd_estado','hd_estado.id','=','hd_reg_tickets.cEstado')->select('hd_reg_tickets.id','hd_reg_tickets.cTitulo','hd_reg_tickets.cCategoria','hd_reg_tickets.cSistema','hd_reg_tickets.cPrioridad','hd_reg_tickets.cDesProblema','hd_reg_tickets.created_at','hd_estado.id as idestado','hd_estado.ccEstado','hd_reg_tickets.cComentarios','hd_reg_tickets.cRespuesta')->where('hd_reg_tickets.id',$id)->get();
+        $n=DB::table('hd_reg_tickets')->get()->count();
+        $cComentarios=[array('cComentarios'=>$request->only('cComentarios'));
+        $cRespuesta=array('cRespuesta'=>$request->only('cRespuesta'));
+        $nuevo=hd_reg_ticket::find($id)->first();
+        for($i=0;$i<$n;$i++)
+        {
+        $nuevo->cComentarios=$cComentarios['cComentarios'];
+        $nuevo->cRespuesta=$cRespuesta['cRespuesta'];
+        $nuevo->save();
+        }
        return view('detalleTusuario')->with('hd_reg_tickets',$hd_reg_tickets);
 
       

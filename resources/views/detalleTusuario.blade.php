@@ -13,7 +13,7 @@
       <th scope="col">DESCRIPCION</th>
       <th scope="col">FECHA</th>
       <th scope="col">ESTADO</th>
-      <th scope="col">COMENTARIOS ADICIONALES</th>
+      <th scope="col">Respuesta Administrador</th>
     </tr>
   </thead>
   <tbody>
@@ -30,22 +30,28 @@
          <td>{!! $hd_reg_ticket->cDesProblema !!}</td>
          <td>{!!$hd_reg_ticket->created_at!!}</td>
          <td>{!!$hd_reg_ticket->ccEstado!!}</td>
-         <td>{!!$hd_reg_ticket->cComentarios!!}</td>
+         <td>{!!$hd_reg_ticket->cRespuesta!!}</td>
       </tr>
-      @endforeach
+     
 
   </tbody>
 </table>
 </div>
 <div class="contenedor">
+  <span class="lblres">Mensajes Enviados:</span>
+  <div class="respuesta">
+  <textarea  style="overflow-y=scroll; resize: none; color: black; " cols="135" rows="4" >{!!$hd_reg_ticket->cComentarios!!}</textarea>
+</div>
+<div class="contenedor2">
   <span class="lblcom">Comentarios:</span>
   <div class="comentarios">
-  <textarea name="cComentarios" style="resize: none;"   cols="135" rows="8"></textarea>
+  <textarea name="cComentarios" style="resize: none; color: black;"cols="135" rows="8"></textarea>
 </div>
 <div class="btncom">
 <button type="submit"  class="btn btn-dark">Guardar</button>
 <button type="button" name="cancelar" class="btn btn-dark">Cancelar</button>
   </form>
+   @endforeach
 </div>
 
 </div>
