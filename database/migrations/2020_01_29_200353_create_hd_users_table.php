@@ -22,7 +22,8 @@ class CreateHdUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->boolean('badmin')->references('id')->on('hd_privilegios');
-            $table->rememberToken();
+            $table->string('sFoto')->nullable();
+            $table->rememberToken()->nullable();
             $table->timestamps();
         });
     }

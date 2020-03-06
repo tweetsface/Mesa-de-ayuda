@@ -11,7 +11,7 @@ class hd_reg_ticket extends Model implements AuthenticatableContract
 {
      use Authenticatable;
     public $table="hd_reg_tickets";
-     protected $fillable = ['id','cTitulo','cCategoria','cSistema','cPrioridad','cDesProblema','cEstado','nFolio_users','created_at'];
+     protected $fillable = ['id','cTitulo','cCategoria','cSistema','cPrioridad','cDesProblema','cEstado','nFolio_users','cComentarios','cRespuesta','created_at'];
       public function hd_reg_ticket()
     {
         return $this->hasOne('App\hd_reg_ticket');

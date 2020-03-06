@@ -103,6 +103,7 @@ class MainController extends Controller
         $ticket->CDesproblema=$request->cDesproblema;
         $ticket->created_at=now();
 	      $ticket->nFolio_Users=Auth::user()->id;
+        $ticket->cComentarios=" ";
         $ticket->cEstado=1;
         $ticket->save();
          $emails = array(Auth()->user()->email,"helpdesk@aparedes.com.mx");
@@ -136,15 +137,24 @@ class MainController extends Controller
     {
       return view('modalticket');
     }
-
-    public  function buscarTicket(Request $request)
+       public function verTicketU($id)//ver ticket usuario especifico
     {
-      $campo=$request->only('id');
-      $hd_reg_tickets=hd_reg_ticket::where('id',$campo)->get();
-      return dd($campo);
-      return view('aticket')->with('hd_reg_tickets',$hd_reg_tickets);
-
+      $hd_reg_tickets= $hd_reg_tickets =DB::table('hd_reg_tickets')->leftjoin('hd_users','hd_users.id','=','hd_reg_tickets.id')
+      ->leftjoin('hd_estado','hd_estado.id','=','hd_reg_tickets.cEstado')->select('hd_reg_tickets.id','hd_reg_tickets.cTitulo','hd_reg_tickets.cCategoria','hd_reg_tickets.cSistema','hd_reg_tickets.cPrioridad','hd_reg_tickets.cDesProblema','hd_reg_tickets.created_at','hd_estado.id as idestado','hd_estado.ccEstado','hd_reg_tickets.cComentarios')->where('hd_reg_tickets.id',$id)->get();
+      return view('detalleTusuario')->with('hd_reg_tickets',$hd_reg_tickets);
     }
+    public function actualizarCom($id,Request $request)
+    {
+        $hd_reg_tickets= $hd_reg_tickets =DB::table('hd_reg_tickets')->leftjoin('hd_users','hd_users.id','=','hd_reg_tickets.id')
+      ->leftjoin('hd_estado','hd_estado.id','=','hd_reg_tickets.cEstado')->select('hd_reg_tickets.id','hd_reg_tickets.cTitulo','hd_reg_tickets.cCategoria','hd_reg_tickets.cSistema','hd_reg_tickets.cPrioridad','hd_reg_tickets.cDesProblema','hd_reg_tickets.created_at','hd_estado.id as idestado','hd_estado.ccEstado','hd_reg_tickets.cComentarios')->where('hd_reg_tickets.id',$id)->get();
+       $nuevos=hd_reg_ticket::find($id)->update($request->only('cComentarios'));
+       return view('detalleTusuario')->with('hd_reg_tickets',$hd_reg_tickets);
+
+      
+    }
+
+
+   
 }
 
 

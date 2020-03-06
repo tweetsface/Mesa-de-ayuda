@@ -25,6 +25,7 @@
          <td>{!!$hd_reg_ticket->cNombre!!} {!!$hd_reg_ticket->cApellidos!!} </td>
           <td>
           <form method="get" action="{{route('verticket',$hd_reg_ticket->id) }}">
+               {{ csrf_field() }}
           <button type="submit">REVISAR</button>
         </form>
         </td>

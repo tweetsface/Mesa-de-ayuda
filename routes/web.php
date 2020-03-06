@@ -25,10 +25,13 @@ Route::get('/panel','MainController@panel')->name('panel');
 Route::post('/panel','MainController@generarreporte')->name('tickets');
 Route::get('/ticket','MainController@ticket')->name('ticket');
 Route::post('/ticket','MainController@generarreporte')->name('ticket');
+Route::get('/ticket/ver/{id}','MainController@verTicketu')->name('verTicketu');
+Route::post('/ticket/ver/{id}/actualizar','MainController@actualizarCom')->name('actcomen');
 Route::get('/aticket','ControllerAdmin@ticket')->name('aticket'); 
-Route::get('/aticket/buscar','ControllerAdmin@buscarTicket')->name('buscart');
+Route::get('/aticket/buscar','ControllerAdmin@buscarTickets')->name('buscart');
 Route::get('/aticket/ver/{id}','ControllerAdmin@detalleticket')->name('verticket'); 
 Route::post('/aticket/ver/{id}/actualizar','ControllerAdmin@actualizarestado')->name('actualizar');
+Route::post('/aticket/ver/{id}/actualizar/comentario','ControllerAdmin@resTicket')->name('resTicket');
 Route::get('/aticket/borrar/{id}', 'ControllerAdmin@eliminarticket')->name('borrarticket');
 Route::get('/auser', 'ControllerAdmin@auser')->name('auser');
 Route::post('/auser', 'MainController@registrarusuario');//Se reutilizo el metodo

@@ -15,6 +15,7 @@
   </thead>
   <tbody>
       @foreach($hd_reg_tickets as $hd_reg_ticket)
+      <form method="get" action="{{route('verTicketu',$hd_reg_ticket->id)}}">
       <tr>
          <td>{!! $hd_reg_ticket->id!!}</td>
          <td>{!! $hd_reg_ticket->cTitulo !!}</td>
@@ -24,10 +25,11 @@
          <td>{!! $hd_reg_ticket->cDesProblema !!}</td>
          <td>{!!$hd_reg_ticket->created_at!!}</td>
          <td>{!!$hd_reg_ticket->ccEstado!!}</td>
-         <td><button type="button" name="revisar" class="boton">REVISAR</button></td>
+         <td>
+          <button type="submit"  class="boton">REVISAR</button></td>
       </tr>
+      </form>
             @endforeach
-
   </tbody>
 </table>
 
