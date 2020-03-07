@@ -18,7 +18,7 @@ class CreateRegTickets extends Migration
             $table->string('cTitulo');
             $table->string('cCategoria');
             $table->string('cSistema');
-            $table->string('cPrioridad');
+            $table->string('cPrioridad')->references('id')->on('hd_estado');
             $table->string('cDesProblema');
             $table->string('cEstado')->references('id')->on('hd_estado');
             $table->string('cOpcsitema')->nullable();

@@ -2,7 +2,7 @@
 @include('layout.barranav')
 @include('layout.sidebaruser')
  <div class="tabladetalles">
-  <table class="table table-bordered table-hover">
+  <table class="table table-bordered table-hover" name="tabla" id="tabla">
   <thead class="thead-dark" >
     <tr>
       <th scope="col">#</th>
@@ -49,14 +49,12 @@
 </div>
 <div class="btncom">
 <button type="submit"  class="btn btn-dark">Guardar</button>
-<button type="button" name="cancelar" class="btn btn-dark">Cancelar</button>
+<a href="{{url('ticket')}}" class="btn btn-dark">Cancelar</a>
   </form>
    @endforeach
 </div>
 
 </div>
 </form>
-
 </div>
-
 

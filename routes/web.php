@@ -36,6 +36,7 @@ Route::get('/aticket/borrar/{id}', 'ControllerAdmin@eliminarticket')->name('borr
 Route::get('/auser', 'ControllerAdmin@auser')->name('auser');
 Route::post('/auser', 'MainController@registrarusuario');//Se reutilizo el metodo
 Route::post('/auser/{id}/actualizar', 'ControllerAdmin@actualizaUsuarios')->name('ausuarios');
+Route::get('/reportes', 'ControllerAdmin@gReportes')->name('gReportes');
 Route::get('/correo', 'ControllerAdmin@correo');
 
 

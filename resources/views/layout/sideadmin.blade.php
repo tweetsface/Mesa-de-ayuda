@@ -4,7 +4,7 @@
         <ul class="sidebar-menu" id="nav-accordion">
           <p class="centered"><a href="profile.html"><img src="{{asset('img/ui-sam.jpg')}}" class="img-circle" width="80"></a></p>
               <h5 class="centered"></h5> 
-          <span class="nombreu"><h3>{{Auth()->user()->cNombre}}{{Auth()->user()->cApellidos}}</h3></span>
+          <span class="nombreu" style="text-align: center;"><h3>{{Auth()->user()->cNombre}} {{Auth()->user()->cApellidos}}</h3></span>
           <li class="mt">
             <a class="active" href="{{asset('dashboard')}}">
               <i class="fa fa-dashboard"></i>
@@ -18,11 +18,17 @@
           <li class="sub-menu" href="javascript:;">
          <a href="{{url('auser')}}"> <i class="fa fa-user"></i><span>GESTION USUARIOS</span></a>
 
-          <li class="sub-menu">
-            <a href="javascript:;">
-              <i class="fa fa-file"></i>
+          <li class="sub-menu" href="javascript:;">
+              <a href="{{url('reportes')}}"><i class="fa fa-file"></i>
               <span>GESTOR DE REPORTES</span>
               </a>
+
+
+              <li class="sub-menu" href="javascript:;">
+            <a href=""><i class="fa fa-cogs"></i><span>CONFIGURACION</span></a>
+            <li class="sub-menu">
+
+
             <li class="sub-menu" href="javascript:;">
             <a href="{{ url('/login/logout')}}"> <i class="fa fa-sign-out"></i><span>LOGOUT</span></a>
       </div>

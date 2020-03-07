@@ -91,5 +91,11 @@ class ControllerAdmin extends Controller
        return view('detalleticket')->with('hd_reg_tickets',$hd_reg_tickets)->with('hd_estado',$hd_estado);
 
     }
+      public  function gReportes()
+    {
+     
+     return view('gReportes');
+
+    }
 
 }

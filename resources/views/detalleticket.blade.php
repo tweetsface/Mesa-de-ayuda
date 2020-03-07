@@ -65,7 +65,7 @@
 </div>
 <div class="btncom">
 <button type="submit" name="actualizar" class="btn btn-dark">Guardar</button>
-<button type="button" name="cancelar" class="btn btn-dark">Cancelar</button>
+<a href="{{url('aticket')}}" class="btn btn-dark">Cancelar</a>
 </div>
     @endforeach
 </form>
