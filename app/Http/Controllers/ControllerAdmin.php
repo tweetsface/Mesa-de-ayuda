@@ -97,5 +97,74 @@ class ControllerAdmin extends Controller
      return view('gReportes');
 
     }
+    public function cReportes(Request $request)
+    {
+      $estado=$request->only('cEstado');
+      $periodo=$request->only('created_at');
+      $cPrioridad=$request->only('cPrioridad');
+      if($estado["cEstado"]==1 and $periodo["created_at"]==1 and $cPrioridad["cPrioridad"]==1)
+      {
+      
+      }
+      else if($estado["cEstado"]==1 and $periodo["created_at"]==2 and $cPrioridad["cPrioridad"]==1)
+      {
+      
+      }
+      else if($estado["cEstado"]==1 and $periodo["created_at"]==3 and $cPrioridad["cPrioridad"]==1)
+      {
+
+      }
+      else if($estado["cEstado"]==1 and $periodo["created_at"]==1 and $cPrioridad["cPrioridad"]==2)
+       {
+
+       }
+      else if($estado["cEstado"]==1 and $periodo["created_at"]==1 and $cPrioridad["cPrioridad"]==3)
+       {
+
+       }
+      else if($estado["cEstado"]==2 and $periodo["created_at"]==1 and $cPrioridad["cPrioridad"]==1)
+      {
+
+      }
+      else if($estado["cEstado"]==2 and $periodo["created_at"]==2 and $cPrioridad["cPrioridad"]==1)
+      {
+
+      }
+      else if($estado["cEstado"]==2 and $periodo["created_at"]==3 and $cPrioridad["cPrioridad"]==1)
+      {
+
+      }
+      else if($estado["cEstado"]==2 and $periodo["created_at"]==1 and $cPrioridad["cPrioridad"]==3)
+      {
+
+      }
+      else if($estado["cEstado"]==3 and $periodo["created_at"]==1 and $cPrioridad["cPrioridad"]==1)
+      {
+
+      }
+       else if($estado["cEstado"]==3 and $periodo["created_at"]==2 and $cPrioridad["cPrioridad"]==1)
+       {
+
+       }
+      else if($estado["cEstado"]==3 and $periodo["created_at"]==3 and $cPrioridad["cPrioridad"]==1)
+      {
+
+      }
+      else if($estado["cEstado"]==3 and $periodo["created_at"]==1 and $cPrioridad["cPrioridad"]==2)
+      {
+
+      }
+      else if($estado["cEstado"]==3 and $periodo["created_at"]==1 and $cPrioridad["cPrioridad"]==3)
+      {
+
+      }
+
+
+ 
+
+
+      
+
+    }
 
 }

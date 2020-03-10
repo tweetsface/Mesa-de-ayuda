@@ -30,7 +30,6 @@
          <td>{!! $hd_reg_ticket->cDesProblema !!}</td>
          <td>{!!$hd_reg_ticket->created_at!!}</td>
          <td>{!!$hd_reg_ticket->ccEstado!!}</td>
-
          <form method="post" action="{{route('actualizar',$hd_reg_ticket->id) }}">
           {{ csrf_field() }}
          <td>

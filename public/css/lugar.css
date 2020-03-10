@@ -472,9 +472,21 @@ font-size:1.2em;
 	left: 180px;
 	bottom: 140px;
 }
-.categoria
+.btngenerar
 {
-	position: relative;
-	left: 180px;
-	bottom: 140px;
+	position:absolute;
+	left:323px;
+	bottom: 730px;
+	width: 20px;
+}
+.btnpersonalizado
+
+{
+	position: absolute;
+	left: 323px;
+	bottom: 700px;
+}
+.t
+{
+	width:115px;
 }
