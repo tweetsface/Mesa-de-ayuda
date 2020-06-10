@@ -9,7 +9,7 @@
 </div>
 <div class="modal-body">
   <div class="modalregistro">
-   <form  class="form-horizontal" method="post" >
+   <form action="{{route('registrarU')}}"  class="form-horizontal" method="post" >
     {{ csrf_field()}}
  <div class="form-group"> 
                             <span class="col-md-1 col-md-offset-2 text-center"></span>
@@ -47,7 +47,7 @@
                         <div class="form-group">
                             <div class="col-md-12 text-center">
                                <button type="submit" class="btn btn-dark">Guardar</button>
-                                <a href="" class="btn btn-dark">Cancelar</a>
+                                <a href="" class="btn btn-dark" data-dismiss="modal">Cancelar</a>
                             </div>
                         </div>
                         </div>

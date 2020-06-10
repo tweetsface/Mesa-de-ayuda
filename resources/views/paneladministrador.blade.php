@@ -1,123 +1,71 @@
 @include('layout.head')
 @include('layout.barranav')
 @include('layout.sideadmin')
-<div class="tareas">
-  <h2>TAREAS PENDIENTES POR ATENDER</h2>
-</div>
-<div class="ajuste">
-<div class="espera">
-  <div class="container">
-   <span>ABIERTO</span>
+<div class="panel panel-default" style="max-height:17%;position: relative;top:10%; margin-bottom:0.4%; max-width:80%; left:18%; border: none;background-color:#FEFEFF;" >
+<div class="card muevecC3" style="max-width:30%; background-color: white; max-height:70px; border-radius: 5px;">
+  <div class="card-body">
+    <h5 class="card-title"><span class="tit1">TOTAL</span></h5>
+    <p class="card-text"><div class="pos"><span class="abiertos">ABIERTOS</span><span class="tit3">{{$abierto}}</span></div></p>
   </div>
-  <div class="container-sm border ">
-     <div class="table-wrapper-scroll-y my-custom-scrollbar">
-  <table class="table table-bordered table-hover">
-  <thead class="thead-dark" >
+</div>
+<div class="card muevecc2" style="max-width:30%; background-color: white; height:70px; border-radius: 5px;">
+  <div class="card-body">
+    <h5 class="card-title"><span class="tit1">TOTAL</span></h5>
+    <p class="card-text"><div class="pos"><span class="abiertos">EN PROCESO</span><span class="tit3">{{$cerrado}}</span></div></p>
+  </div>
+</div>
+<div class="card muevecc" style="max-width:30%; background-color: white; height:70px; border-radius: 5px;">
+  <div class="card-body">
+    <h5 class="card-title"><span class="tit1">TOTAL</span></h5>
+    <p class="card-text"><div class="pos"><span class="abiertos">CERRADOS</span><span class="tit3">{{$proceso}}</span></div></p>
+  </div>
+</div>
+</div>
+<div class="panel panel-default" style=" position:relative; width:80%;left:18%; top:9%; height:65%; border: none;" >
+  <div class="panel-heading" style="background-color: #2A9C9F;">
+    <span class="" style="color: white; font-weight: bold; font-size:1.5em;">
+    Dashboard
+  </span>
+</div>
+  <input type="text"  class="form-control" id="buscar"  name="buscar"  placeholder="Buscar" style="position:relative;left: 35%; width:30%; border:solid 1px; border-color:black;top:14px; border-radius: 0px;">
+   <button type="submit" style="position:relative;border:none;left:65%; background-color: #343a40; height:34px;  width:50px;bottom:20px; "><span class="fuente"><i class="fa fa-search"></i></span></button>
+   
+<table class="table table-striped table-hover ">
+  <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">TITULO</th>
-      <th scope="col">CATEGORIA</th>
-      <th scope="col">PRIORIDAD</th>
       <th scope="col">FECHA</th>
+      <th scope="col">ESTADO</th>
+      <th scope="col">PRIORIDAD</th>
+      <th scope="col">DESCRIPCION</th>
       <th scope="col">ACCIONES</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-       <tr>
-      @foreach($espera as $espera)
+       @foreach($tickets as $ticket)
       <tr>
-         <td>{!! $espera->id!!}</td>
-         <td>{!! $espera->cTitulo !!}</td>
-         <td>{!! $espera->cCategoria !!}</td>
-         <td>{!! $espera->cPrioridad !!}</td>
-         <td>{!!$espera->created_at!!}</td>
-         <td> 
-          <form method="get" action="{{route('verticket',$espera->id) }}">
-          <button type="submit">REVISAR</button>
-        </form>
+         <td>{!!$ticket->id!!}</td>
+         <td> <span class="label label-info">{!!$ticket->created_at !!}</span></td>
+         <td>{!! $ticket->ccEstado !!}</td>
+         <td>
+          @if( $ticket->cPrioridad==1)
+          <span class="label label-danger ">{!!$ticket->cNPrioridad !!}</span>
+          @elseif($ticket->cPrioridad==2)
+           <span class="label label-warning ">{!!$ticket->cNPrioridad !!}</span>
+          @elseif($ticket->cPrioridad==3)
+           <span class="label label-primary ">{!!$ticket->cNPrioridad !!}</span>
+          @endif
+          </td>
+         <td>{!!$ticket->cDesProblema !!}</td>
+         <td>
+          <a href="{{route('verticket',$ticket->id)}}" style="text-align: center;" type="submit" class="icon"><i class="fa fa-eye"></i></a>
+      </form>
         </td>
       </tr>
-      @endforeach
+       @endforeach
   </tbody>
 </table>
-    </div>
+<div class="paginacion">
+{{$tickets->links()}}
 </div>
 
-</div>
-<div class="proceso">
-  <div class="container">
-   <span>PROCESANDO</span>
- </div>
-  <div class="container-sm border ">
-     <div class="table-wrapper-scroll-y my-custom-scrollbar">
-  <table class="table table-bordered table-hover">
-  <thead class="thead-dark" >
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">TITULO</th>
-      <th scope="col">CATEGORIA</th>
-      <th scope="col">PRIORIDAD</th>
-      <th scope="col">FECHA</th>
-      <th scope="col">ACCIONES</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      @foreach($proceso as $proceso)
-      <tr>
-         <td>{!! $proceso->id!!}</td>
-         <td>{!! $proceso->cTitulo !!}</td>
-         <td>{!! $proceso->cCategoria !!}</td>
-         <td>{!! $proceso->cPrioridad !!}</td>
-         <td>{!!$proceso->created_at!!}</td>
-         <td>
-          <form method="get" action="{{route('verticket',$proceso->id) }}">
-          <button type="submit">REVISAR</button>
-        </form>
-        </td>
-      </tr>
-      @endforeach
-  </tbody>
-</table>
-    </div>
-</div>
-</div>
-<div class="resuelto">
-  <div class="container">
-   <span>CERRADO</span>
- </div>
-  <div class="container-sm border ">
-     <div class="table-wrapper-scroll-y my-custom-scrollbar">
-  <table class="table table-bordered table-hover">
-  <thead class="thead-dark" >
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">TITULO</th>
-      <th scope="col">CATEGORIA</th>
-      <th scope="col">PRIORIDAD</th>
-      <th scope="col">FECHA</th>
-      <th scope="col">ACCIONES</th>
-    </tr>
-  </thead>
-  <tbody>
-   <tr>
-      @foreach($realizado as $realizado)
-      <tr>
-         <td>{!! $realizado->id!!}</td>
-         <td>{!! $realizado->cTitulo !!}</td>
-         <td>{!! $realizado->cCategoria !!}</td>
-         <td>{!! $realizado->cPrioridad !!}</td>
-         <td>{!!$realizado->created_at!!}</td>
-         <td> <form method="get" action="{{route('verticket',$realizado->id) }}">
-          <button type="submit">REVISAR</button>
-        </form>
-        </td>
-      </tr>
-      @endforeach
-  </tbody>
-</table>
-    </div>
-</div>
-   </div>
-</div>

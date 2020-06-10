@@ -5,14 +5,24 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\hd_users;
 use App\hd_reg_ticket;
+use App\hd_categoria;
+use App\hd_sistema;
+use App\hd_prioridad;
+use App\hd_comentario;
+use App\hd_estado;
+use Illuminate\Http\hd_comentarioFormRequest;
 use Illuminate\Support\Facades\Validator ;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Mail;
+use Carbon\Carbon;
 
+ 
 class MainController extends Controller
 {
       //
+
+  
     function index()
     {
      return view('login');
@@ -35,7 +45,7 @@ class MainController extends Controller
       if(Auth::check() && Auth::user()->badmin==1)
       {
      return redirect('dashboard');
-      }else{
+      }else {
      return redirect('panel');
     }
      }
@@ -43,28 +53,23 @@ class MainController extends Controller
         return back()->with('error','ERROR EN LAS CREDENCIALES');
      }
 }
-    function successlogin()
-    {
+   
 
-     return view('successlogin');
-
-    }
-
-    function logout()
+    public function logout()
     {
      Auth::logout();
      return redirect('login');
     }
 
-    function registrar()
+    public function registrar()
     {
-    	return view('registrar');
+    	return view('auth.register');
     }
 
-      function registrarusuario(Request $request)
+    public function registrarusuario(Request $request)
     {
       $this->validate($request, [
-       'email'   => 'required|email',
+       'email'   => 'required|email|unique:hd_users',
        'password'  => 'required|min:8'
          ]);
     	$add=new hd_users;
@@ -75,23 +80,29 @@ class MainController extends Controller
         $add->password = bcrypt($request->password);
         $add->badmin =0;
         $add->save();
-        return back()->with('msg', 'Usuario registrado correctamente');
-    	 
+        return redirect('auser');
     }
      public function  dashboard()//Dashboard
     {
-      $espera=hd_reg_ticket::where('cEstado',1)->get();
-      $proceso=hd_reg_ticket::where('cEstado',2)->get();
-      $realizado=hd_reg_ticket::where('cEstado',3)->get();
-      $view=hd_reg_ticket::all();
-      $hd_users=hd_users::all();
-      return view('paneladministrador')->with('espera',$espera)->with('proceso',$proceso)->with('realizado',$realizado)
-      ->with('view',$view);
+      $abierto=hd_reg_ticket::where('cEstado',2)->get()->count();
+      $proceso=hd_reg_ticket::where('cEstado',3)->get()->count();
+      $cerrado=hd_reg_ticket::where('cEstado',5)->get()->count();
+      $tickets=hd_reg_ticket::
+      leftjoin('hd_estado','hd_estado.id','=','hd_reg_tickets.cEstado')->
+      leftjoin('hd_prioridad','hd_prioridad.id','hd_reg_tickets.cPrioridad')->
+      select('hd_reg_tickets.id','hd_reg_tickets.created_at','hd_reg_tickets.cDesProblema','hd_estado.ccEstado','hd_prioridad.cNPrioridad','hd_reg_tickets.cPrioridad')
+      ->where('cEstado',1)
+      ->orWhere('cEstado',2)
+      ->orWhere('cEstado',3)
+      ->orWhere('cEstado',4)
+      ->paginate(6);
+      return view('paneladministrador')->with('abierto',$abierto)->with('proceso',$proceso)
+      ->with('cerrado',$cerrado)
+      ->with('tickets',$tickets);
     }
 
-
-       public function generarreporte(Request $request)//Dashboard
-    {
+    public function generarreporte(Request $request)
+    {//Dashboard
        if(Auth::check())
        {
         $ticket=new hd_reg_ticket;
@@ -100,62 +111,128 @@ class MainController extends Controller
         $ticket->cSistema= $request->cSistema;
         $ticket->CPrioridad= $request->cPrioridad;
         $ticket->CDesproblema=$request->cDesproblema;
-        $ticket->created_at=now();
+        $ticket->created_at=$hoy=date("Y-m-d");
 	      $ticket->nFolio_Users=Auth::user()->id;
-        $ticket->cComentarios=" ";
         $ticket->cEstado=1;
         $ticket->save();
-         $emails = array(Auth()->user()->email,"helpdesk@aparedes.com.mx");
+        $emails = array(Auth()->user()->email,"helpdesk@aparedes.com.mx");
       \Mail::to($emails)->send(new \App\Mail\notificaciones());
-        return  redirect('ticket');
-    }
+        return  redirect('panel');
+       } 
     }
       public  function recuperar(Request $request)
     {
     	return view ('recuperar');
-
     }
-    
      public  function panel()//panel
     {
-     
-    	return view('panelusuario');
-
+      $hd_categorias=hd_categoria::all();
+      $hd_sistemas=hd_sistema::all();
+      $hd_prioridad=hd_prioridad::all();
+      $abiertos= $hd_reg_tickets =DB::table('hd_reg_tickets')->
+      where('nFolio_Users',Auth()->user()->id)->
+      where('cEstado',2)->get()->count();
+      $cerrados= $hd_reg_tickets =DB::table('hd_reg_tickets')->
+      where('nFolio_Users',Auth()->user()->id)->
+      where('cEstado',5)->get()->count();
+      $proceso= $hd_reg_tickets =DB::table('hd_reg_tickets')->
+      where('nFolio_Users',Auth()->user()->id)->
+      where('cEstado',3)->get()->count();
+      $proceso= $hd_reg_tickets =DB::table('hd_reg_tickets')->
+      where('nFolio_Users',Auth()->user()->id)->
+      where('cEstado',3)->get()->count();
+      $fecha =DB::table('hd_reg_tickets')->
+      leftjoin('hd_users','hd_users.id','=','hd_reg_tickets.id')->
+      leftjoin('hd_estado','hd_estado.id','=','hd_reg_tickets.cEstado')->
+      leftjoin('hd_categorias','hd_categorias.id','=','hd_reg_tickets.cCategoria')->
+      leftjoin('hd_sistemas','hd_sistemas.id','=','hd_reg_tickets.cSistema')->
+      leftjoin('hd_prioridad','hd_prioridad.id','=','hd_reg_tickets.cPrioridad')->
+      select('hd_reg_tickets.created_at')->where('nFolio_Users',Auth()->user()->id)->OrderBy('hd_reg_tickets.id','desc')->get()->take(1);
+      $hd_reg_tickets =DB::table('hd_reg_tickets')->
+      leftjoin('hd_users','hd_users.id','=','hd_reg_tickets.id')->
+      leftjoin('hd_estado','hd_estado.id','=','hd_reg_tickets.cEstado')->
+      leftjoin('hd_categorias','hd_categorias.id','=','hd_reg_tickets.cCategoria')->
+      leftjoin('hd_sistemas','hd_sistemas.id','=','hd_reg_tickets.cSistema')->
+      leftjoin('hd_prioridad','hd_prioridad.id','=','hd_reg_tickets.cPrioridad')->
+      select('hd_reg_tickets.id','hd_reg_tickets.cTitulo','hd_categorias.cCategorias',
+         'hd_sistemas.cSistema','hd_prioridad.cNPrioridad','hd_reg_tickets.cDesProblema','hd_reg_tickets.created_at','hd_estado.id as idestado','hd_estado.ccEstado')->where('nFolio_Users',Auth()->user()->id)->get();
+    	return view('panelusuario')->with('hd_reg_tickets',$hd_reg_tickets)->
+     with('hd_categorias',$hd_categorias)->
+     with('hd_sistemas',$hd_sistemas)->with('hd_prioridad',$hd_prioridad)->with('abiertos',$abiertos)->with('cerrados',$cerrados)->with('proceso',$proceso)->with('fecha',$fecha);
     }
     public  function ticket()//Dashboard
     {
-        $hd_reg_tickets =DB::table('hd_reg_tickets')->
-          leftjoin('hd_users','hd_users.id','=','hd_reg_tickets.nFolio_Users')->leftjoin('hd_estado','hd_estado.id','=','hd_reg_tickets.cEstado')->select('hd_reg_tickets.id','hd_reg_tickets.cTitulo','hd_reg_tickets.cCategoria','hd_reg_tickets.cSistema','hd_reg_tickets.cPrioridad','hd_reg_tickets.cDesProblema','hd_users.cNombre','hd_reg_tickets.created_at','hd_estado.ccEstado','hd_reg_tickets.cRespuesta')
-         ->where('hd_reg_tickets.nFolio_Users','=',Auth::user()->id)->orderby('created_at','desc')->get();
-         return view('mostrartickets')->with('hd_reg_tickets',$hd_reg_tickets);
-    
-
+      $date = Carbon::now();
+      $date = $date->format('Y-m-d');
+      $hd_categorias=hd_categoria::all();
+      $hd_sistemas=hd_sistema::all();
+      $hd_prioridad=hd_prioridad::all();
+      $hd_reg_tickets= $hd_reg_tickets =DB::table('hd_reg_tickets')->
+      leftjoin('hd_users','hd_users.id','=','hd_reg_tickets.id')->
+      leftjoin('hd_estado','hd_estado.id','=','hd_reg_tickets.cEstado')->
+      leftjoin('hd_categorias','hd_categorias.id','=','hd_reg_tickets.cCategoria')->
+      leftjoin('hd_sistemas','hd_sistemas.id','=','hd_reg_tickets.cSistema')->
+      leftjoin('hd_prioridad','hd_prioridad.id','=','hd_reg_tickets.cPrioridad')->
+      select('hd_reg_tickets.id','hd_reg_tickets.cTitulo','hd_categorias.cCategorias',
+         'hd_sistemas.cSistema','hd_prioridad.cNPrioridad','hd_reg_tickets.cDesProblema','hd_reg_tickets.created_at','hd_estado.id as idestado','hd_estado.ccEstado')->get();
+      return view('mostrartickets')->with('hd_reg_tickets',$hd_reg_tickets)->with('hd_categorias',$hd_categorias)->
+     with('hd_sistemas',$hd_sistemas)->with('hd_prioridad',$hd_prioridad);
     }
-   
     public function modal()
     {
-      return view('modalticket');
+    
+     return view('modalticket');
     }
        public function verTicketU($id)//ver ticket usuario especifico
     {
-      $hd_reg_tickets= $hd_reg_tickets =DB::table('hd_reg_tickets')->leftjoin('hd_users','hd_users.id','=','hd_reg_tickets.id')
-      ->leftjoin('hd_estado','hd_estado.id','=','hd_reg_tickets.cEstado')->select('hd_reg_tickets.id','hd_reg_tickets.cTitulo','hd_reg_tickets.cCategoria','hd_reg_tickets.cSistema','hd_reg_tickets.cPrioridad','hd_reg_tickets.cDesProblema','hd_reg_tickets.created_at','hd_estado.id as idestado','hd_estado.ccEstado','hd_reg_tickets.cComentarios','hd_reg_tickets.cRespuesta')->where('hd_reg_tickets.id',$id)->get();
-      return view('detalleTusuario')->with('hd_reg_tickets',$hd_reg_tickets);
+      $hd_categorias=hd_categoria::all();
+      $hd_sistemas=hd_sistema::all();
+      $hd_prioridad=hd_prioridad::all();
+       $hd_estado=hd_estado::all();
+      $hd_comentarios=DB::table('hd_comentarios')->
+      leftjoin('hd_reg_tickets','hd_reg_tickets.id','=','hd_comentarios.nFolio_ticket')->
+      leftjoin('hd_users','hd_users.id','=','hd_comentarios.nUser_id')->select('hd_users.id','hd_comentarios.cComentarios','hd_users.cNombre','hd_users.badmin','hd_comentarios.created_at')->where('hd_reg_tickets.id',$id)->get();
+      $hd_reg_tickets=DB::table('hd_reg_tickets')->
+      leftjoin('hd_users','hd_users.id','=','hd_reg_tickets.nFolio_Users')->
+      leftjoin('hd_estado','hd_estado.id','=','hd_reg_tickets.cEstado')->
+      leftjoin('hd_categorias','hd_categorias.id','=','hd_reg_tickets.cCategoria')->
+      leftjoin('hd_sistemas','hd_sistemas.id','=','hd_reg_tickets.cSistema')->
+      leftjoin('hd_prioridad','hd_prioridad.id','=','hd_reg_tickets.cPrioridad')->
+      select('hd_reg_tickets.id','hd_reg_tickets.cTitulo','hd_categorias.cCategorias',
+         'hd_sistemas.cSistema','hd_prioridad.cNPrioridad','hd_reg_tickets.cDesProblema','hd_reg_tickets.created_at','hd_estado.id as idestado','hd_estado.ccEstado','hd_users.cNombre')->
+      where('hd_reg_tickets.id',$id)->get();
+      $comentarios=hd_comentario::where('nFolio_ticket',$id)->get();
+      return view('detalleTusuario')->with('hd_reg_tickets',$hd_reg_tickets)->with('comentarios',$comentarios)->with('hd_categorias',$hd_categorias)->with('hd_sistemas',$hd_sistemas)->with('hd_prioridad',$hd_prioridad)->with('hd_comentarios',$hd_comentarios);
     }
     public function actualizarCom($id,Request $request)
     {
-        $hd_reg_tickets= $hd_reg_tickets =DB::table('hd_reg_tickets')->leftjoin('hd_users','hd_users.id','=','hd_reg_tickets.id')
-      ->leftjoin('hd_estado','hd_estado.id','=','hd_reg_tickets.cEstado')->select('hd_reg_tickets.id','hd_reg_tickets.cTitulo','hd_reg_tickets.cCategoria','hd_reg_tickets.cSistema','hd_reg_tickets.cPrioridad','hd_reg_tickets.cDesProblema','hd_reg_tickets.created_at','hd_estado.id as idestado','hd_estado.ccEstado','hd_reg_tickets.cComentarios','hd_reg_tickets.cRespuesta')->where('hd_reg_tickets.id',$id)->get();
+       $hd_reg_tickets=DB::table('hd_reg_tickets')->
+      leftjoin('hd_users','hd_users.id','=','hd_reg_tickets.nFolio_Users')->
+      leftjoin('hd_estado','hd_estado.id','=','hd_reg_tickets.cEstado')->
+      leftjoin('hd_categorias','hd_categorias.id','=','hd_reg_tickets.cCategoria')->
+      leftjoin('hd_sistemas','hd_sistemas.id','=','hd_reg_tickets.cSistema')->
+      leftjoin('hd_prioridad','hd_prioridad.id','=','hd_reg_tickets.cPrioridad')->
+      select('hd_reg_tickets.id','hd_reg_tickets.cTitulo','hd_categorias.cCategorias',
+         'hd_sistemas.cSistema','hd_prioridad.cNPrioridad','hd_reg_tickets.cDesProblema','hd_reg_tickets.created_at','hd_estado.id as idestado','hd_estado.ccEstado','hd_users.cNombre')->
+      where('hd_reg_tickets.id',$id)->get();
         $cComentarios=$request->only('cComentarios');
         $cRespuesta=$request->only('cRespuesta');
-        $nuevos=hd_reg_ticket::find($id)->update($cComentarios,$cRespuesta);
+        $nuevos=hd_reg_ticket::find($id)->
+        update($cComentarios,$cRespuesta);
         return view('detalleTusuario')->with('hd_reg_tickets',$hd_reg_tickets);
+    } 
+    public function comentarios(Request $request,$id)
+    {
+      $comentarios=new hd_comentario(array(
+        'nFolio_ticket'=>$id,
+        'cComentarios'=>$request->get('cComentarios'),
+        'nUser_id'=>Auth()->user()->id,
+      ));
+      $comentarios->save();
+      return redirect()->back()->withSuccess('IT WORKS!');;
 
-      
-    }
+  }
 
-
-   
 }
 
 

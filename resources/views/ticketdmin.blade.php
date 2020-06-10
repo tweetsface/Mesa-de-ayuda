@@ -1,7 +1,7 @@
 @include('layout.head')
 @include('layout.barranav')
 @include('layout.sideadmin')
-<div class="buscador">
+<div class="buscador"style="margin=0%">
 <form  method="get" action="{{url('/aticket/buscar')}}"class="form-inline d-flex justify-content-center md-form form-sm active-purple active-purple-2 mt-2">
   <input class="form-control form-control-sm ml-3 w-75" name="id" type="text" placeholder="Buscar ticket"
     aria-label="Search">

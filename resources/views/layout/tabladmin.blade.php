@@ -1,6 +1,5 @@
-
 <div class="tabladmin">
-  <table class="table table-striped">
+  <table class="table  movera">
   <thead class="thead-dark">
     <tr>
       <th scope="col">#</th>
@@ -19,8 +18,8 @@
       <tr>
          <td>{!! $hd_reg_ticket->id!!}</td>
          <td>{!! $hd_reg_ticket->cTitulo !!}</td>
-         <td>{!! $hd_reg_ticket->cCategoria !!}</td>
-         <td>{!! $hd_reg_ticket->cPrioridad !!}</td>
+         <td>{!! $hd_reg_ticket->cCategorias !!}</td>
+         <td>{!! $hd_reg_ticket->cNPrioridad !!}</td>
          <td>{!!$hd_reg_ticket->created_at!!}</td>
          <td>{!!$hd_reg_ticket->cNombre!!} {!!$hd_reg_ticket->cApellidos!!} </td>
           <td>
@@ -41,3 +40,4 @@
        @endif
   </tbody>
 </table>
+</div>

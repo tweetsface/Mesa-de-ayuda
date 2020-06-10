@@ -1,28 +1,23 @@
 @include('layout.head')
 @include('layout.barranav')
 @include('layout.sideadmin')
-<div class="col-lg-6">
-    <div class="input-group">
-      <input type="text" class="form-control" placeholder="Buscar empleado">
-     </div>
-      <span class="input-group-btn">
-        <button class="btn btn-default" type="button">Buscar</button>
-      </span>
-  </div>
+<div class="panel panel-default" style=" position:relative; width:80%;  left:18%; top:13%; height:84%;" >
+   <form method="get"action="{{route('buscarUsuario')}}">
+  <div class="panel-heading" style="background-color: #2A9C9F;">
+    <span class="" style="color: white; font-weight: bold; font-size:1.5em;">
+    Usuarios
+  </span>
 </div>
-<div class="btnadd">
-<button type="button" class="btn btn-dark" data-toggle="modal" data-target="#myModal2"><i class="fa fa-plus-circle"></i><span>
-  Nuevo Usuario
+
+  <input type="text"  class="form-control" id="buscar"  name="buscar"  placeholder="Buscar" style="position:relative;left: 35%; width:30%; border:solid 1px; border-color:black;top:14px; border-radius: 0px;">
+   <button type="submit" style="position:relative;border:none;left:65%; background-color: #343a40; height:34px;  width:50px;bottom:20px; "><span class="fuente"><i class="fa fa-search"></i></span></button>
+  </form>
+  <button style="height:35px; width:100px; background-color: #26272b; color: white; border: none; border-radius: 4px; position:relative; bottom:67px; left:24.3%;  "type="button"  data-toggle="modal" data-target="#myModal2"><i class="fa fa-plus-circle"></i><span> Añadir 
 </span>
 </button>
-</div>
-@include('layout.modalregistro')
-<span> Nuevo Usuario</span>
-</div>
-<div class="moverausers">
-<div class="container-fluid">
-<table class="table table-striped">
-  <thead class="thead-dark">
+  <span class="total">Total: <span class="contar">{{$contar}}</span></span>
+<table class="table table-striped table-hover " >
+  <thead>
     <tr>
       <th scope="col">#</th>
       <th scope="col">NOMBRE(S)</th>
@@ -30,41 +25,34 @@
       <th scope="col">NO EMPLEADO</th>
       <th scope="col">CORREO</th>
       <th scope="col">PRIVILEGIOS</th>
-      <th scope="col">OTORGAR PRIVILEGIOS</th>
-      <th scope="col" width="16%">ACCIONES</th>
+      <th scope="col">ACCIONES</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      @foreach($hd_users as $hd_users)
-      <form method="post" action="{{route('ausuarios',$hd_users->id)}}">
+      @foreach($hd_users as $hd_user)
+      <form method="post" action="{{route('ausuarios',$hd_user->id)}}">
      {{ csrf_field() }}
       <tr>
-         <td>{!!$hd_users->id!!}</td>
-         <td>{!! $hd_users->cNombre !!}</td>
-         <td>{!! $hd_users->cApellidos !!}</td>
-         <td>{!!$hd_users->nEmpleado !!}</td>
-         <td><input type="text" name="email" id="email" value="{{$hd_users->email}}"></td>
-         <td>{!! $hd_users->cPrivilegios!!}</td>
-          <td><select name="badmin" >
-            <option value="{{$hd_users->badmin}}"></option>
-             @foreach($hd_privilegios as $hd_p)
-          <option  value="{{$hd_p->id}}">{!! $hd_p->cPrivilegios!!}</option>
-            @endforeach
-          </select>
+         <td>{!!$hd_user->id!!}</td>
+         <td>{!! $hd_user->cNombre !!}</td>
+         <td>{!! $hd_user->cApellidos !!}</td>
+         <td>{!!$hd_user->nEmpleado !!}</td>
+         <td>
+         {{$hd_user->email}}
         </td>
+         <td>{!!$hd_user->cPrivilegios!!}</td>
          <td >
-          <div class="btnupdate">
-          <input type="submit" class="btn btn-default" value="actualizar" >
-          </div>
+          <button  type="button"class="icon" data-id="{{$hd_user->id}}" data-cnombre="{{$hd_user->cNombre}}" data-capellidos="{{$hd_user->cApellidos}}" data-email="{{$hd_user->email}}" data-password="{{$hd_user->password}}"data-toggle="modal" data-target="#myModal3"><i class="fa fa-edit"></i></button>
         </form>
-          <div class="btnEliminar">
-          <input type="button" class="btn btn-default" name="" value="Eliminar">
-          </div>
         </td>
-           @endforeach
+         @include('layout.actualizarRegistro')
       </tr>
+       @endforeach
   </tbody>
 </table>
+<div class="paginacion">
+  {{$hd_users->links()}}
 </div>
 </div>
+@include('layout.modalregistro')

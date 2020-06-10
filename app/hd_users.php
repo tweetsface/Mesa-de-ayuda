@@ -3,13 +3,15 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Auth\Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Contracts\Auth\CanResetPassword;
-
-class hd_users extends Model implements AuthenticatableContract
+class hd_users extends Authenticatable implements MustVerifyEmail
 {   
-	use Authenticatable;
+
+    use Notifiable;
+
 
     public $table="hd_users";
     protected $casts = [
@@ -17,11 +19,9 @@ class hd_users extends Model implements AuthenticatableContract
     ];
     protected $fillable = ['cNombre','cApellidos','nEmpleado', 'email', 'password','badmin','sFoto','created_at'];
     protected $rememberTokenName = 'remember_token';
-
-	/**
-	 * The attributes excluded from the model's JSON form.
-	   */
-   
+    public static $rules = array(
+    'email' => 'email|required|unique:hd_users,email,id'
+);
 
     public function getbadmin()
     {

@@ -1,10 +1,21 @@
 @include('layout.head')
 @include('layout.barranav')
 @include('layout.sidebaruser')
- <div class="tabladetalles">
-  <table class="table table-bordered table-hover" name="tabla" id="tabla">
-  <thead class="thead-dark" >
-    <tr>
+<div class="panel panel-default moverp " style="height:25%; max-width:73%;">
+  <div class="panel-heading" style="background-color: #4ECDC4; color: white; font-weight: bold; font-size:1.5em;">Detalles</div>
+   <div class="panel-body">
+     @if(count($errors)>0)
+     <div class="alert alert-danger">
+       <ul>
+         @foreach($errors->all() as $error)
+         <li>{{$error}}</li>
+         @endforeach
+       </ul>
+     </div>
+     @endif
+     <table class="table">
+       <thead style="text-align: center;">
+         <tr>
       <th scope="col">#</th>
       <th scope="col">TITULO</th>
       <th scope="col">CATEGORIA</th>
@@ -13,48 +24,68 @@
       <th scope="col">DESCRIPCION</th>
       <th scope="col">FECHA</th>
       <th scope="col">ESTADO</th>
-      <th scope="col">Respuesta Administrador</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-    	  @foreach($hd_reg_tickets as $hd_reg_ticket)
-       <form method="post" action="{{route('actcomen',$hd_reg_ticket->id)}}">
-       	{{csrf_field()}}
-      <tr>
+         </tr>
+       </thead>
+       <tbody>
+         <tr>@foreach($hd_reg_tickets as $hd_reg_ticket)
+       <form method="post" action="{{route('addcomen',$hd_reg_ticket->id)}}">
+        {{csrf_field()}}
+         </tr>
          <td>{!! $hd_reg_ticket->id!!}</td>
          <td>{!! $hd_reg_ticket->cTitulo !!}</td>
-         <td>{!! $hd_reg_ticket->cCategoria !!}</td>
+         <td>{!! $hd_reg_ticket->cCategorias !!}</td>
          <td>{!! $hd_reg_ticket->cSistema !!}</td>
-         <td>{!! $hd_reg_ticket->cPrioridad !!}</td>
+         <td>{!! $hd_reg_ticket->cNPrioridad !!}</td>
          <td>{!! $hd_reg_ticket->cDesProblema !!}</td>
-         <td>{!!$hd_reg_ticket->created_at!!}</td>
+         <td><div class="label label-default">
+           {{date('d-m-Y', strtotime($hd_reg_ticket->created_at))}}
+         </div></td>
          <td>{!!$hd_reg_ticket->ccEstado!!}</td>
-         <td>{!!$hd_reg_ticket->cRespuesta!!}</td>
-      </tr>
-     
-
-  </tbody>
-</table>
+       </tbody>
+     </table>
 </div>
-<div class="contenedor">
-  <span class="lblres">Mensajes Enviados:</span>
-  <div class="respuesta">
-  <textarea  style="overflow-y=scroll; resize: none; color: black; " cols="135" rows="4" >{!!$hd_reg_ticket->cComentarios!!}</textarea>
-</div>
-<div class="contenedor2">
-  <span class="lblcom">Comentarios:</span>
-  <div class="comentarios">
-  <textarea name="cComentarios" style="resize: none; color: black;"cols="135" rows="8"></textarea>
-</div>
-<div class="btncom">
-<button type="submit"  class="btn btn-dark">Guardar</button>
-<a href="{{url('ticket')}}" class="btn btn-dark">Cancelar</a>
-  </form>
-   @endforeach
 </div>
 
+<div class="comentarios" style="border: none; right:50%; overflow-y:scroll; height:18%; margin-bottom:1%;">
+@foreach($hd_comentarios as $hd_comentarios)
+  @if($hd_comentarios->badmin==1)
+<div class="alert alert-info" style="margin-bottom: 8px; width: 40%; position: relative; margin-left: 60%;">
+<div class="content" style="height:0.2%;">
+  <div style="font-size:1em; position: relative;bottom:7px;" >
+  {{date('H:i', strtotime($hd_comentarios->created_at))}} 
+  {{$hd_comentarios->cNombre}}:{{$hd_comentarios->cComentarios}}
 </div>
-</form>
 </div>
-
+</div>
+@else
+  <div class="alert alert-success" style="margin-bottom: 8px; width: 40%;">
+<div class="content" style="height:0.2%;">
+  <div style="font-size:1em; position: relative;bottom:7px;" >
+{{date('H:i', strtotime($hd_comentarios->created_at))}} 
+{{$hd_comentarios->cNombre}}:{{$hd_comentarios->cComentarios}}
+</div>
+</div>
+</div>
+@endif
+  @endforeach
+</div>
+@endforeach
+<div class="panel panel-default moverp " style="height:35%; width:73%;">
+  <div class="panel-heading" style="background-color: #4ECDC4; color: white; font-weight: bold; font-size:1.5em;">Comentarios</div>
+   <div class="panel-body">
+     @if(count($errors)>0)
+     <div class="alert alert-danger">
+       <ul>
+         @foreach($errors->all() as $error)
+         <li>{{$error}}</li>
+         @endforeach
+       </ul>
+     </div>
+     @endif
+    <textarea name="cComentarios"  style="resize: none; color: black; border: none; margin-bottom: 8px; width: 100%;"cols="135" rows="6" ></textarea>
+    <button type="submit"  class="btn btn-dark">Guardar</button>
+<a href="{{url('/panel')}}" class="btn btn-dark">Cancelar</a>
+      </form>
+   </div>
+</div>
+@include('layout.modalticket')
