@@ -8,7 +8,7 @@
 </div>
 <div class="modal-body"  style="position:relative; bottom:50px;">
   <div class="modalregistro">
-     <form method="post" action="{{route('ausuarios',$hd_user->id)}}" id="formulario">
+     <form method="PUT" action="{{route('ausuarios',$hd_user->id)}}" id="formulario">
     {{ csrf_field()}}
                             <input type="hidden" name="id" value="{{$hd_user->id}}" id="id1">
                             <span class="col-md-1 col-md-offset-2 text-center"></span>

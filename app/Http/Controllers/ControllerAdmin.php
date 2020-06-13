@@ -27,6 +27,19 @@ class ControllerAdmin extends Controller
           select('hd_reg_tickets.id','hd_reg_tickets.cTitulo','hd_categorias.cCategorias','hd_sistemas.cSistema','hd_prioridad.cNPrioridad','hd_users.cNombre','hd_users.cApellidos','hd_reg_tickets.created_at','hd_estado.ccEstado')->get();
             return view('ticketdmin')->with('hd_reg_tickets',$hd_reg_tickets);
      }
+     public function buscarEntre(Request $request)//Dashboard
+     {
+        $desde=$request->only('desde');
+        $hasta=$request->only('hasta');
+       $hd_reg_tickets =DB::table('hd_reg_tickets')->
+          leftjoin('hd_users','hd_users.id','=','hd_reg_tickets.nFolio_Users')->
+          leftjoin('hd_estado','hd_estado.id','=','hd_reg_tickets.cEstado')->
+          leftjoin('hd_categorias','hd_categorias.id','=','hd_reg_tickets.cCategoria')->
+          leftjoin('hd_sistemas','hd_sistemas.id','=','hd_reg_tickets.cSistema')->
+          leftjoin('hd_prioridad','hd_prioridad.id','=','hd_reg_tickets.cPrioridad')->
+          select('hd_reg_tickets.id','hd_reg_tickets.cTitulo','hd_categorias.cCategorias','hd_sistemas.cSistema','hd_prioridad.cNPrioridad','hd_users.cNombre','hd_users.cApellidos','hd_reg_tickets.created_at','hd_estado.ccEstado')->whereBetween('hd_reg_tickets.created_at',[$desde,$hasta])->get();
+            return view('ticketdmin')->with('hd_reg_tickets',$hd_reg_tickets);
+     }
     public  function auser()
      {
       $hd_privilegios=hd_privilegio::all();
@@ -58,9 +71,7 @@ class ControllerAdmin extends Controller
       $hd_comentarios=DB::table('hd_comentarios')->
       leftjoin('hd_reg_tickets','hd_reg_tickets.id','=','hd_comentarios.nFolio_ticket')->
       leftjoin('hd_users','hd_users.id','=','hd_comentarios.nUser_id')->select('hd_users.id','hd_comentarios.cComentarios','hd_users.cNombre','hd_users.badmin','hd_comentarios.created_at')->where('hd_reg_tickets.id',$id)->get();
-
-
- $hd_reg_tickets=DB::table('hd_reg_tickets')->
+     $hd_reg_tickets=DB::table('hd_reg_tickets')->
       leftjoin('hd_users','hd_users.id','=','hd_reg_tickets.nFolio_Users')->
       leftjoin('hd_estado','hd_estado.id','=','hd_reg_tickets.cEstado')->
       leftjoin('hd_categorias','hd_categorias.id','=','hd_reg_tickets.cCategoria')->
@@ -69,10 +80,7 @@ class ControllerAdmin extends Controller
       select('hd_reg_tickets.id','hd_reg_tickets.cTitulo','hd_categorias.cCategorias',
          'hd_sistemas.cSistema','hd_prioridad.cNPrioridad','hd_reg_tickets.cDesProblema','hd_reg_tickets.created_at','hd_estado.id as idestado','hd_estado.ccEstado','hd_users.cNombre')->
       where('hd_reg_tickets.id',$id)->get();
-
-
-
-        return view('detalleticket')->with('hd_reg_tickets',$hd_reg_tickets)->
+      return view('detalleticket')->with('hd_reg_tickets',$hd_reg_tickets)->
       with('hd_estado',$hd_estado)->with('hd_comentarios',$hd_comentarios);
      }
      public function eliminarticket($id)
@@ -112,6 +120,7 @@ class ControllerAdmin extends Controller
         where('hd_users.id',$id)->get();
         $actualizar=hd_users::find($id)->update($datos);
         return redirect('/auser')->with('hd_users',$hd_users)->with('hd_privilegios',$hd_privilegios)->with('contar',$contar);
+  
        }
      public function correo() //PASAR DATOS A LA VISTA DEL TICKET POR EMAIL
      {

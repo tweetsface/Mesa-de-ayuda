@@ -29,7 +29,6 @@
 </div>
   <input type="text"  class="form-control" id="buscar"  name="buscar"  placeholder="Buscar" style="position:relative;left: 35%; width:30%; border:solid 1px; border-color:black;top:14px; border-radius: 0px;">
    <button type="submit" style="position:relative;border:none;left:65%; background-color: #343a40; height:34px;  width:50px;bottom:20px; "><span class="fuente"><i class="fa fa-search"></i></span></button>
-   
 <table class="table table-striped table-hover ">
   <thead>
     <tr>
@@ -45,7 +44,7 @@
        @foreach($tickets as $ticket)
       <tr>
          <td>{!!$ticket->id!!}</td>
-         <td> <span class="label label-info">{!!$ticket->created_at !!}</span></td>
+         <td> <span class="label label-info">{{date('d-m-Y', strtotime($ticket->created_at))}}</span></td>
          <td>{!! $ticket->ccEstado !!}</td>
          <td>
           @if( $ticket->cPrioridad==1)

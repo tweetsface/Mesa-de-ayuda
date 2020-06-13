@@ -28,6 +28,7 @@ Route::post('/panel','MainController@generarreporte')->name('ticket');
 Route::get('/ticket/view/{id}','MainController@verTicketu')->name('verTicketu');
 Route::post('/ticket/view/{id}/agregar','MainController@comentarios')->name('addcomen');
 Route::get('/aticket','ControllerAdmin@ticket')->name('aticket'); 
+Route::get('/aticket/entre','ControllerAdmin@buscarEntre')->name('buscarE');
 Route::get('/aticket/buscar','ControllerAdmin@buscarTickets')->name('buscart');
 Route::get('/aticket/ver/{id}','ControllerAdmin@detalleticket')->name('verticket'); 
 Route::post('/aticket/ver/{id}/actualizar','ControllerAdmin@actualizarestado')
@@ -38,7 +39,7 @@ Route::get('/aticket/borrar/{id}', 'ControllerAdmin@eliminarticket')->name('borr
 Route::get('/auser', 'ControllerAdmin@auser')->name('auser');
 Route::get('/auser/buscar', 'ControllerAdmin@scopeUsuario')->name('buscarUsuario');
 Route::post('/auser', 'MainController@registrarusuario')->name('registrarU');//Se reutilizo el metodo
-Route::post('/auser/{id}/actualizar', 'ControllerAdmin@actualizaUsuarios')->name('ausuarios');
+Route::get('/auser/{id}/actualizar', 'ControllerAdmin@actualizaUsuarios')->name('ausuarios');
 Route::get('/reportes', 'ControllerAdmin@gReportes')->name('gReportes');
 Route::post('/reportes', 'ControllerAdmin@cReportes');
 Route::get('/export-users', 'ExcelController@incidencias');

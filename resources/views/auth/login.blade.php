@@ -5,10 +5,12 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximun-scale=1">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <style type="text/css">
 body
  {
+    height: 100vh;
    background-image: url("img/desenfoque5.jpg");
    background-position: center center;
    background-repeat: no-repeat;
@@ -61,8 +63,8 @@ input[type="password"]
 .recovery
 {
   position: absolute;
-  top:344px;
-  left: 990px;
+  top:345px;
+  left: 985px;
   font-color: white;
   text-decoration: none;
 
@@ -81,10 +83,16 @@ a:link,a:visited,a:active{
   -moz-appearence:button;
   appearance:button;
 }
+.movertxt
+{
+ position: absolute;
+ top: 4px;
+ right: 90px;
+}
 .btnlogin
 {
   position: absolute;
-  top:365px;
+  top:370px;
   left: 904px;
   width:250px;
   height:35px;
@@ -99,7 +107,7 @@ a:link,a:visited,a:active{
 .btnRegistrar
 {
   position: absolute;
-  top:405px;
+  top:410px;
   left: 904px;
   width:250px;
   height:35px;
@@ -156,7 +164,7 @@ a:link,a:visited,a:active{
      <input type="submit" name="login" class="btnlogin" value="Iniciar Sesion" />
    </div>
      <div class="form-group">
-     <a href="{{url('/registrar')}}" class="btnRegistrar">Registrarse</a>
+     <a href="{{url('/registrar')}}" class="btnRegistrar"><span class="movertxt">Registrarse</span></a>
      </div>
     </div>
    </form>
