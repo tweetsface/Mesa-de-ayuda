@@ -16,7 +16,7 @@ Route::get('/login','MainController@index')->name('login');
 Route::post('/login/checklogin','MainController@checklogin');
 Route::get('/login/logout','MainController@logout')->name('salir');
 Route::get('/registrar','MainController@registrar');
-Route::post('/registrar','MainController@registrarusuario');
+Route::post('/registrar','MainController@registrarusuario')->name('registrar');
 Route::get('/login/recuperar','MainController@recuperar')->name('recuperar');
 Route::post('/login/recuperar','MainController@forgotpassword');
 Route::get('/dashboard','MainController@dashboard')->name('dashboard')
@@ -37,9 +37,10 @@ Route::post('/aticket/ver/{id}/actualizar/comentario','ControllerAdmin@resTicket
 ->name('resTicket');
 Route::get('/aticket/borrar/{id}', 'ControllerAdmin@eliminarticket')->name('borrarticket');
 Route::get('/auser', 'ControllerAdmin@auser')->name('auser');
+Route::get('/auser/{id}', 'ControllerAdmin@infoauser')->name('infoauser');
 Route::get('/auser/buscar', 'ControllerAdmin@scopeUsuario')->name('buscarUsuario');
 Route::post('/auser', 'MainController@registrarusuario')->name('registrarU');//Se reutilizo el metodo
-Route::get('/auser/{id}/actualizar', 'ControllerAdmin@actualizaUsuarios')->name('ausuarios');
+Route::put('/auser/{id}/actualizar', 'ControllerAdmin@actualizaUsuarios')->name('ausuarios');
 Route::get('/reportes', 'ControllerAdmin@gReportes')->name('gReportes');
 Route::post('/reportes', 'ControllerAdmin@cReportes');
 Route::get('/export-users', 'ExcelController@incidencias');

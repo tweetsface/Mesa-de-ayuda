@@ -31,10 +31,9 @@
   <tbody>
     <tr>
       @foreach($hd_users as $hd_user)
-      <form method="post" action="{{route('ausuarios',$hd_user->id)}}">
-     {{ csrf_field() }}
       <tr>
          <td>{!!$hd_user->id!!}</td>
+         {{ csrf_field() }}
          <td>{!! $hd_user->cNombre !!}</td>
          <td>{!! $hd_user->cApellidos !!}</td>
          <td>{!!$hd_user->nEmpleado !!}</td>
@@ -43,10 +42,12 @@
         </td>
          <td>{!!$hd_user->cPrivilegios!!}</td>
          <td >
-          <button  type="button"class="icon" data-id="{{$hd_user->id}}" data-cnombre="{{$hd_user->cNombre}}" data-capellidos="{{$hd_user->cApellidos}}" data-email="{{$hd_user->email}}" data-password="{{$hd_user->password}}"data-toggle="modal" data-target="#myModal3"><i class="fa fa-edit"></i></button>
+          <button  type="button"class="icon" data-cNombre="{{$hd_user->cNombre}}"  data-capellidos="{{$hd_user->cApellidos}}" data-email="{{$hd_user->email}}" data-badmin="{{$hd_user->badmin}}"  data-password="{{$hd_user->password}}" data-toggle="modal" data-target="#myModal3"><i class="fa fa-edit"></i></button>
         </form>
         </td>
+        <div>
          @include('layout.actualizarRegistro')
+         </div>
       </tr>
        @endforeach
   </tbody>

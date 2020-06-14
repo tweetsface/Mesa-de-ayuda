@@ -80,7 +80,7 @@ class MainController extends Controller
         $add->password = bcrypt($request->password);
         $add->badmin =0;
         $add->save();
-        return redirect('auser');
+        return redirect('/login');
     }
      public function  dashboard()//Dashboard
     {

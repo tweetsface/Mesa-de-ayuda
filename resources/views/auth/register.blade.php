@@ -2,10 +2,14 @@
 <html  lang="es">
 <head>
   <meta charset="UTF-8">
-<link rel="stylesheet" href="{{ asset('css/estilos.css') }}" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+
+
 <style type="text/css">
 body
  {
@@ -209,7 +213,7 @@ right: 130px;
                             </div>
                         <div class="form-group">
                             <div class="col-md-12 text-center">
-                               <button type="submit" class="btnRegistrar" >Registrarse</button>
+                               <button id="enviarDatos" type="submit" class="btnRegistrar" onclick="passwordMatch()"  >Registrarse</button>
                             </div>
                              
                              <a href="{{url('/login')}}" class="btnCancelar"><span class="movertxt">Cancelar</span></a>
@@ -219,6 +223,56 @@ right: 130px;
         </div>
     </div>
 </div>
+
 </body>
+<script type="text/javascript">
+var password, password2;
+password = document.getElementById('password');
+password2 = document.getElementById('password2');
+password.onchange = password2.onkeyup = passwordMatch;
+function passwordMatch() {
+    if(password.value !== password2.value)
+        password2.setCustomValidity('Las contraseñas no coinciden.');
+    else
+        password2.setCustomValidity('');
+        enviarDatosf();
+
+
+}
+function enviarDatosf(){
+$.ajaxSetup({
+     headers: {
+         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')     
+     }
+ }); 
+ ('#enviarDatos').click(function(){
+       var cNombre,cApellidos,nEmpleado,email,password;
+       cNombre=document.getElementById('cNombre');
+       cApellidos=document.getElementById('cApellidos');
+       nEmpleado=document.getElementById('nEmpleado');
+       email=document.getElementById('email');
+      password=document.getElementById('password');
+        $.ajax({
+          url:$('#formulario').attr('action'),
+          data:{'cNombre':cNombre,'cApellidos':cApellidos,'nEmpleado':nEmpleado,'email':email,'password':password},
+          type:'post',
+          success: function (response) {
+                      alert(response);
+                      alert("Usuario Registrado Correctamente");
+          },
+          statusCode: {
+             404: function() {
+                alert('web not found');
+             }
+          },
+          error:function(x,xs,xt){
+              //nos dara el error si es que hay alguno
+              window.open(JSON.stringify(x));
+              //alert('error: ' + JSON.stringify(x) +"\n error string: "+ xs + "\n error throwed: " + xt);
+          }
+       });
+});
+}
+ </script>
 
 </html>
