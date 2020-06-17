@@ -21,7 +21,7 @@
   </div>
 </div>
 </div>
-<div class="panel panel-default" style=" position:relative; width:80%;left:18%; top:9%; height:65%; border: none;" >
+<div class="panel panel-default" style=" position:relative; width:80%;left:18%; top:9%; height:70%; border: none;" >
   <div class="panel-heading" style="background-color: #2A9C9F;">
     <span class="" style="color: white; font-weight: bold; font-size:1.5em;">
     Dashboard

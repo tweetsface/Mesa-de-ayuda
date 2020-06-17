@@ -40,7 +40,7 @@ Route::get('/auser', 'ControllerAdmin@auser')->name('auser');
 Route::get('/auser/{id}', 'ControllerAdmin@infoauser')->name('infoauser');
 Route::get('/auser/buscar', 'ControllerAdmin@scopeUsuario')->name('buscarUsuario');
 Route::post('/auser', 'MainController@registrarusuario')->name('registrarU');//Se reutilizo el metodo
-Route::put('/auser/{id}/actualizar', 'ControllerAdmin@actualizaUsuarios')->name('ausuarios');
+Route::post('/auser/{id}/actualizar', 'ControllerAdmin@actualizaUsuarios')->name('ausuarios');
 Route::get('/reportes', 'ControllerAdmin@gReportes')->name('gReportes');
 Route::post('/reportes', 'ControllerAdmin@cReportes');
 Route::get('/export-users', 'ExcelController@incidencias');

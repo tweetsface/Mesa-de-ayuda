@@ -13,6 +13,7 @@
           modal.find('.modal-body #cApellidos1').val(cApellidos);
           modal.find('.modal-body #email1').val(email);
           modal.find('.modal-body #password1').val(password);
+          
       });
 
 </script>
@@ -103,7 +104,7 @@
         $.ajax({
           url:"{{route('ausuarios',$hd_user->id)}}",
           data:{'cNombre':cNombre,'cApellidos':cApellidos,'badmin':badmin,'email':email,'password':password},
-          type:'post',
+          type:'put',
           success: function (response) {
                       alert("Usuario Actualizado Correctamente");
           },

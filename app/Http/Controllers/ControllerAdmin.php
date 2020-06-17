@@ -13,7 +13,7 @@ use App\hd_comentario;
 use Auth;
 use Mail;
 use Carbon\Carbon;
-
+use Response;
 class ControllerAdmin extends Controller
 {
     public function ticket()//Dashboard
@@ -55,8 +55,8 @@ class ControllerAdmin extends Controller
       $contar=hd_users::all()->count();
       $hd_users=DB::table('hd_users')->
       leftjoin('hd_privilegios','hd_privilegios.id','=','hd_users.badmin')->
-      select('hd_users.id','hd_users.cNombre','hd_users.cApellidos','hd_users.nEmpleado','hd_users.email','hd_users.badmin','hd_privilegios.cPrivilegios','hd_users.password')->where('id',$id);
-      return view('ausers')->with('hd_privilegios',$hd_privilegios)->with('contar',$contar)->with('hd_users',$hd_users);
+      select('hd_users.id','hd_users.cNombre','hd_users.cApellidos','hd_users.nEmpleado','hd_users.email','hd_users.badmin','hd_privilegios.cPrivilegios','hd_users.password')->where('hd_users.id',$id)->get();
+      return Response::json($hd_users,200);
      }
 
     public function scopeUsuario(Request $request)
@@ -117,7 +117,7 @@ class ControllerAdmin extends Controller
           }
          }
 
-       public function actualizaUsuarios(Request $request,$id,hd_users $user)
+       public function actualizaUsuarios(Request $request,$id)
        {
         $datos=$request->only(['cNombre','cApellidos','email','password','badmin','cPrivilegios']);
         $datos['password'] = bcrypt($datos['password']);
@@ -127,7 +127,9 @@ class ControllerAdmin extends Controller
         leftjoin('hd_privilegios','hd_privilegios.id','=','hd_users.badmin')->
         select('hd_users.id','hd_users.cNombre','hd_users.cApellidos','hd_users.nEmpleado','hd_users.email','hd_users.badmin','hd_privilegios.cPrivilegios')->
         where('hd_users.id',$id)->get();
-       $this->validate($request, ['email'=>'required'|'email'|'unique:hd_users,email,'.$hd_users->id]);
+        $this->validate($request, [
+      'email'   => 'required|email|unique:hd_users,email,'.$id,
+        ]);
         $actualizar=hd_users::find($id)->update($datos);
         return redirect('/auser')->with('hd_users',$hd_users)->with('hd_privilegios',$hd_privilegios)->with('contar',$contar);
        }

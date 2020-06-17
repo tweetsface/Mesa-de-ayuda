@@ -161,7 +161,7 @@ right: 130px;
     <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <div class="well" style="position:absolute;height:500px;top:80px;left:400px;">
+            <div class="well" style="position:absolute;height:500px;top:80px;left:400px; border-radius:20px;">
                 <span class="registroUsuario">Registro de usuario</span>
                 <span class="sapi">AGRICOLA PAREDES</span>
                 <form  class="form-horizontal" method="post" >
@@ -258,7 +258,7 @@ $.ajaxSetup({
           type:'post',
           success: function (response) {
                       alert(response);
-                      alert("Usuario Registrado Correctamente");
+                       Swal.fire('Registro Exitos','Se ha registrado el usuario correcta','success')
           },
           statusCode: {
              404: function() {

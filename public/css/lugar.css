@@ -680,9 +680,10 @@ font-size: 3em;
 }
 .paginacion
 {
-	position: relative;
-	bottom:2%;
-	margin-left: 84%;
+	position: absolute;
+	bottom:0.5%;
+	margin-left: 75%;
+	width:200px;
 }
 .usumover
 {

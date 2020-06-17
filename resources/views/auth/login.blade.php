@@ -3,6 +3,13 @@
  <head>
   <title>Agricola Paredes</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="sweetalert2/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <meta name="viewport" content="width=device-width,initial-scale=1,maximun-scale=1">
@@ -132,20 +139,17 @@ a:link,a:visited,a:active{
  <body>
  <span class="AGRICOLA">AGRICOLA</span><span class="PAREDES"> PAREDES</span>
  @if ($message = Session::get('error'))
-   <div class="alert alert-danger alert-block">
-    <button type="button" class="close" data-dismiss="alert">×</button>
-    <strong>{{ $message }}</strong>
-   </div>
+    <script type="text/javascript">
+      Swal.fire('Fallo el inicio de Sesion','{{$message}}','error')
+      </script>
    @endif
-
    @if (count($errors) > 0)
-    <div class="alert alert-danger">
-     <ul>
+    
      @foreach($errors->all() as $error)
-      <li>{{ $error }}</li>
+      <script type="text/javascript">
+      Swal.fire('Fallo el inicio de Sesion','{{$error}}','error')
+      </script>
      @endforeach
-     </ul>
-    </div>
    @endif
    <form method="post" action="{{ url('/login/checklogin') }}">
     {{ csrf_field() }}
