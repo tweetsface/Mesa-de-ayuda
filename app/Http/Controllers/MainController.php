@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Validator ;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Mail;
+use Response;
 use Carbon\Carbon;
 
  
@@ -68,10 +69,7 @@ class MainController extends Controller
 
     public function registrarusuario(Request $request)
     {
-      $this->validate($request, [
-       'email'   => 'required|email|unique:hd_users',
-       'password'  => 'required|min:8'
-         ]);
+  
     	$add=new hd_users;
         $add->cNombre= $request->cNombre;
         $add->cApellidos= $request->cApellidos;
@@ -79,8 +77,12 @@ class MainController extends Controller
         $add->email= $request->email;
         $add->password = bcrypt($request->password);
         $add->badmin =0;
+        $this->validate($request, [
+       'email'   => 'required|email|unique:hd_users',
+       'password'  => 'required|min:8'
+        ]);
         $add->save();
-        return redirect('/login');
+        return Response::json($add,200);
     }
      public function  dashboard()//Dashboard
     {
@@ -95,7 +97,7 @@ class MainController extends Controller
       ->orWhere('cEstado',2)
       ->orWhere('cEstado',3)
       ->orWhere('cEstado',4)
-      ->paginate(6);
+      ->get();
       return view('paneladministrador')->with('abierto',$abierto)->with('proceso',$proceso)
       ->with('cerrado',$cerrado)
       ->with('tickets',$tickets);

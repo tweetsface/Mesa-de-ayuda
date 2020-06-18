@@ -61,16 +61,17 @@ class ControllerAdmin extends Controller
 
     public function scopeUsuario(Request $request)
     {
-        $contar=hd_users::all()->count();
+       $contar=hd_users::all()->count();
        $hd_privilegios=hd_privilegio::all();
-        $hd_users =DB::table('hd_users')->
-      leftjoin('hd_privilegios','hd_privilegios.id','=','hd_users.badmin')->
-      select('hd_users.id','hd_users.cNombre','hd_users.cApellidos','hd_users.nEmpleado','hd_users.email','hd_users.badmin','hd_privilegios.cPrivilegios','hd_users.password')->
+       $hd_users =DB::table('hd_users')->
+       leftjoin('hd_privilegios','hd_privilegios.id','=','hd_users.badmin')->
+       select('hd_users.id','hd_users.cNombre','hd_users.cApellidos','hd_users.nEmpleado','hd_users.email','hd_users.badmin','hd_privilegios.cPrivilegios','hd_users.password')->
         where(DB::raw('CONCAT(cNombre," ",cApellidos)'),'LIKE', "%{$request->input('buscar')}%")
         ->orWhere('email', 'LIKE', "%{$request->input('buscar')}%")
         ->orWhere('cApellidos', 'LIKE', "%{$request->input('buscar')}%")
         ->orWhere('nEmpleado', 'LIKE', "%{$request->input('buscar')}%")
         ->paginate(5);
+
     return view('ausers')->with('hd_users',$hd_users)->with('hd_privilegios',$hd_privilegios)->with('contar',$contar);
   }
 

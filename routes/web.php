@@ -37,7 +37,7 @@ Route::post('/aticket/ver/{id}/actualizar/comentario','ControllerAdmin@resTicket
 ->name('resTicket');
 Route::get('/aticket/borrar/{id}', 'ControllerAdmin@eliminarticket')->name('borrarticket');
 Route::get('/auser', 'ControllerAdmin@auser')->name('auser');
-Route::get('/auser/{id}', 'ControllerAdmin@infoauser')->name('infoauser');
+Route::get('/auser/{id}/buscar', 'ControllerAdmin@infoauser')->name('infoauser');
 Route::get('/auser/buscar', 'ControllerAdmin@scopeUsuario')->name('buscarUsuario');
 Route::post('/auser', 'MainController@registrarusuario')->name('registrarU');//Se reutilizo el metodo
 Route::post('/auser/{id}/actualizar', 'ControllerAdmin@actualizaUsuarios')->name('ausuarios');

@@ -681,7 +681,7 @@ font-size: 3em;
 .paginacion
 {
 	position: absolute;
-	bottom:0.5%;
+	bottom:0.2%;
 	margin-left: 75%;
 	width:200px;
 }
@@ -773,4 +773,10 @@ left:80px;
 	bottom:1%;
 	margin-left: 84%;
 
+}
+.dcard
+{
+	position:absolute;
+	width:400px;
+	left:500px;
 }

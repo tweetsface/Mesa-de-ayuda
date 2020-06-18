@@ -3,10 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-
-<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="sweetalert2/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"></script>
+
 
 
 
@@ -154,8 +158,6 @@ right: 130px;
 </style>
   <title>Agricola Paredes</title>
 </head>
-<script type="text/javascript">
-</script>
 <body>
     <span class="AGRICOLA">AGRICOLA</span><span class="PAREDES"> PAREDES</span>
     <div class="container">
@@ -164,8 +166,7 @@ right: 130px;
             <div class="well" style="position:absolute;height:500px;top:80px;left:400px; border-radius:20px;">
                 <span class="registroUsuario">Registro de usuario</span>
                 <span class="sapi">AGRICOLA PAREDES</span>
-                <form  class="form-horizontal" method="post" >
-                    {{ csrf_field() }}
+                <form  class="form-horizontal"  >
                         <div class="form-group">
                             <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-user bigicon"></i></span>
                             <div class="col-md-8">
@@ -213,7 +214,7 @@ right: 130px;
                             </div>
                         <div class="form-group">
                             <div class="col-md-12 text-center">
-                               <button id="enviarDatos" type="submit" class="btnRegistrar" onclick="passwordMatch()"  >Registrarse</button>
+                               <button id="enviarDatos" type="button" class="btnRegistrar"   >Registrarse</button>
                             </div>
                              
                              <a href="{{url('/login')}}" class="btnCancelar"><span class="movertxt">Cancelar</span></a>
@@ -223,42 +224,38 @@ right: 130px;
         </div>
     </div>
 </div>
-
-</body>
 <script type="text/javascript">
-var password, password2;
-password = document.getElementById('password');
-password2 = document.getElementById('password2');
-password.onchange = password2.onkeyup = passwordMatch;
-function passwordMatch() {
-    if(password.value !== password2.value)
-        password2.setCustomValidity('Las contraseñas no coinciden.');
-    else
-        password2.setCustomValidity('');
-        enviarDatosf();
-
-
-}
-function enviarDatosf(){
-$.ajaxSetup({
+ $('#enviarDatos').click( function (e) {
+      e.preventDefault();
+      $.ajaxSetup({
      headers: {
          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')     
      }
- }); 
- ('#enviarDatos').click(function(){
+    }); 
        var cNombre,cApellidos,nEmpleado,email,password;
-       cNombre=document.getElementById('cNombre');
-       cApellidos=document.getElementById('cApellidos');
-       nEmpleado=document.getElementById('nEmpleado');
-       email=document.getElementById('email');
-      password=document.getElementById('password');
+       cNombre=document.getElementById('cNombre').value;
+       cApellidos=document.getElementById('cApellidos').value;
+       nEmpleado=document.getElementById('nEmpleado').value;
+       email=document.getElementById('email').value;
+       password=document.getElementById('password').value;
         $.ajax({
-          url:$('#formulario').attr('action'),
+          url:"{{route('registrar')}}",
           data:{'cNombre':cNombre,'cApellidos':cApellidos,'nEmpleado':nEmpleado,'email':email,'password':password},
           type:'post',
           success: function (response) {
-                      alert(response);
-                       Swal.fire('Registro Exitos','Se ha registrado el usuario correcta','success')
+            Swal.fire('Registro Exitoso','Se ha registrado el usuario con exito','success')
+            Swal.fire({
+                       title: 'Registro Exitoso',
+                       text: "Se ha registrado el usuario con exito",
+                       icon: 'success',
+                       confirmButtonColor: '#3085d6',
+                       confirmButtonText: 'Aceptar'
+              }).then((result) => {
+               if (result.value) {
+                 window.location.href="{{route('login')}}"
+                                  }
+                  })
+              
           },
           statusCode: {
              404: function() {
@@ -266,13 +263,13 @@ $.ajaxSetup({
              }
           },
           error:function(x,xs,xt){
-              //nos dara el error si es que hay alguno
-              window.open(JSON.stringify(x));
-              //alert('error: ' + JSON.stringify(x) +"\n error string: "+ xs + "\n error throwed: " + xt);
+             Swal.fire('Ha ocurrido un error',"Ocurrio un error al registar el usuario,intente nuevamente",'error')
           }
-       });
-});
-}
+})
+         });
  </script>
+
+
+</body>
 
 </html>

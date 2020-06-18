@@ -1,8 +1,7 @@
   @include('layout.head')
   @include('layout.barranav')
   @include('layout.sideadmin')
- <div class="panel panel-default moverp " style="height:25%; width:73%;">
-  <div class="panel-heading" style="background-color: #4ECDC4; color: white; font-weight: bold; font-size:1.5em;">Detalles</div>
+ <div class="panel panel-default moverp " style="height:25%; width:73%; border: none;">
    <div class="panel-body">
      @if(count($errors)>0)
      <div class="alert alert-danger">
@@ -58,9 +57,15 @@
      </table>
 </div>
 </div>
- <form method="post" action="{{route('addcomen',$hd_reg_ticket->id)}}">
+<div class="panel panel-default moverp " style="height:55%; width:73%; border: none;background-color:#F3F3F3;">
+  <div class="panel-heading" style="background-color:#47B9C2;color: white;font-weight:bold; font-size:1.3em;">RESPUESTA TICKET</div>
+   <div class="panel-body">
+    <div class="well" style="background-color: white; height:280px;">
+        <form method="post" action="{{route('addcomen',$hd_reg_ticket->id)}}">
+      <label for="cComentarios">Agregar Respuesta:</label>
+    <textarea name="cComentarios" style="resize: none; color: black; border:1px solid;outline:none;"cols="130" rows="3"></textarea>
       {{csrf_field()}}
-<div class="comentarios" style="border: none; right:50%; overflow-y:scroll; height:16%; margin-top:8%;">
+<div class="comentarios" style="border: none; right:55%; overflow-y:scroll; height:40%; margin-top:2%;">
   @foreach($hd_comentarios as $hd_comentarios)
   @if($hd_comentarios->badmin==1)
    <div class="alert alert-success" style="margin-bottom: 8px; width: 40%; position: relative; margin-left: 60%;">
@@ -82,23 +87,10 @@
   @endforeach
 </div>
 @endforeach
-<div class="panel panel-default moverp " style="height:35%; width:73%; margin-top:15px;">
-  <div class="panel-heading" style="background-color: #4ECDC4; color: white; font-weight: bold; font-size:1.5em;">Comentarios</div>
-   <div class="panel-body">
-     @if(count($errors)>0)
-     <div class="alert alert-danger">
-       <ul>
-         @foreach($errors->all() as $error)
-         <li>{{$error}}</li>
-         @endforeach
-       </ul>
-     </div>
-     @endif
-    <textarea name="cComentarios" style="resize: none; color: black; border: none;"cols="135" rows="6"></textarea>
-    <div class="btncom">
     <button type="submit"  class="btn btn-dark"><i class="fa fa-save"></i> Guardar</button>
 <a href="{{url('/panel')}}" class="btn btn-dark"><i class="fa fa-window-close"  aria-hidden="true"></i> Cancelar</a>
-</div>
 </form>
+      
+    </div>
    </div>
-</div>
+ </div>

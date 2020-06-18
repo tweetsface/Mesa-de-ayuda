@@ -27,8 +27,7 @@
     Dashboard
   </span>
 </div>
-  <input type="text"  class="form-control" id="buscar"  name="buscar"  placeholder="Buscar" style="position:relative;left: 35%; width:30%; border:solid 1px; border-color:black;top:14px; border-radius: 0px;">
-   <button type="submit" style="position:relative;border:none;left:65%; background-color: #343a40; height:34px;  width:50px;bottom:20px; "><span class="fuente"><i class="fa fa-search"></i></span></button>
+<div class="panel panel-body" style="overflow-y:scroll; ">
 <table class="table table-striped table-hover ">
   <thead>
     <tr>
@@ -64,7 +63,5 @@
        @endforeach
   </tbody>
 </table>
-<div class="paginacion">
-{{$tickets->links()}}
 </div>
 
