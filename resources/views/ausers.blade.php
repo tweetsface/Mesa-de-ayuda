@@ -35,13 +35,15 @@
      Usuarios
     </span>
 </div>
-   <input type="text"  class="form-control" id="buscar"  name="buscar"  placeholder="Buscar" style="position:relative;left: 35%; width:30%; border:solid 1px; border-color:black;top:14px; border-radius: 0px;">
+
+   <input type="text"  class="form-control" id="buscar"  name="buscar"  placeholder="Buscar usuario" style="position:relative;left: 35%; width:30%; border:solid 1px; border-color:black;top:14px; border-radius: 0px;">
    <button type="submit" style="position:relative;border:none;left:65%; background-color: #343a40; height:34px;  width:50px;bottom:20px; "><span class="fuente"><i class="fa fa-search"></i></span></button>
   </form>
   <button style="height:35px; width:100px; background-color: #26272b; color: white; border: none; border-radius: 4px; position:relative; bottom:67px; left:24.3%;  "type="button"  data-toggle="modal" data-target="#myModal2"><i class="fa fa-plus-circle"></i><span> Añadir 
 </span>
 </button>
   <span class="total">Total: <span class="contar">{{$contar}}</span></span>
+  <div class="panel panel-body" style="overflow-y: scroll; height:66%;">
 <table class="table table-striped table-hover " >
   <thead>
     <tr>
@@ -65,10 +67,14 @@
          <td>
          {{$hd_user->email}}
         </td>
-         <td>{!!$hd_user->cPrivilegios!!}</td>
+         <td>@if( $hd_user->cPrivilegios=="ADMIN")
+          <span class="label label-primary">{!!$hd_user->cPrivilegios!!}</span>
+          @else
+           <span class="label label-info">{!!$hd_user->cPrivilegios!!}</span>
+           @endif
          <td >
           <button  type="button" id="modal"
-          onclick="llenarModal('{{$hd_user->id}}')" class="icon" data-toggle="modal" data-target="#myModal3"><i class="fa fa-edit"></i></button>
+          onclick="llenarModal('{{$hd_user->id}}')" class="btn btn-dark" data-toggle="modal" data-target="#myModal3">Modificar</button>
         </td>
         <div>
 
@@ -77,8 +83,8 @@
        @endforeach
   </tbody>
 </table>
-  {{$hd_users->links()}}
 </div> 
+</div>
 @include('layout.actualizarRegistro')
 </div>
 @include('layout.modalregistro')

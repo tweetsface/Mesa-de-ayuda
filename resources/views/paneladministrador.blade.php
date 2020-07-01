@@ -21,13 +21,16 @@
   </div>
 </div>
 </div>
-<div class="panel panel-default" style=" position:relative; width:80%;left:18%; top:9%; height:70%; border: none;" >
+<div class="panel panel-default" style=" position:relative; width:80%;left:18%; top:9%; border: none;" >
   <div class="panel-heading" style="background-color: #2A9C9F;">
     <span class="" style="color: white; font-weight: bold; font-size:1.5em;">
     Dashboard
+@foreach($fecha as $fecha)
+<span class="antiguof" style="position:relative; left:710px; font-size:0.8em;">Ticket mas antiguo:{{date('d-m-Y', strtotime($fecha->created_at))}}</span>
+@endforeach
   </span>
 </div>
-<div class="panel panel-body" style="overflow-y:scroll; ">
+<div class="panel panel-body" style="overflow-y:scroll; height:60%; ">
 <table class="table table-striped table-hover ">
   <thead>
     <tr>
@@ -56,7 +59,7 @@
           </td>
          <td>{!!$ticket->cDesProblema !!}</td>
          <td>
-          <a href="{{route('verticket',$ticket->id)}}" style="text-align: center;" type="submit" class="icon"><i class="fa fa-eye"></i></a>
+          <a href="{{route('verticket',$ticket->id)}}" style="text-align: center;" type="submit" class="btn btn-dark">Detalles</a>
       </form>
         </td>
       </tr>

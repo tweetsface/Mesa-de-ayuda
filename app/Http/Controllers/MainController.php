@@ -76,7 +76,15 @@ class MainController extends Controller
         $add->nEmpleado= $request->nEmpleado;
         $add->email= $request->email;
         $add->password = bcrypt($request->password);
-        $add->badmin =0;
+        $add->badmin=0;
+        if($request->hasFile('sFoto') && $request->hasFile('sFoto')=="image/jpg" || $request->hasFile('sFoto')=="image/jpeg" )
+        {
+        $file=$request->file('sFoto');
+        $nombre=now()."_".$file->getClientOriginalName();
+        move_uploaded_file($nombre, 'storage');
+         $add->sFoto=$nombre;
+         }
+       
         $this->validate($request, [
        'email'   => 'required|email|unique:hd_users',
        'password'  => 'required|min:8'
@@ -86,6 +94,7 @@ class MainController extends Controller
     }
      public function  dashboard()//Dashboard
     {
+      $fecha=
       $abierto=hd_reg_ticket::where('cEstado',2)->get()->count();
       $proceso=hd_reg_ticket::where('cEstado',3)->get()->count();
       $cerrado=hd_reg_ticket::where('cEstado',5)->get()->count();
@@ -98,9 +107,17 @@ class MainController extends Controller
       ->orWhere('cEstado',3)
       ->orWhere('cEstado',4)
       ->get();
+       $fecha =DB::table('hd_reg_tickets')->
+      leftjoin('hd_users','hd_users.id','=','hd_reg_tickets.id')->
+      leftjoin('hd_estado','hd_estado.id','=','hd_reg_tickets.cEstado')->
+      leftjoin('hd_categorias','hd_categorias.id','=','hd_reg_tickets.cCategoria')->
+      leftjoin('hd_sistemas','hd_sistemas.id','=','hd_reg_tickets.cSistema')->
+      leftjoin('hd_prioridad','hd_prioridad.id','=','hd_reg_tickets.cPrioridad')->
+      select('hd_reg_tickets.created_at')->OrderBy('hd_reg_tickets.id','desc')->get()->take(1);
       return view('paneladministrador')->with('abierto',$abierto)->with('proceso',$proceso)
       ->with('cerrado',$cerrado)
-      ->with('tickets',$tickets);
+      ->with('tickets',$tickets)
+      ->with('fecha',$fecha);
     }
 
     public function generarreporte(Request $request)
@@ -131,6 +148,7 @@ class MainController extends Controller
       $hd_categorias=hd_categoria::all();
       $hd_sistemas=hd_sistema::all();
       $hd_prioridad=hd_prioridad::all();
+
       $abiertos= $hd_reg_tickets =DB::table('hd_reg_tickets')->
       where('nFolio_Users',Auth()->user()->id)->
       where('cEstado',2)->get()->count();

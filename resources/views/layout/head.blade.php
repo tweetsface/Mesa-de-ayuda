@@ -1,4 +1,6 @@
 <head>
+  <link href="{{asset('css/style.css')}}" rel="stylesheet">
+  <link href="{{asset('css/style-responsive.css')}}" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap.min.css')}}">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>

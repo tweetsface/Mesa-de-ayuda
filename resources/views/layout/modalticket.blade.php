@@ -41,9 +41,10 @@
       <label class='etiquetas'><b>Descripcion del problema:</b></label>
        <textarea class="form-control" name="cDesproblema" rows="5" id="cDesproblema" placeholder="Descripcion del problema" required></textarea>
 </div>
-
+<div class="btnticket" style="position: relative; left: 140px;">
     <button type="submit" value="submit"  class="btn btn-dark">REPORTAR</button>
     <a href=""  class="btn btn-dark" data-dismiss="modal">CANCELAR</a>
+</div>
     </form>
        </div>
       </div>

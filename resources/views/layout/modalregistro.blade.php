@@ -12,7 +12,7 @@
                             <div class="form-group"> 
                             <span class="col-md-1 col-md-offset-2 text-center"></span>
                             <div class="col-md-8">
-                                <label class="etiqueta">Nombre:</label><input id="cNombre2" name="cNombre" type="text" placeholder="Nombre" class="form-control">
+                                <label class="etiqueta" for="Nombre">Nombre:</label><input id="cNombre2" name="cNombre" type="text" placeholder="Nombre" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
@@ -42,8 +42,10 @@
                             <span class="col-md-1 col-md-offset-2 text-center"></span>
                             <div class="col-md-8">
                                  <label class="etiqueta">Password:</label><input id="password2" name="password" type="password" placeholder="Contraseña" class="form-control">
+                                 <div class="btnUpdateP" style="position: relative;left:150px; top:10px;">
                                   <input type="button"   id="btnEnviar2" class="btn btn-dark"  name="btnEnviar"  style="left:100px;" value="Guardar" data-backdrop="false" >
                         <a href="" class="btn btn-dark" data-dismiss="modal" data-backdrop="false">Cancelar</a>
+                        </div>
                             </div>
                         </div>
             </div>

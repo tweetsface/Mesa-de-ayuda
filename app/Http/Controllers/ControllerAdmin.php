@@ -10,6 +10,7 @@ use App\hd_reg_ticket;
 use App\hd_estado;
 use App\hd_privilegio;
 use App\hd_comentario;
+use App\hd_prioridad;
 use Auth;
 use Mail;
 use Carbon\Carbon;
@@ -46,7 +47,7 @@ class ControllerAdmin extends Controller
       $contar=hd_users::all()->count();
       $hd_users=DB::table('hd_users')->
       leftjoin('hd_privilegios','hd_privilegios.id','=','hd_users.badmin')->
-      select('hd_users.id','hd_users.cNombre','hd_users.cApellidos','hd_users.nEmpleado','hd_users.email','hd_users.badmin','hd_privilegios.cPrivilegios','hd_users.password')->paginate(7);
+      select('hd_users.id','hd_users.cNombre','hd_users.cApellidos','hd_users.nEmpleado','hd_users.email','hd_users.badmin','hd_privilegios.cPrivilegios','hd_users.password')->get();
       return view('ausers')->with('hd_privilegios',$hd_privilegios)->with('contar',$contar)->with('hd_users',$hd_users);
      }
        public  function infoauser($id)
@@ -88,7 +89,7 @@ class ControllerAdmin extends Controller
       leftjoin('hd_sistemas','hd_sistemas.id','=','hd_reg_tickets.cSistema')->
       leftjoin('hd_prioridad','hd_prioridad.id','=','hd_reg_tickets.cPrioridad')->
       select('hd_reg_tickets.id','hd_reg_tickets.cTitulo','hd_categorias.cCategorias',
-         'hd_sistemas.cSistema','hd_prioridad.cNPrioridad','hd_reg_tickets.cDesProblema','hd_reg_tickets.created_at','hd_estado.id as idestado','hd_estado.ccEstado','hd_users.cNombre')->
+         'hd_sistemas.cSistema','hd_reg_tickets.cPrioridad','hd_prioridad.cNPrioridad','hd_reg_tickets.cDesProblema','hd_reg_tickets.created_at','hd_estado.id as idestado','hd_estado.ccEstado','hd_users.cNombre')->
       where('hd_reg_tickets.id',$id)->get();
       return view('detalleticket')->with('hd_reg_tickets',$hd_reg_tickets)->
       with('hd_estado',$hd_estado)->with('hd_comentarios',$hd_comentarios);
@@ -159,9 +160,10 @@ class ControllerAdmin extends Controller
       $nuevos=hd_reg_ticket::find($id)->update($request->only('cRespuesta'));
       return view('detalleticket')->with('hd_reg_tickets',$hd_reg_tickets)->with('hd_estado',$hd_estado);
     }
-      public  function gReportes()
-    {
-     return view('gReportes');
+    public  function gReportes(){
+      $estado=hd_estado::all();
+      $prioridad=hd_prioridad::all();
+     return view('gReportes')->with('hd_estado',$estado)->with('hd_prioridad',$prioridad);
     }
     public function cReportes(Request $request)
     {

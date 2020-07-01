@@ -166,7 +166,7 @@ right: 130px;
             <div class="well" style="position:absolute;height:500px;top:80px;left:400px; border-radius:20px;">
                 <span class="registroUsuario">Registro de usuario</span>
                 <span class="sapi">AGRICOLA PAREDES</span>
-                <form  class="form-horizontal"  >
+                <form  class="form-horizontal" id=formulario  name="formulario" enctype="multipart/form-data">
                         <div class="form-group">
                             <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-user bigicon"></i></span>
                             <div class="col-md-8">
@@ -226,6 +226,7 @@ right: 130px;
 </div>
 <script type="text/javascript">
  $('#enviarDatos').click( function (e) {
+  var parametros=new FormData($("#formulario")[0]);
       e.preventDefault();
       $.ajaxSetup({
      headers: {
@@ -238,9 +239,12 @@ right: 130px;
        nEmpleado=document.getElementById('nEmpleado').value;
        email=document.getElementById('email').value;
        password=document.getElementById('password').value;
+       sFoto=document.getElementById('sFoto').value;
         $.ajax({
           url:"{{route('registrar')}}",
-          data:{'cNombre':cNombre,'cApellidos':cApellidos,'nEmpleado':nEmpleado,'email':email,'password':password},
+          data:parametros,
+          contentType:false,
+          processData:false,
           type:'post',
           success: function (response) {
             Swal.fire('Registro Exitoso','Se ha registrado el usuario con exito','success')
@@ -263,10 +267,11 @@ right: 130px;
              }
           },
           error:function(x,xs,xt){
-             Swal.fire('Ha ocurrido un error',"Ocurrio un error al registar el usuario,intente nuevamente",'error')
+             Swal.fire('Ha ocurrido un error','No se puedo registrar al usuario','error')
           }
 })
          });
+
  </script>
 
 

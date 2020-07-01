@@ -21,8 +21,5 @@
   </div>
 </div>
 </div>
-@foreach($fecha as $fecha)
-<span class="antiguo">Ticket mas antiguo:{{date('d-m-Y', strtotime($fecha->created_at))}}</span>
-@endforeach
 @include('layout.tabla')
 @include('layout.modalticket')

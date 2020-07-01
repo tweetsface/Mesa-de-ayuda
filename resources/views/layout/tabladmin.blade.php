@@ -1,11 +1,6 @@
  @include('layout.dateTimePicker')
-<div class="panel panel-default" style="max-height:13%;position: relative;top:25.5%; margin-bottom:0.4%; max-width:80%; left:18%; border: none;background-color:#FEFEFF;" >
-<div class="panel-heading" style="background-color: #2A9C9F;">
-    <span class="" style="color: white; font-weight: bold; font-size:1.5em;">
-   Gestion de tickets
-  </span>
-</div>
-<div class="panel-body" style="overflow-y: scroll; max-height:60%">
+<div class="panel panel-default" style="max-height:10%;position: relative;top:25.5%; margin-bottom:0.4%; max-width:80%; left:18%; border: none;background-color:#FEFEFF;" >
+<div class="panel-body" style="overflow-y: scroll; max-height:67%">
   <table class="table table-striped table-hover ">
   <thead>
     <tr>
@@ -26,13 +21,20 @@
          <td height="10px">{!! $hd_reg_ticket->id!!}</td>
          <td>{!! $hd_reg_ticket->cTitulo !!}</td>
          <td>{!! $hd_reg_ticket->cCategorias !!}</td>
-         <td>{!! $hd_reg_ticket->cNPrioridad !!}</td>
-         <td>{{date('d-m-Y', strtotime($hd_reg_ticket->created_at))}}</td>
+         <td> @if($hd_reg_ticket->cNPrioridad=="ALTA")
+          <span class="label label-danger"> {!! $hd_reg_ticket->cNPrioridad !!}</span>
+          @elseif($hd_reg_ticket->cNPrioridad=="MEDIA")
+          <span class="label label-warning"> {!! $hd_reg_ticket->cNPrioridad !!}</span>
+           @elseif($hd_reg_ticket->cNPrioridad=="BAJA")
+          <span class="label label-primary"> {!! $hd_reg_ticket->cNPrioridad !!}</span>
+          @endif
+        </td>
+         <td><span class="label label-primary">{{date('d-m-Y', strtotime($hd_reg_ticket->created_at))}}</span></td>
          <td>{!!$hd_reg_ticket->cNombre!!} {!!$hd_reg_ticket->cApellidos!!} </td>
           <td>
           <form method="get" action="{{route('verticket',$hd_reg_ticket->id) }}">
                {{ csrf_field() }}
-          <button type="submit" class="btn btn-dark">detalles</button>
+          <button type="submit" class="btn btn-dark" style="border-radius:8px; border: 3px solid; font-weight: bold;" >Detalles</button>
         </form>
         </td>
       </tr>

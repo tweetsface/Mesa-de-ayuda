@@ -46,7 +46,7 @@
                             <div class="col-md-8">
                             <label class="etiqueta">Privilegios:</label>
                              <select name="badmin" class="form-control" id="badmin1" >
-                              <option value="$hd_user->badmin"></option>
+                              <option value="{{$hd_user->badmin}}"></option>
                                @foreach($hd_privilegios as $hd_p)
                              <option  value="{{$hd_p->id}}">{!! $hd_p->cPrivilegios!!}</option>
                              @endforeach
@@ -59,8 +59,10 @@
                             <span class="col-md-1 col-md-offset-2 text-center"></span>
                             <div class="col-md-8">
                                  <label class="etiqueta">Password:</label><input id="password1" name="password" type="password" placeholder="Contraseña" class="form-control">
+                                 <div class="btnRegistroUpdate" style="position: relative;left:150px; top:10px;">
                                   <input type="button"   id="btnEnviar" class="btn btn-dark"  name="btnEnviar"  style="left:100px;" value="Actualizar" >
                         <a href="" class="btn btn-dark" data-dismiss="modal" data-backdrop="false">Cancelar</a>
+                        </div>
                             </div>
 
 
@@ -109,7 +111,7 @@
              }
           },
           error:function(x,xs,xt){
-             Swal.fire('Ha ocurrido un error','Verifique los datos e intente nuevamente','error')
+             Swal.fire('Ha ocurrido un error','No se ha podido registrar al usuario','error')
           }
 })
          });

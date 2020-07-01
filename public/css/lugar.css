@@ -347,8 +347,9 @@ width: 1100px;
 {
 	position: relative;
 	top: 20px;
-	left: 35px;
-	font-style: bold;
+	left: 45px;
+	color: black;
+	font-weight: bold;
 }
 .user
 {
@@ -431,7 +432,7 @@ top: 180px;
 	position: relative;
 	top: 20px;
 	width: 130px;
-	height: 70px;
+	height: 180px;
 	color: black;
 	border-color: black;
 	margin-left: 40px;
