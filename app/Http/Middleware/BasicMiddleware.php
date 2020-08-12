@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class AdminMiddleware
+class BasicMiddleware
 {
     /**
      * Handle an incoming request.
@@ -15,12 +15,12 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if(auth()->check() && auth()->user()->badmin==1)
+        if(auth()->check() && auth()->user()->badmin==0)
         {
              return $next($request);
         }
         else
-            return redirect('/panel');
+            return redirect('/dashboard');
 
 
        

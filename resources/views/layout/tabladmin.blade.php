@@ -33,7 +33,6 @@
          <td>{!!$hd_reg_ticket->cNombre!!} {!!$hd_reg_ticket->cApellidos!!} </td>
           <td>
           <form method="get" action="{{route('verticket',$hd_reg_ticket->id) }}">
-               {{ csrf_field() }}
           <button type="submit" class="btn btn-dark" style="border-radius:8px; border: 3px solid; font-weight: bold;" >Detalles</button>
         </form>
         </td>

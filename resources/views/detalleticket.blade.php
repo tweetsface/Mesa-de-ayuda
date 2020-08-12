@@ -71,10 +71,8 @@
       <span>Agregar Respuesta:</span>
     <textarea  class="form-control" id="cComentarios"name="cComentarios" style="resize: none; color: black; border:1px solid;outline:none; width:85%;position: relative; top:15px;"cols="100" rows="6"></textarea>
       <div class="btndetalles" style="position: absolute; top:280px; left:
-      635px;">
+      650px;">
     <button type="button"  id="enviarDatos" class="btn btn-dark" style="width:100px;"><i class="fa fa-save" ></i> Enviar</button>
-<a href="{{url('/panel')}}" class="btn btn-dark"><i class="fa fa-window-close"  aria-hidden="true"></i> Cancelar
-</a>
  <button class="btn btn-dark" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" style="outline: none;"><i class="fa fa-commenting"  aria-hidden="true"></i> Mensajes
     </button>
 </div>

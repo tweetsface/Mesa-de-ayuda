@@ -42,7 +42,7 @@
   <button style="height:35px; width:100px; background-color: #26272b; color: white; border: none; border-radius: 4px; position:relative; bottom:67px; left:24.3%;  "type="button"  data-toggle="modal" data-target="#myModal2"><i class="fa fa-plus-circle"></i><span> Añadir 
 </span>
 </button>
-  <span class="total">Total: <span class="contar">{{$contar}}</span></span>
+  <span class="total">Total: <span class="contar">{{$contara}}</span></span>
   <div class="panel panel-body" style="overflow-y: scroll; height:66%;">
 <table class="table table-striped table-hover " >
   <thead>
@@ -80,12 +80,12 @@
 
          </div>
       </tr>
+      @include('layout.actualizarRegistro')
        @endforeach
   </tbody>
 </table>
 </div> 
 </div>
-@include('layout.actualizarRegistro')
 </div>
 @include('layout.modalregistro')
 

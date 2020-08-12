@@ -2,7 +2,7 @@
   <div class="panel-heading" style="background-color: #2A9C9F; color: white; font-weight: bold; font-size: 1.2em;">
     Mis Tickets
 @foreach($fecha as $fecha)
-<span class="antiguof" style="position:relative; left:800px; font-size:0.8em;">Ticket mas antiguo:{{date('d-m-Y', strtotime($fecha->created_at))}}</span>
+<span class="antiguof" style="position:relative; left:800px; font-size:0.8em;">Ticket mas reciente:{{date('d-m-Y', strtotime($fecha->created_at))}}</span>
 @endforeach
   </div>
 <div class="panel-body" style="overflow-y: scroll; max-height:60%">

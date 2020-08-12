@@ -1,7 +1,6 @@
 @include('layout.head')
 @include('layout.barranav')
 @include('layout.sidebaruser')
-
 <div class="panel panel-default moverp " style="height:25%; width:73%; border: none;">
    <div class="panel-body">
      @if(count($errors)>0)
@@ -15,6 +14,7 @@
      @endif
         @foreach($hd_reg_tickets as $hd_reg_ticket)
      <table class="table">
+       @include('layout.modalticket')
        <thead style="text-align: center;">
          <tr>
       <th scope="col">#</th>
@@ -59,11 +59,9 @@
       <label for="cComentarios">Agregar Respuesta:</label>
     <textarea id="cComentarios" name="cComentarios" style="resize: none; color: black; border:1px solid;outline:none;"cols="130" rows="3"></textarea>
       <div class="btndetalles" style="position: absolute; top:280px; left:
-      670px;">
+      750px;">
     <button type="button"  id="enviarDatos"  class="btn btn-dark"><i class="fa fa-save"></i> Enviar</button>
-<a href="{{url('/panel')}}" id="btncan" class="btn btn-dark"><i class="fa fa-window-close"  aria-hidden="true"></i> Cancelar
-</a>
- <button class="btn btn-dark" id="btncol" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-commenting"  aria-hidden="true"></i> Mensajes
+ <button class="btn btn-dark " id="btncol" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-commenting"  aria-hidden="true"></i> Mensajes
     </button>
 </div>
 </form>
@@ -80,20 +78,16 @@
          <div class="well" style="background-color: white; height:380px; overflow-y: scroll; ">
       @foreach($hd_comentarios as $hd_comentarios)
   @if($hd_comentarios->badmin==1)
-   <div class="card" style="margin-bottom: 8px; width:200px; position: relative; margin-left: 60%; height:30px; border-radius:10px; background-color:#6CDEDB;">
-<div class="content" style="height:0.2%;">
+<div class="content" style="height:0.2%; position: relative;left:750px; margin-top:50px; ">
   <div style="font-size:1em; position: relative;bottom:7px; top:5px;" >
-     <span style="color:white; font-weight:bold;">{{date('H:i', strtotime($hd_comentarios->created_at))}} {{$hd_comentarios->cNombre}}:{{$hd_comentarios->cComentarios}}</span>
+      <span style="color:white; font-weight:bold;background:#6CDEDB;overflow-wrap:break-word; width: 13em;left:30px; border-radius:10px;">{{date('H:i', strtotime($hd_comentarios->created_at))}} {{$hd_comentarios->cNombre}}:{{$hd_comentarios->cComentarios}}</span>
      </span>
 </div>
 </div>
-</div>
- @else
-  <div class="card" style="margin-bottom: 8px; width:200px; height:30px; border-radius:10px; background-color: gray;">
-<div class="content" style="height:0.2%;">
-  <div style="font-size:1em; position: relative;bottom:7px;top:5px; " >
- <span style="color: white; font-weight: bold;">{{date('H:i', strtotime($hd_comentarios->created_at))}} {{$hd_comentarios->cNombre}}:{{$hd_comentarios->cComentarios}}</span>
-</div>
+@else
+<div class="content" style="height:0.2%; margin-top:50px;">
+  <div style="font-size:1em; position: relative;bottom:7px;top:5px;">
+ <span style="color: white; font-weight: bold; background:gray;overflow-wrap:break-word; displa width: 13em; border-radius:10px;">{{date('H:i', strtotime($hd_comentarios->created_at))}} {{$hd_comentarios->cNombre}}:{{$hd_comentarios->cComentarios}}</span>
 </div>
 </div>
  @endif
@@ -102,7 +96,6 @@
 </div>
 </div>
 </div>
-
 <script type="text/javascript">
  $('#enviarDatos').click( function (e) {
       e.preventDefault();
