@@ -21,10 +21,13 @@ class ControllerAdmin extends Controller
 {
     public function ticket()//Dashboard
      {
+<<<<<<< HEAD
       $hd_categorias=hd_categoria::all();
       $hd_sistema=hd_sistema::all();
       $hd_prioridad=hd_prioridad::all();
       $hd_privilegios=hd_privilegio::all();
+=======
+>>>>>>> aee0fce65ce48dfa9c475e156d591624bdd2559a
      $comentarios=DB::table('hd_comentarios')->
       leftjoin('hd_users','hd_users.id','hd_comentarios.nUser_id')->
       leftjoin('hd_reg_tickets','hd_reg_tickets.id','hd_comentarios.nFolio_ticket')->
@@ -38,6 +41,7 @@ class ControllerAdmin extends Controller
           leftjoin('hd_prioridad','hd_prioridad.id','=','hd_reg_tickets.cPrioridad')->
           select('hd_reg_tickets.id','hd_reg_tickets.cTitulo','hd_categorias.cCategorias','hd_sistemas.cSistema','hd_prioridad.cNPrioridad','hd_users.cNombre','hd_users.cApellidos','hd_reg_tickets.created_at','hd_estado.ccEstado','hd_reg_tickets.nAtendio')->where('hd_reg_tickets.nAtendio',Auth()->user()->id)->get();
             return view('ticketdmin')->with('hd_reg_tickets',$hd_reg_tickets)->
+<<<<<<< HEAD
             with('comentarios',$comentarios)->with('contar',$count)
             ->with('hd_privilegios',$hd_privilegios)
             ->with('hd_categorias',$hd_categorias)
@@ -50,6 +54,12 @@ class ControllerAdmin extends Controller
       $hd_sistema=hd_sistema::all();
       $hd_prioridad=hd_prioridad::all();
       $hd_privilegios=hd_privilegio::all();
+=======
+            with('comentarios',$comentarios)->with('contar',$count);
+     }
+     public function buscarEntre(Request $request)//Dashboard
+     {
+>>>>>>> aee0fce65ce48dfa9c475e156d591624bdd2559a
       $comentarios=DB::table('hd_comentarios')->
       leftjoin('hd_users','hd_users.id','hd_comentarios.nUser_id')->
       leftjoin('hd_reg_tickets','hd_reg_tickets.id','hd_comentarios.nFolio_ticket')->
@@ -63,6 +73,7 @@ class ControllerAdmin extends Controller
           leftjoin('hd_sistemas','hd_sistemas.id','=','hd_reg_tickets.cSistema')->
           leftjoin('hd_prioridad','hd_prioridad.id','=','hd_reg_tickets.cPrioridad')->
           select('hd_reg_tickets.id','hd_reg_tickets.cTitulo','hd_categorias.cCategorias','hd_sistemas.cSistema','hd_prioridad.cNPrioridad','hd_users.cNombre','hd_users.cApellidos','hd_reg_tickets.created_at','hd_estado.ccEstado','hd_reg_tickets.nAtendio')->whereBetween('hd_reg_tickets.created_at',[$desde,$hasta])->where('hd_reg_tickets.nAtendio',Auth()->user()->id)->get();
+<<<<<<< HEAD
             return view('ticketdmin')->with('hd_reg_tickets',$hd_reg_tickets)->with('comentarios',$comentarios)
             ->with('hd_privilegios',$hd_privilegios)
             ->with('hd_categorias',$hd_categorias)
@@ -75,6 +86,12 @@ class ControllerAdmin extends Controller
       $hd_sistema=hd_sistema::all();
       $hd_prioridad=hd_prioridad::all();
       $hd_privilegios=hd_privilegio::all();
+=======
+            return view('ticketdmin')->with('hd_reg_tickets',$hd_reg_tickets)->with('comentarios',$comentarios);;
+     }
+    public  function auser()
+     {
+>>>>>>> aee0fce65ce48dfa9c475e156d591624bdd2559a
        $comentarios=DB::table('hd_comentarios')->
       leftjoin('hd_users','hd_users.id','hd_comentarios.nUser_id')->
       leftjoin('hd_reg_tickets','hd_reg_tickets.id','hd_comentarios.nFolio_ticket')->
@@ -85,11 +102,15 @@ class ControllerAdmin extends Controller
       $hd_users=DB::table('hd_users')->
       leftjoin('hd_privilegios','hd_privilegios.id','=','hd_users.badmin')->
       select('hd_users.id','hd_users.cNombre','hd_users.cApellidos','hd_users.nEmpleado','hd_users.email','hd_users.badmin','hd_privilegios.cPrivilegios','hd_users.password')->get();
+<<<<<<< HEAD
       return view('ausers')->with('hd_privilegios',$hd_privilegios)->with('contara',$contar)->with('hd_users',$hd_users)->with('comentarios',$comentarios)->with('contar',$count)
       ->with('hd_privilegios',$hd_privilegios)
       ->with('hd_categorias',$hd_categorias)
       ->with('hd_sistemas',$hd_sistema)
     ->with('hd_prioridad',$hd_prioridad);
+=======
+      return view('ausers')->with('hd_privilegios',$hd_privilegios)->with('contara',$contar)->with('hd_users',$hd_users)->with('comentarios',$comentarios)->with('contar',$count);
+>>>>>>> aee0fce65ce48dfa9c475e156d591624bdd2559a
      }
        public  function infoauser($id)
      {
@@ -103,16 +124,23 @@ class ControllerAdmin extends Controller
 
     public function scopeUsuario(Request $request)
     {
+<<<<<<< HEAD
       $hd_categorias=hd_categoria::all();
       $hd_sistema=hd_sistema::all();
       $hd_prioridad=hd_prioridad::all();
       $hd_privilegios=hd_privilegio::all();
+=======
+
+>>>>>>> aee0fce65ce48dfa9c475e156d591624bdd2559a
       $comentarios=DB::table('hd_comentarios')->
       leftjoin('hd_users','hd_users.id','hd_comentarios.nUser_id')->
       leftjoin('hd_reg_tickets','hd_reg_tickets.id','hd_comentarios.nFolio_ticket')->
       select('hd_users.cNombre','hd_comentarios.cComentarios','hd_comentarios.nFolio_ticket','hd_comentarios.created_at','hd_users.badmin','hd_reg_tickets.nFolio_Users','hd_reg_tickets.nAtendio')->where('nAtendio',auth()->user()->id)->where('badmin',0)->get();
       $count=$comentarios->count();
+<<<<<<< HEAD
     
+=======
+>>>>>>> aee0fce65ce48dfa9c475e156d591624bdd2559a
        $hd_privilegios=hd_privilegio::all();
        $hd_users =DB::table('hd_users')->
        leftjoin('hd_privilegios','hd_privilegios.id','=','hd_users.badmin')->
@@ -123,6 +151,7 @@ class ControllerAdmin extends Controller
         ->orWhere('nEmpleado', 'LIKE', "%{$request->input('buscar')}%")
         ->orWhere('cPrivilegios', 'LIKE', "%{$request->input('buscar')}%")
         ->paginate(5);
+<<<<<<< HEAD
         $contar=$hd_users->count();
     return view('ausers')->with('hd_users',$hd_users)->
     with('hd_privilegios',$hd_privilegios)->with('contara',$contar)->
@@ -131,6 +160,11 @@ class ControllerAdmin extends Controller
       ->with('hd_categorias',$hd_categorias)
       ->with('hd_sistemas',$hd_sistema)
     ->with('hd_prioridad',$hd_prioridad);
+=======
+
+
+    return view('ausers')->with('hd_users',$hd_users)->with('hd_privilegios',$hd_privilegios)->with('contara',$contar)->with('comentarios',$comentarios)->with('contar',$count);
+>>>>>>> aee0fce65ce48dfa9c475e156d591624bdd2559a
   }
 
      public function detalleticket($id ,Request $request)

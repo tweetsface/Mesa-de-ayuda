@@ -68,7 +68,10 @@
   </tbody>
 </table>
 </div>
+<<<<<<< HEAD
 @include('layout.modalticket')
+=======
+>>>>>>> aee0fce65ce48dfa9c475e156d591624bdd2559a
 <script type="text/javascript">
    function updateStatus(numero) {
      $.ajaxSetup({
