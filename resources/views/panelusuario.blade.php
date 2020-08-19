@@ -11,13 +11,13 @@
 <div class="card muevecc2" style="max-width:30%; background-color: white; height:70px; border-radius: 5px;">
   <div class="card-body">
     <h5 class="card-title"><span class="tit1">TOTAL</span></h5>
-    <p class="card-text"><div class="pos"><span class="abiertos">EN PROCESO</span><span class="tit3">{{$cerrados}}</span></div></p>
+    <p class="card-text"><div class="pos"><span class="abiertos">EN PROCESO</span><span class="tit3">{{$proceso}}</span></div></p>
   </div>
 </div>
 <div class="card muevecc" style="max-width:30%; background-color: white; height:70px; border-radius: 5px;">
   <div class="card-body">
     <h5 class="card-title"><span class="tit1">TOTAL</span></h5>
-    <p class="card-text"><div class="pos"><span class="abiertos">CERRADOS</span><span class="tit3">{{$proceso}}</span></div></p>
+    <p class="card-text"><div class="pos"><span class="abiertos">CERRADOS</span><span class="tit3">{{$cerrados}}</span></div></p>
   </div>
 </div>
 </div>

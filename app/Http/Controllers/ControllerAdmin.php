@@ -11,6 +11,8 @@ use App\hd_estado;
 use App\hd_privilegio;
 use App\hd_comentario;
 use App\hd_prioridad;
+use App\hd_categoria;
+use App\hd_sistema;
 use Auth;
 use Mail;
 use Carbon\Carbon;
@@ -19,17 +21,39 @@ class ControllerAdmin extends Controller
 {
     public function ticket()//Dashboard
      {
+      $hd_categorias=hd_categoria::all();
+      $hd_sistema=hd_sistema::all();
+      $hd_prioridad=hd_prioridad::all();
+      $hd_privilegios=hd_privilegio::all();
+     $comentarios=DB::table('hd_comentarios')->
+      leftjoin('hd_users','hd_users.id','hd_comentarios.nUser_id')->
+      leftjoin('hd_reg_tickets','hd_reg_tickets.id','hd_comentarios.nFolio_ticket')->
+      select('hd_users.cNombre','hd_comentarios.cComentarios','hd_comentarios.nFolio_ticket','hd_comentarios.created_at','hd_users.badmin','hd_reg_tickets.nFolio_Users','hd_reg_tickets.nAtendio')->where('nAtendio',auth()->user()->id)->where('badmin',0)->get();
+      $count=$comentarios->count();
       $hd_reg_tickets =DB::table('hd_reg_tickets')->
           leftjoin('hd_users','hd_users.id','=','hd_reg_tickets.nFolio_Users')->
           leftjoin('hd_estado','hd_estado.id','=','hd_reg_tickets.cEstado')->
           leftjoin('hd_categorias','hd_categorias.id','=','hd_reg_tickets.cCategoria')->
           leftjoin('hd_sistemas','hd_sistemas.id','=','hd_reg_tickets.cSistema')->
           leftjoin('hd_prioridad','hd_prioridad.id','=','hd_reg_tickets.cPrioridad')->
-          select('hd_reg_tickets.id','hd_reg_tickets.cTitulo','hd_categorias.cCategorias','hd_sistemas.cSistema','hd_prioridad.cNPrioridad','hd_users.cNombre','hd_users.cApellidos','hd_reg_tickets.created_at','hd_estado.ccEstado')->get();
-            return view('ticketdmin')->with('hd_reg_tickets',$hd_reg_tickets);
+          select('hd_reg_tickets.id','hd_reg_tickets.cTitulo','hd_categorias.cCategorias','hd_sistemas.cSistema','hd_prioridad.cNPrioridad','hd_users.cNombre','hd_users.cApellidos','hd_reg_tickets.created_at','hd_estado.ccEstado','hd_reg_tickets.nAtendio')->where('hd_reg_tickets.nAtendio',Auth()->user()->id)->get();
+            return view('ticketdmin')->with('hd_reg_tickets',$hd_reg_tickets)->
+            with('comentarios',$comentarios)->with('contar',$count)
+            ->with('hd_privilegios',$hd_privilegios)
+            ->with('hd_categorias',$hd_categorias)
+            ->with('hd_sistemas',$hd_sistema)
+          ->with('hd_prioridad',$hd_prioridad);
      }
      public function buscarEntre(Request $request)//Dashboard
      {
+      $hd_categorias=hd_categoria::all();
+      $hd_sistema=hd_sistema::all();
+      $hd_prioridad=hd_prioridad::all();
+      $hd_privilegios=hd_privilegio::all();
+      $comentarios=DB::table('hd_comentarios')->
+      leftjoin('hd_users','hd_users.id','hd_comentarios.nUser_id')->
+      leftjoin('hd_reg_tickets','hd_reg_tickets.id','hd_comentarios.nFolio_ticket')->
+      select('hd_users.cNombre','hd_comentarios.cComentarios','hd_comentarios.nFolio_ticket','hd_comentarios.created_at','hd_users.badmin','hd_reg_tickets.nFolio_Users','hd_reg_tickets.nAtendio')->where('nAtendio',auth()->user()->id)->where('badmin',0)->get();
         $desde=$request->only('desde');
         $hasta=$request->only('hasta');
        $hd_reg_tickets =DB::table('hd_reg_tickets')->
@@ -38,17 +62,34 @@ class ControllerAdmin extends Controller
           leftjoin('hd_categorias','hd_categorias.id','=','hd_reg_tickets.cCategoria')->
           leftjoin('hd_sistemas','hd_sistemas.id','=','hd_reg_tickets.cSistema')->
           leftjoin('hd_prioridad','hd_prioridad.id','=','hd_reg_tickets.cPrioridad')->
-          select('hd_reg_tickets.id','hd_reg_tickets.cTitulo','hd_categorias.cCategorias','hd_sistemas.cSistema','hd_prioridad.cNPrioridad','hd_users.cNombre','hd_users.cApellidos','hd_reg_tickets.created_at','hd_estado.ccEstado')->whereBetween('hd_reg_tickets.created_at',[$desde,$hasta])->get();
-            return view('ticketdmin')->with('hd_reg_tickets',$hd_reg_tickets);
+          select('hd_reg_tickets.id','hd_reg_tickets.cTitulo','hd_categorias.cCategorias','hd_sistemas.cSistema','hd_prioridad.cNPrioridad','hd_users.cNombre','hd_users.cApellidos','hd_reg_tickets.created_at','hd_estado.ccEstado','hd_reg_tickets.nAtendio')->whereBetween('hd_reg_tickets.created_at',[$desde,$hasta])->where('hd_reg_tickets.nAtendio',Auth()->user()->id)->get();
+            return view('ticketdmin')->with('hd_reg_tickets',$hd_reg_tickets)->with('comentarios',$comentarios)
+            ->with('hd_privilegios',$hd_privilegios)
+            ->with('hd_categorias',$hd_categorias)
+            ->with('hd_sistemas',$hd_sistema)
+          ->with('hd_prioridad',$hd_prioridad);
      }
     public  function auser()
      {
+      $hd_categorias=hd_categoria::all();
+      $hd_sistema=hd_sistema::all();
+      $hd_prioridad=hd_prioridad::all();
+      $hd_privilegios=hd_privilegio::all();
+       $comentarios=DB::table('hd_comentarios')->
+      leftjoin('hd_users','hd_users.id','hd_comentarios.nUser_id')->
+      leftjoin('hd_reg_tickets','hd_reg_tickets.id','hd_comentarios.nFolio_ticket')->
+      select('hd_users.cNombre','hd_comentarios.cComentarios','hd_comentarios.nFolio_ticket','hd_comentarios.created_at','hd_users.badmin','hd_reg_tickets.nFolio_Users','hd_reg_tickets.nAtendio')->where('nAtendio',auth()->user()->id)->where('badmin',0)->get();
+      $count=$comentarios->count();
       $hd_privilegios=hd_privilegio::all();
       $contar=hd_users::all()->count();
       $hd_users=DB::table('hd_users')->
       leftjoin('hd_privilegios','hd_privilegios.id','=','hd_users.badmin')->
       select('hd_users.id','hd_users.cNombre','hd_users.cApellidos','hd_users.nEmpleado','hd_users.email','hd_users.badmin','hd_privilegios.cPrivilegios','hd_users.password')->get();
-      return view('ausers')->with('hd_privilegios',$hd_privilegios)->with('contar',$contar)->with('hd_users',$hd_users);
+      return view('ausers')->with('hd_privilegios',$hd_privilegios)->with('contara',$contar)->with('hd_users',$hd_users)->with('comentarios',$comentarios)->with('contar',$count)
+      ->with('hd_privilegios',$hd_privilegios)
+      ->with('hd_categorias',$hd_categorias)
+      ->with('hd_sistemas',$hd_sistema)
+    ->with('hd_prioridad',$hd_prioridad);
      }
        public  function infoauser($id)
      {
@@ -62,7 +103,16 @@ class ControllerAdmin extends Controller
 
     public function scopeUsuario(Request $request)
     {
-       $contar=hd_users::all()->count();
+      $hd_categorias=hd_categoria::all();
+      $hd_sistema=hd_sistema::all();
+      $hd_prioridad=hd_prioridad::all();
+      $hd_privilegios=hd_privilegio::all();
+      $comentarios=DB::table('hd_comentarios')->
+      leftjoin('hd_users','hd_users.id','hd_comentarios.nUser_id')->
+      leftjoin('hd_reg_tickets','hd_reg_tickets.id','hd_comentarios.nFolio_ticket')->
+      select('hd_users.cNombre','hd_comentarios.cComentarios','hd_comentarios.nFolio_ticket','hd_comentarios.created_at','hd_users.badmin','hd_reg_tickets.nFolio_Users','hd_reg_tickets.nAtendio')->where('nAtendio',auth()->user()->id)->where('badmin',0)->get();
+      $count=$comentarios->count();
+    
        $hd_privilegios=hd_privilegio::all();
        $hd_users =DB::table('hd_users')->
        leftjoin('hd_privilegios','hd_privilegios.id','=','hd_users.badmin')->
@@ -71,13 +121,25 @@ class ControllerAdmin extends Controller
         ->orWhere('email', 'LIKE', "%{$request->input('buscar')}%")
         ->orWhere('cApellidos', 'LIKE', "%{$request->input('buscar')}%")
         ->orWhere('nEmpleado', 'LIKE', "%{$request->input('buscar')}%")
+        ->orWhere('cPrivilegios', 'LIKE', "%{$request->input('buscar')}%")
         ->paginate(5);
-
-    return view('ausers')->with('hd_users',$hd_users)->with('hd_privilegios',$hd_privilegios)->with('contar',$contar);
+        $contar=$hd_users->count();
+    return view('ausers')->with('hd_users',$hd_users)->
+    with('hd_privilegios',$hd_privilegios)->with('contara',$contar)->
+    with('comentarios',$comentarios)->with('contar',$count)
+    ->with('hd_privilegios',$hd_privilegios)
+      ->with('hd_categorias',$hd_categorias)
+      ->with('hd_sistemas',$hd_sistema)
+    ->with('hd_prioridad',$hd_prioridad);
   }
 
-     public function detalleticket($id)
+     public function detalleticket($id ,Request $request)
      {
+      $comentarios=DB::table('hd_comentarios')->
+      leftjoin('hd_users','hd_users.id','hd_comentarios.nUser_id')->
+      leftjoin('hd_reg_tickets','hd_reg_tickets.id','hd_comentarios.nFolio_ticket')->
+      select('hd_users.cNombre','hd_comentarios.cComentarios','hd_comentarios.nFolio_ticket','hd_comentarios.created_at','hd_users.badmin','hd_reg_tickets.nFolio_Users','hd_reg_tickets.nAtendio')->where('nAtendio',auth()->user()->id)->where('badmin',0)->get();
+      $count=$comentarios->count();
       $hd_estado=hd_estado::all();
       $hd_comentarios=DB::table('hd_comentarios')->
       leftjoin('hd_reg_tickets','hd_reg_tickets.id','=','hd_comentarios.nFolio_ticket')->
@@ -91,8 +153,12 @@ class ControllerAdmin extends Controller
       select('hd_reg_tickets.id','hd_reg_tickets.cTitulo','hd_categorias.cCategorias',
          'hd_sistemas.cSistema','hd_reg_tickets.cPrioridad','hd_prioridad.cNPrioridad','hd_reg_tickets.cDesProblema','hd_reg_tickets.created_at','hd_estado.id as idestado','hd_estado.ccEstado','hd_users.cNombre')->
       where('hd_reg_tickets.id',$id)->get();
+      if($request->ajax()){
+        return  Response::json($hd_reg_tickets,200);
+      }
       return view('detalleticket')->with('hd_reg_tickets',$hd_reg_tickets)->
-      with('hd_estado',$hd_estado)->with('hd_comentarios',$hd_comentarios);
+      with('hd_estado',$hd_estado)->with('hd_comentarios',$hd_comentarios)->
+      with('comentarios',$comentarios)->with('contar',$count);
      }
      public function eliminarticket($id)
      {
@@ -161,83 +227,27 @@ class ControllerAdmin extends Controller
       return view('detalleticket')->with('hd_reg_tickets',$hd_reg_tickets)->with('hd_estado',$hd_estado);
     }
     public  function gReportes(){
+    $comentarios=DB::table('hd_comentarios')->
+      leftjoin('hd_users','hd_users.id','hd_comentarios.nUser_id')->
+      leftjoin('hd_reg_tickets','hd_reg_tickets.id','hd_comentarios.nFolio_ticket')->
+      select('hd_users.cNombre','hd_comentarios.cComentarios','hd_comentarios.nFolio_ticket','hd_comentarios.created_at','hd_users.badmin','hd_reg_tickets.nFolio_Users','hd_reg_tickets.nAtendio')->where('nAtendio',auth()->user()->id)->where('badmin',0)->get();
+      $count=$comentarios->count();
       $estado=hd_estado::all();
       $prioridad=hd_prioridad::all();
-     return view('gReportes')->with('hd_estado',$estado)->with('hd_prioridad',$prioridad);
+     return view('gReportes')->with('hd_estado',$estado)->with('hd_prioridad',$prioridad)->with('comentarios',$comentarios)->with('contar',$count);
     }
     public function cReportes(Request $request)
     {
-     $date = Carbon::now();
+     
+      $date = Carbon::now();
      $date = $date->format('Y-m-d');
      $fechaN=date("d-m-Y");
-     $estado=$request->only('cEstado');
-      $periodo=$request->only('created_at');
-      $cPrioridad=$request->only('cPrioridad');
-      if($estado["cEstado"]==1 and $periodo["created_at"]==1 and $cPrioridad["cPrioridad"]==1)
-      {
-       $contar=$hd_reg_tickets=hd_reg_ticket::where('cEstado',1)->where('created_at',$date)->where('cPrioridad',1)->get()->count();
-       $hd_reg_tickets=db::table('hd_reg_tickets')->leftjoin('hd_users','hd_users.id','=','hd_reg_tickets.nFolio_Users')->leftjoin('hd_estado','hd_estado.id','=','hd_reg_tickets.cEstado')->select('hd_reg_tickets.id','hd_reg_tickets.id','hd_reg_tickets.cTitulo','hd_reg_tickets.cCategoria','hd_estado.ccEstado','hd_reg_tickets.cSistema','hd_reg_tickets.cPrioridad','hd_users.cNombre','hd_reg_tickets.created_at')->where('cEstado',1)->where('hd_reg_tickets.created_at',$date)->where('cPrioridad',1)->get();
-         $pdf = \PDF::loadView('reporteD',array('hd_reg_tickets'=>$hd_reg_tickets,
-        'contar'=>$contar,'fechaN'=>$fechaN))->setPaper('A4', 'landscape');
-         return $pdf->download('reporte.pdf');
-      }
-      else if($estado["cEstado"]==1 and $periodo["created_at"]==2 and $cPrioridad["cPrioridad"]==1)
-      {     
-          $fecha=date("Y-m-d",strtotime($date."-7 day"));
-          $contar=$hd_reg_tickets=hd_reg_ticket::where('cEstado',1)->
-          whereBetween('created_at',array($fecha,$date))->where('cPrioridad',1)->get()->count();
-           $hd_reg_tickets=db::table('hd_reg_tickets')->leftjoin('hd_users','hd_users.id','=','hd_reg_tickets.nFolio_Users')->leftjoin('hd_estado','hd_estado.id','=','hd_reg_tickets.cEstado')->select('hd_reg_tickets.id','hd_reg_tickets.id','hd_reg_tickets.cTitulo','hd_reg_tickets.cCategoria','hd_estado.ccEstado','hd_reg_tickets.cSistema','hd_reg_tickets.cPrioridad','hd_users.cNombre','hd_reg_tickets.created_at')->where('cEstado',1)->
-           where('hd_reg_tickets.created_at',array($fecha,$date))->where('cPrioridad',1)->get();
-          $pdf = \PDF::loadView('reporteD',array('hd_reg_tickets'=>$hd_reg_tickets,'contar'=>$contar,'fechaN'=>$fechaN))->setPaper('A4', 'landscape');
-          return $pdf->download('reporte.pdf');
-      
-      }
-      else if($estado["cEstado"]==1 and $periodo["created_at"]==3 and $cPrioridad["cPrioridad"]==1)
-      {
-
-      }
-      else if($estado["cEstado"]==1 and $periodo["created_at"]==1 and $cPrioridad["cPrioridad"]==2)
-       {
-
-       }
-      else if($estado["cEstado"]==1 and $periodo["created_at"]==1 and $cPrioridad["cPrioridad"]==3)
-       {
-
-       }
-      else if($estado["cEstado"]==2 and $periodo["created_at"]==1 and $cPrioridad["cPrioridad"]==1)
-      {
-
-      }
-      else if($estado["cEstado"]==2 and $periodo["created_at"]==2 and $cPrioridad["cPrioridad"]==1)
-      {
-
-      }
-      else if($estado["cEstado"]==2 and $periodo["created_at"]==3 and $cPrioridad["cPrioridad"]==1)
-      {
-
-      }
-      else if($estado["cEstado"]==2 and $periodo["created_at"]==1 and $cPrioridad["cPrioridad"]==3)
-      {
-
-      }
-      else if($estado["cEstado"]==3 and $periodo["created_at"]==1 and $cPrioridad["cPrioridad"]==1)
-      {
-
-      }
-       else if($estado["cEstado"]==3 and $periodo["created_at"]==2 and $cPrioridad["cPrioridad"]==1)
-       {
-
-       }
-      else if($estado["cEstado"]==3 and $periodo["created_at"]==3 and $cPrioridad["cPrioridad"]==1)
-      {
-
-      }
-      else if($estado["cEstado"]==3 and $periodo["created_at"]==1 and $cPrioridad["cPrioridad"]==2)
-      {
-
-      }
-      else if($estado["cEstado"]==3 and $periodo["created_at"]==1 and $cPrioridad["cPrioridad"]==3)
-      {
-      }
+     $estado=hd_estado::all();
+     $prioridad=hd_prioridad::all();
+     $contar=$hd_reg_tickets=hd_reg_ticket::where('cEstado',1)->
+     where('created_at',$date)->
+     where('cPrioridad',1)->get()->count();
+     $hd_reg_tickets=db::table('hd_reg_tickets')->leftjoin('hd_users','hd_users.id','=','hd_reg_tickets.nFolio_Users')->leftjoin('hd_estado','hd_estado.id','=','hd_reg_tickets.cEstado')->select('hd_reg_tickets.id','hd_reg_tickets.id','hd_reg_tickets.cTitulo','hd_reg_tickets.cCategoria','hd_estado.ccEstado','hd_reg_tickets.cSistema','hd_reg_tickets.cPrioridad','hd_users.cNombre','hd_reg_tickets.created_at')->where('cEstado',1)->where('hd_reg_tickets.created_at',$date)->where('cPrioridad',1)->get();
+        return view('reporteD')->with('hd_estado',$estado)->with('hd_prioridad',$prioridad)->with('fechaN',$fechaN)->with('contar',$contar)->with('hd_reg_tickets',$hd_reg_tickets)->with('comentarios',$comentarios);
     }
 }

@@ -10,190 +10,61 @@
         <!--  notification start -->
         <ul class="nav top-menu">
           <!-- settings start -->
-          <li class="dropdown">
-            <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
-              <i class="fa fa-tasks"></i>
-              <span class="badge bg-theme">4</span>
-              </a>
-            <ul class="dropdown-menu extended tasks-bar">
-              <div class="notify-arrow notify-arrow-green"></div>
-              <li>
-                <p class="green">You have 4 pending tasks</p>
-              </li>
-              <li>
-                <a href="index.html#">
-                  <div class="task-info">
-                    <div class="desc">CONTROL DE INCIDENCIAS</div>
-                    <div class="percent">40%</div>
-                  </div>
-
-                  <div class="progress progress-striped">
-                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                      <span class="sr-only">40% Complete (success)</span>
-                    </div>
-                  </div>
-                </a>
-              </li>
-              <li>
-                <a href="index.html#">
-                  <div class="task-info">
-                    <div class="desc">Database Update</div>
-                    <div class="percent">60%</div>
-                  </div>
-                  <div class="progress progress-striped">
-                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                      <span class="sr-only">60% Complete (warning)</span>
-                    </div>
-                  </div>
-                </a>
-              </li>
-              <li>
-                <a href="index.html#">
-                  <div class="task-info">
-                    <div class="desc">Product Development</div>
-                    <div class="percent">80%</div>
-                  </div>
-                  <div class="progress progress-striped">
-                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                      <span class="sr-only">80% Complete</span>
-                    </div>
-                  </div>
-                </a>
-              </li>
-              <li>
-                <a href="index.html#">
-                  <div class="task-info">
-                    <div class="desc">Payments Sent</div>
-                    <div class="percent">70%</div>
-                  </div>
-                  <div class="progress progress-striped">
-                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%">
-                      <span class="sr-only">70% Complete (Important)</span>
-                    </div>
-                  </div>
-                </a>
-              </li>
-              <li class="external">
-                <a href="#">See All Tasks</a>
-              </li>
-            </ul>
-          </li>
-
-          <!-- settings end -->
-          <!-- inbox dropdown start-->
-          <li id="header_inbox_bar" class="dropdown">
+           <li id="header_inbox_bar" class="dropdown">
             <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
               <i class="fa fa-envelope-o"></i>
-              <span class="badge bg-theme">5</span>
+              <span class="badge bg-theme"></span>
               </a>
             <ul class="dropdown-menu extended inbox">
               <div class="notify-arrow notify-arrow-green"></div>
               <li>
-                <p class="green">You have 5 new messages</p>
+                <p class="green">Tienes nuevos mensajes</p>
               </li>
-              <li>
-                <a href="index.html#">
-                  <span class="photo"><img alt="avatar" src="img/ui-zac.jpg"></span>
+              <li style=" overflow-y:scroll;  height:600px; width:100%;">
+               @if(empty($comentarios))
+               <a href="#" >
+                  <span class="photo"><img alt="avatar" src="{{asset('img/ui-zac.jpg')}}"></span>
+                  <span class="subject">No hay mensajes nuevos
+                  <span class="message">
+               NO HAY MENSAJES AUN
+                  </span>
+                  </a>
+               @else
+                @foreach($comentarios as $mensajes)
+                @if(Auth()->user()->badmin==1)
+                <a href="{{route('verticket',$mensajes->nFolio_ticket)}}?" id="folio" >
+                  <span class="photo"><img alt="avatar" src="{{asset('img/ui-zac.jpg')}}"></span>
                   <span class="subject">
-                  <span class="from">Zac Snider</span>
-                  <span class="time">Just now</span>
+                  <span class="from">{{$mensajes->cNombre}}</span>
+                  <span class="time">{{date('H:i', strtotime($mensajes->created_at))}}</span>
                   </span>
                   <span class="message">
-                  Hi mate, how is everything?
+                 {{$mensajes->cComentarios}}
                   </span>
                   </a>
-              </li>
-              <li>
-                <a href="index.html#">
-                  <span class="photo"><img alt="avatar" src="img/ui-divya.jpg"></span>
+                  @else
+                   <a href="{{route('verTicketu',$mensajes->nFolio_ticket)}}?" id="folio" >
+                  <span class="photo"><img alt="avatar" src="{{asset('img/ui-zac.jpg')}}"></span>
                   <span class="subject">
-                  <span class="from">Divya Manian</span>
-                  <span class="time">40 mins.</span>
+                  <span class="from">{{$mensajes->cNombre}}</span>
+                  <span class="time">{{date('H:i', strtotime($mensajes->created_at))}}</span>
                   </span>
                   <span class="message">
-                  Hi, I need your help with this.
+                 {{$mensajes->cComentarios}}
                   </span>
                   </a>
+                  @endif
+
+                        @endforeach
+                        @endif
               </li>
-              <li>
-                <a href="index.html#">
-                  <span class="photo"><img alt="avatar" src="img/ui-danro.jpg"></span>
-                  <span class="subject">
-                  <span class="from">Dan Rogers</span>
-                  <span class="time">2 hrs.</span>
-                  </span>
-                  <span class="message">
-                  Love your new Dashboard.
-                  </span>
-                  </a>
-              </li>
-              <li>
-                <a href="index.html#">
-                  <span class="photo"><img alt="avatar" src="img/ui-sherman.jpg"></span>
-                  <span class="subject">
-                  <span class="from">Dj Sherman</span>
-                  <span class="time">4 hrs.</span>
-                  </span>
-                  <span class="message">
-                  Please, answer asap.
-                  </span>
-                  </a>
-              </li>
-              <li>
-                <a href="index.html#">See all messages</a>
-              </li>
-            </ul>
-          </li>
-  
-          <!-- inbox dropdown end -->
-          <!-- notification dropdown start-->
-          <li id="header_notification_bar" class="dropdown">
-            <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
-              <i class="fa fa-bell-o"></i>
-              <span class="badge bg-warning">7</span>
-              </a>
-            <ul class="dropdown-menu extended notification">
-              <div class="notify-arrow notify-arrow-yellow"></div>
-              <li>
-                <p class="yellow">You have 7 new notifications</p>
-              </li>
-              <li>
-                <a href="index.html#">
-                  <span class="label label-danger"><i class="fa fa-bolt"></i></span>
-                  Server Overloaded.
-                  <span class="small italic">4 mins.</span>
-                  </a>
-              </li>
-              <li>
-                <a href="index.html#">
-                  <span class="label label-warning"><i class="fa fa-bell"></i></span>
-                  Memory #2 Not Responding.
-                  <span class="small italic">30 mins.</span>
-                  </a>
-              </li>
-              <li>
-                <a href="index.html#">
-                  <span class="label label-danger"><i class="fa fa-bolt"></i></span>
-                  Disk Space Reached 85%.
-                  <span class="small italic">2 hrs.</span>
-                  </a>
-              </li>
-              <li>
-                <a href="index.html#">
-                  <span class="label label-success"><i class="fa fa-plus"></i></span>
-                  New User Registered.
-                  <span class="small italic">3 hrs.</span>
-                  </a>
-              </li>
-              <li>
-                <a href="index.html#">See all notifications</a>
-              </li>
-            </ul>
-          </li>
-          <!-- notification dropdown end -->
-        </ul>
+
+             </ul>
         <!--  notification end -->
       </div>
+          <!-- settings end -->
+          <!-- inbox dropdown start-->
+        
       <div class="top-menu">
         <ul class="nav pull-right top-menu">
           <li><a class="logout" href="/login/logout">Logout</a></li>
@@ -201,6 +72,13 @@
       </div>
     </header>
     @include('layout.sideadmin')
+    <script type="text/javascript">
+        $(function(){
+         $('#folio').click(function(){
+        $('#folio').hide();
+        });
+      })
+    </script>
 
     <!--header end-->
     <!-- **********************************************************************************************************************************************************
@@ -210,6 +88,33 @@
    
     <!--sidebar end-->
     <!-- **********************************************************************************************************************************************************
-        MAIN CONTENT
+      
+      <script type="text/javascript">
+  function llenarModal(numero){
+  $.ajax({
+    url:"{{asset('auser')}}"+"/"+numero+"/buscar",
+    type:'get',
+    dataType:"json",
+    success:function(data)
+    {
+    var id=data[0]["id"];
+    var nombre=data[0]["cNombre"];
+    var apellido=data[0]["cApellidos"];
+    var email=data[0]["email"];
+    var badmin=data[0]["badmin"];
+    var password=data[0]["password"];
+    document.getElementById("id1").value=id;
+    document.getElementById("cNombre1").value=nombre;
+    document.getElementById("cApellidos1").value=apellido;
+    document.getElementById("email1").value=email;
+    document.getElementById("password1").value=password;
+    },
+     error:function(x,xs,xt){
+    
+              alert('error: ' + JSON.stringify(x) +"\n error string: "+ xs + "\n error throwed: " + xt);
+          }
+}); 
+}
+</script>  MAIN CONTENT
         *********************************************************************************************************************************************************** -->
     <!--main content start-->

@@ -2,3 +2,4 @@
 @include('layout.barranav')
 @include('layout.sideadmin')
 @include('layout.tabladmin')
+@include('layout.modalticket')

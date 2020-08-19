@@ -11,13 +11,13 @@
 <div class="card muevecc2" style="max-width:30%; background-color: white; height:70px; border-radius: 5px;">
   <div class="card-body">
     <h5 class="card-title"><span class="tit1">TOTAL</span></h5>
-    <p class="card-text"><div class="pos"><span class="abiertos">EN PROCESO</span><span class="tit3">{{$cerrado}}</span></div></p>
+    <p class="card-text"><div class="pos"><span class="abiertos">EN PROCESO</span><span class="tit3">{{$proceso}}</span></div></p>
   </div>
 </div>
 <div class="card muevecc" style="max-width:30%; background-color: white; height:70px; border-radius: 5px;">
   <div class="card-body">
     <h5 class="card-title"><span class="tit1">TOTAL</span></h5>
-    <p class="card-text"><div class="pos"><span class="abiertos">CERRADOS</span><span class="tit3">{{$proceso}}</span></div></p>
+    <p class="card-text"><div class="pos"><span class="abiertos">CERRADOS</span><span class="tit3">{{$cerrado}}</span></div></p>
   </div>
 </div>
 </div>
@@ -26,7 +26,7 @@
     <span class="" style="color: white; font-weight: bold; font-size:1.5em;">
     Dashboard
 @foreach($fecha as $fecha)
-<span class="antiguof" style="position:relative; left:710px; font-size:0.8em;">Ticket mas antiguo:{{date('d-m-Y', strtotime($fecha->created_at))}}</span>
+<span class="antiguof" style="position:relative; left:710px; font-size:0.8em;">Ticket mas reciente:{{date('d-m-Y', strtotime($fecha->created_at))}}</span>
 @endforeach
   </span>
 </div>
@@ -45,7 +45,8 @@
   <tbody>
        @foreach($tickets as $ticket)
       <tr>
-         <td>{!!$ticket->id!!}</td>
+         <td>{!!$ticket->id!!}
+        </td>
          <td> <span class="label label-info">{{date('d-m-Y', strtotime($ticket->created_at))}}</span></td>
          <td>{!! $ticket->ccEstado !!}</td>
          <td>
@@ -59,7 +60,7 @@
           </td>
          <td>{!!$ticket->cDesProblema !!}</td>
          <td>
-          <a href="{{route('verticket',$ticket->id)}}" style="text-align: center;" type="submit" class="btn btn-dark">Detalles</a>
+          <a href="{{route('verticket',$ticket->id)}}" style="text-align: center;" type="submit" class="btn btn-dark" name="detalles" id="detalles" onclick="detalleVer('{!!$ticket->id!!}');">Detalles</a>
       </form>
         </td>
       </tr>
@@ -67,4 +68,51 @@
   </tbody>
 </table>
 </div>
+@include('layout.modalticket')
+<script type="text/javascript">
+   function updateStatus(numero) {
+     $.ajaxSetup({
+     headers: {
+         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')     
+     }
+    }); 
+        $.ajax({
+          url:"{{asset('aticket/ver')}}"+"/"+numero+"/actualizar",
+          data:{'cEstado':"2"},
+          type:'post',
+          success: function (response) {
+             
+          },
+          error:function(x,xs,xt){
+       
+          }
+});
+  }
+  function detalleVer(numero) {
+  var ccEstado
+  var id
+     $.ajax({
+    url:"{{asset('aticket/ver')}}"+"/"+numero,
+    type:'get',
+    dataType:'json',
+    success:function(data)
+    {
+    id=data[0]['id']
+    ccEstado=data[0]['ccEstado']
+    if(ccEstado=="REGISTRADO")
+    {
+      updateStatus(id);
+    }
+
+    },
+     error:function(x,xs,xt){
+    
+              alert("Mal");
+       }
+
+}); 
+  }
+       
+
+</script>
 

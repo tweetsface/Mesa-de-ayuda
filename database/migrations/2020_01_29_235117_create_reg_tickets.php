@@ -24,6 +24,7 @@ class CreateRegTickets extends Migration
             $table->string('cOpcsitema')->nullable();
             $table->string('cImagen')->nullable();
             $table->string('nFolio_Users')->references('id')->on('Hd_users'); //Temporalmente 
+            $table->integer('nAtendio')->references('id')->on('hd_users');
             $table->timestamps();
         });
     }

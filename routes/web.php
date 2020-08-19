@@ -20,31 +20,31 @@ Route::post('/registrar','MainController@registrarusuario')->name('registrar');
 Route::get('/login/recuperar','MainController@recuperar')->name('recuperar');
 Route::post('/login/recuperar','MainController@forgotpassword');
 Route::get('/dashboard','MainController@dashboard')->name('dashboard')
-->middleware('verified')->middleware('auth');
-Route::get('/panel','MainController@panel')->name('panel')
-->middleware('verified')->middleware('auth');
+->middleware('verified')->middleware('admin');
+Route::get('/panel','MainController@panel')->name('panel')->middleware('local')
+->middleware('verified');
 Route::post('/panel','MainController@generarreporte')->name('tickets');
-Route::post('/panel','MainController@generarreporte')->name('ticket');
-Route::get('/ticket/view/{id}','MainController@verTicketu')->name('verTicketu');
+Route::post('/panel','MainController@generarreporte')->name('ticket')->middleware('local');
+Route::get('/ticket/view/{id}','MainController@verTicketu')->name('verTicketu')->middleware('local');
 Route::post('/ticket/view/{id}/agregar','MainController@comentarios')->name('addcomen');
-Route::get('/aticket','ControllerAdmin@ticket')->name('aticket'); 
-Route::get('/aticket/entre','ControllerAdmin@buscarEntre')->name('buscarE');
-Route::get('/aticket/buscar','ControllerAdmin@buscarTickets')->name('buscart');
-Route::get('/aticket/ver/{id}','ControllerAdmin@detalleticket')->name('verticket'); 
+Route::get('/aticket','ControllerAdmin@ticket')->name('aticket')->middleware('admin'); 
+Route::get('/aticket/entre','ControllerAdmin@buscarEntre')->name('buscarE')->middleware('admin');
+Route::get('/aticket/buscar','ControllerAdmin@buscarTickets')->name('buscart')->middleware('admin');
+Route::get('/aticket/ver/{id}','ControllerAdmin@detalleticket')->name('verticket')->middleware('admin'); 
 Route::post('/aticket/ver/{id}/actualizar','ControllerAdmin@actualizarestado')
-->name('actualizar');
+->name('actualizar')->middleware('admin');
 Route::post('/aticket/ver/{id}/actualizar/comentario','ControllerAdmin@resTicket')
-->name('resTicket');
+->name('resTicket')->middleware('admin');
 Route::get('/aticket/borrar/{id}', 'ControllerAdmin@eliminarticket')->name('borrarticket');
-Route::get('/auser', 'ControllerAdmin@auser')->name('auser');
+Route::get('/auser', 'ControllerAdmin@auser')->name('auser')->middleware('admin');
 Route::get('/auser/{id}/buscar', 'ControllerAdmin@infoauser')->name('infoauser');
-Route::get('/auser/buscar', 'ControllerAdmin@scopeUsuario')->name('buscarUsuario');
+Route::get('/auser/buscar', 'ControllerAdmin@scopeUsuario')->name('buscarUsuario')->middleware('admin');
 Route::post('/auser', 'MainController@registrarusuario')->name('registrarU');//Se reutilizo el metodo
 Route::post('/auser/{id}/actualizar', 'ControllerAdmin@actualizaUsuarios')->name('ausuarios');
 Route::get('/reportes', 'ControllerAdmin@gReportes')->name('gReportes');
-Route::post('/reportes', 'ControllerAdmin@cReportes');
-Route::get('/export-users', 'ExcelController@incidencias');
+Route::get('/reportesX', 'ControllerAdmin@cReportes');
 Route::get('/correo', 'ControllerAdmin@correo');
-Route::get('/export-users', 'ExcelController@incidencias');
+Route::get('/export-users','ExcelController@reportes')->name('reporteExcel');
 Auth::routes(['verify'=>true]);
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/userManual','MainController@downloadManual');

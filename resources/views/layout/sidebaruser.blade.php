@@ -3,10 +3,10 @@
         <ul class="sidebar-menu" id="nav-accordion">
           <p class="centered">
              @if(Auth()->user()->sFoto=="")
-            <  <img src="{{asset('public/storage/default.jpg')}}"  class="img-circle"
+            <img src="{{asset('storage/default.jpg')}}"  class="img-circle"
            width="80"></p>
            @else
-               <img src="{{asset('public/storage/'.Auth()->user()->sFoto)}}"  class="img-circle"
+               <img src="{{asset('storage/'.Auth()->user()->sFoto)}}"  class="img-circle"
            width="80"></p>
            @endif
            <span class="nombreu" style="text-align: center;"><h3>{{Auth()->user()->cNombre}} {{Auth()->user()->cApellidos}}</h3></span>

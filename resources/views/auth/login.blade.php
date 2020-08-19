@@ -130,6 +130,13 @@ a:link,a:visited,a:active{
   outline:none;
 
 }
+.descarga
+{
+  position:absolute;
+  left:94%;
+  top:10px;
+  text-align:center;
+}
 
 
 
@@ -151,6 +158,10 @@ a:link,a:visited,a:active{
       </script>
      @endforeach
    @endif
+   <div class="descarga">
+   <img src ="{{asset('img/manual.jpg')}}" alt="Manual de usuaruio " width="60">
+   <a href="/userManual">Descargar Manual de usuario</a>
+   </div>
    <form method="post" action="{{ url('/login/checklogin') }}">
     {{ csrf_field() }}
     <div class="form-group">

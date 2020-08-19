@@ -17,10 +17,11 @@
               <span>DASHBOARD</span>
               </a>
           </li>
-
+          <li class="sub-menu" href="javascript:;">
+            <a href="javascript:;"   data-toggle="modal" data-target="#myModal1"> <i class="fa fa-ticket"></i><span>TICKETS<span></a></li>
+            
           <li class="sub-menu" href="javascript:;">
             <a href="{{url('aticket')}}"> <i class="fa fa-ticket"></i><span>GESTION DE TICKETS<span></a></li>
-
           <li class="sub-menu" href="javascript:;">
          <a href="{{url('auser')}}"> <i class="fa fa-user"></i><span>GESTION USUARIOS</span></a></li>
 
