@@ -1,7 +1,7 @@
 @include('layout.head')
 @include('layout.barranav')
 @include('layout.sideadmin')
-<div class="panel panel-default" style="max-height:17%;position: relative;top:10%; margin-bottom:0.4%; max-width:80%; left:18%; border: none;background-color:#FEFEFF;" >
+<div class="panel panel-default" style="max-height:16%;position: relative;top:10%; margin-bottom:0.4%; max-width:80%; left:18%; border: none;background-color:#FEFEFF;" >
 <div class="card muevecC3" style="max-width:30%; background-color: white; max-height:70px; border-radius: 5px;">
   <div class="card-body">
     <h5 class="card-title"><span class="tit1">TOTAL</span></h5>
@@ -68,10 +68,7 @@
   </tbody>
 </table>
 </div>
-<<<<<<< HEAD
 @include('layout.modalticket')
-=======
->>>>>>> aee0fce65ce48dfa9c475e156d591624bdd2559a
 <script type="text/javascript">
    function updateStatus(numero) {
      $.ajaxSetup({

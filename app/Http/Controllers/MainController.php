@@ -106,17 +106,15 @@ class MainController extends Controller
       where('nAtendio',auth()->user()->id)->get()->count();;
       $cerrado=hd_reg_ticket::where('cEstado',5)->
       where('nAtendio',auth()->user()->id)->get()->count();
-<<<<<<< HEAD
       $hd_prioridad=hd_prioridad::all();
       $hd_categorias=hd_categoria::all();
       $hd_sistemas=hd_sistema::all();
-=======
->>>>>>> aee0fce65ce48dfa9c475e156d591624bdd2559a
       $tickets=DB::table('hd_reg_tickets')->
       leftjoin('hd_estado','hd_estado.id','=','hd_reg_tickets.cEstado')->
       leftjoin('hd_prioridad','hd_prioridad.id','hd_reg_tickets.cPrioridad')->
       leftjoin('hd_users','hd_users.id','hd_reg_tickets.nFolio_Users')->
-      select('hd_reg_tickets.id','hd_reg_tickets.created_at','hd_reg_tickets.cDesProblema','hd_estado.ccEstado','hd_prioridad.cNPrioridad','hd_reg_tickets.cPrioridad','hd_reg_tickets.nAtendio')->wherein('cEstado',[1,2,3,4])->where('nAtendio',auth()->user()->id)->get();
+      select('hd_reg_tickets.id','hd_reg_tickets.created_at','hd_reg_tickets.cDesProblema','hd_estado.ccEstado','hd_prioridad.cNPrioridad','hd_reg_tickets.cPrioridad','hd_reg_tickets.nAtendio')
+      ->wherein('cEstado',[1,2,3,4])->where('nAtendio',auth()->user()->id)->orWhere('nFolio_users',auth()->user()->id)->get();
        $fecha =DB::table('hd_reg_tickets')->
       leftjoin('hd_users','hd_users.id','=','hd_reg_tickets.id')->
       leftjoin('hd_estado','hd_estado.id','=','hd_reg_tickets.cEstado')->
@@ -130,14 +128,10 @@ class MainController extends Controller
       ->with('tickets',$tickets)
       ->with('comentarios',$comentarios)
       ->with('fecha',$fecha)
-<<<<<<< HEAD
       ->with('contar',$count)
       ->with('hd_categorias',$hd_categorias)
       ->with('hd_prioridad',$hd_prioridad)
       ->with('hd_sistemas',$hd_sistemas);
-=======
-      ->with('contar',$count);
->>>>>>> aee0fce65ce48dfa9c475e156d591624bdd2559a
     }
 
     public function generarreporte(Request $request)
@@ -157,9 +151,16 @@ class MainController extends Controller
         $ticket->cEstado=1;
         $ticket->nAtendio=$user_ticket[0]->id;
         $ticket->save();
-        $emails = array(Auth()->user()->email,"helpdesk@aparedes.com.mx");
+        $emails = array(Auth()->user()->email,"paredeshelpdesk@gmail.com");
       \Mail::to($emails)->send(new \App\Mail\notificaciones());
-        return  redirect('panel');
+      if(Auth()->user()->badmin==1)
+      {
+        return redirect('/dashboard');
+        }
+        else
+        {
+        return redirect('/panel');
+        }
        } 
     }
       public  function recuperar(Request $request)

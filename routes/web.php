@@ -24,7 +24,7 @@ Route::get('/dashboard','MainController@dashboard')->name('dashboard')
 Route::get('/panel','MainController@panel')->name('panel')->middleware('local')
 ->middleware('verified');
 Route::post('/panel','MainController@generarreporte')->name('tickets');
-Route::post('/panel','MainController@generarreporte')->name('ticket')->middleware('local');
+Route::post('/panel','MainController@generarreporte')->name('ticket');
 Route::get('/ticket/view/{id}','MainController@verTicketu')->name('verTicketu')->middleware('local');
 Route::post('/ticket/view/{id}/agregar','MainController@comentarios')->name('addcomen');
 Route::get('/aticket','ControllerAdmin@ticket')->name('aticket')->middleware('admin'); 
