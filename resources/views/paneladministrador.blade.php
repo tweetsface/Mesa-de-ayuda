@@ -1,7 +1,7 @@
 @include('layout.head')
 @include('layout.barranav')
 @include('layout.sideadmin')
-<div class="panel panel-default" style="max-height:16%;position: relative;top:10%; margin-bottom:0.4%; max-width:80%; left:18%; border: none;background-color:#FEFEFF;" >
+<div class="panel panel-default" style="max-height:17%;position: relative;top:10%; margin-bottom:0.4%; max-width:80%; left:18%; border: none;background-color:#FEFEFF;" >
 <div class="card muevecC3" style="max-width:30%; background-color: white; max-height:70px; border-radius: 5px;">
   <div class="card-body">
     <h5 class="card-title"><span class="tit1">TOTAL</span></h5>
@@ -21,7 +21,7 @@
   </div>
 </div>
 </div>
-<div class="panel panel-default" style=" position:relative; width:80%;left:18%; top:9%; border: none;" >
+<div class="panel panel-default" style=" position:absolute; width:80%; height:66%; left:18%; top:30%; border: none;" >
   <div class="panel-heading" style="background-color: #2A9C9F;">
     <span class="" style="color: white; font-weight: bold; font-size:1.5em;">
     Dashboard

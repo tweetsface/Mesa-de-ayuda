@@ -1,6 +1,6 @@
  @include('layout.dateTimePicker')
-<div class="panel panel-default" style="max-height:10%;position: relative;top:25.5%; margin-bottom:0.4%; max-width:80%; left:18%; border: none;background-color:#FEFEFF;" >
-<div class="panel-body" style="overflow-y: scroll; max-height:67%">
+<div class="panel panel-default" style="position: absolute;top:35%; width:80%; margin-bottom:0.4%; max-width:80%; left:18%; border: none;background-color:#FEFEFF;" >
+<div class="panel-body" style="overflow-y: scroll; height:67%;">
   <table class="table table-striped table-hover ">
   <thead>
     <tr>
