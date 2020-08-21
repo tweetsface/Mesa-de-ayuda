@@ -267,8 +267,8 @@ right: 130px;
              }
           },
           error:function(x,xs,xt){
-             Swal.fire('Ha ocurrido un error','No se puedo registrar al usuario','error')
-             Swal.fire('Ha ocurrido un error',JSON.stringify(x),'error')
+             Swal.fire('Ha ocurrido un error','No se pudo registrar al usuario','error')
+          
 
           }
 })

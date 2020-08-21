@@ -32,11 +32,15 @@ class MainController extends Controller
 
      function checklogin(Request $request)
     {
+      $messages=['password.min'=>'El campo contraseña debe ser mayor o igual a 8 caracteres.',
+      'email.required'=>'El campo email es requerido',
+      'password.required'=>'El campo contraseña no puede quedar vacio.',
+   
+    ];
      $this->validate($request, [
       'email'   => 'required|email',
       'password'  => 'required|min:8'
-     ]);
-
+     ],$messages);
      $user_data = array(
       'email'  => $request->get('email'),
       'password' => $request->get('password')
@@ -85,11 +89,16 @@ class MainController extends Controller
          $file->move('storage',$nombre);
         $add['sFoto']=$nombre;
          }
-       
+        $messages=['password.min'=>'El campo contraseña debe ser mayor o igual a 8 caracteres.',
+      'password.required'=>'El campo password no puede quedar vacio',
+      'email.required'=>'El campo email no puede quedar vacio',
+      'nEmpleado.numeric'=>'Este campo solo permite caracteres numericos'
+    ];
         $this->validate($request, [
        'email'   => 'required|email|unique:hd_users',
-       'password'  => 'required|min:8'
-        ]);
+       'password'  => 'required|min:8',
+       'nEmpleado'=>'numeric',
+        ],$messages);
         $add->save();
         return Response::json($add,200);
     }
@@ -151,7 +160,7 @@ class MainController extends Controller
         $ticket->cEstado=1;
         $ticket->nAtendio=$user_ticket[0]->id;
         $ticket->save();
-        $emails = array(Auth()->user()->email,"paredeshelpdesk@gmail.com");
+        $emails = array(Auth()->user()->email,"aparedeshelpdesk@gmail.com");
       \Mail::to($emails)->send(new \App\Mail\notificaciones());
       if(Auth()->user()->badmin==1)
       {

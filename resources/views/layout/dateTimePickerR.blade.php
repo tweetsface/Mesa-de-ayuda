@@ -1,4 +1,4 @@
-<div class="panel panel-default" style="max-height:3%;position: relative;top:10%; margin-bottom:0.4%; max-width:80%; left:18%; border: none;background-color:#FEFEFF;" >
+<div class="panel panel-default" style="max-height:3%;position: relative;top:13%; margin-bottom:0.4%; max-width:80%; left:18%; border: none;background-color:#FEFEFF;" >
 <div class="panel-heading" style="background-color: #2A9C9F;">
     <span class="" style="color: white; font-weight: bold; font-size:1.5em;">
    Generar Reporte

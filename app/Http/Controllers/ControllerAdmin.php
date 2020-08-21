@@ -90,7 +90,7 @@ class ControllerAdmin extends Controller
       $contar=hd_users::all()->count();
       $hd_users=DB::table('hd_users')->
       leftjoin('hd_privilegios','hd_privilegios.id','=','hd_users.badmin')->
-      select('hd_users.id','hd_users.cNombre','hd_users.cApellidos','hd_users.nEmpleado','hd_users.email','hd_users.badmin','hd_privilegios.cPrivilegios','hd_users.password')->get();
+      select('hd_users.id','hd_users.cNombre','hd_users.cApellidos','hd_users.nEmpleado','hd_users.email','hd_users.badmin','hd_privilegios.cPrivilegios','hd_users.password')->orderBy('id')->get();
       return view('ausers')->with('hd_privilegios',$hd_privilegios)->with('contara',$contar)->with('hd_users',$hd_users)->with('comentarios',$comentarios)->with('contar',$count)
       ->with('hd_privilegios',$hd_privilegios)
       ->with('hd_categorias',$hd_categorias)
